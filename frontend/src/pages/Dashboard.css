@@ -1,53 +1,185 @@
 .dashboard-page {
-	min-height: 100vh;
+	display: flex;
+}
+.sidebar {
+	height: 100vh;
+	background-color: black;
+	color: white;
+	flex: 1;
+	padding: 16px 0;
+	padding-bottom: 32px;
+	display: flex;
+	flex-direction: column;
+}
+
+.sidebar > .logo {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	justify-content: center;
+}
+
+.sidebar > .logo > .logo-img {
+	width: 64px;
+	height: 64px;
+	background-color: black;
+}
+
+.sidebar > .logo > p {
+	background-color: black;
+	font-weight: 700;
+	font-size: large;
+}
+
+.sidebar > .sidenav {
+	
+}
+.sidebar > .sidenav > div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #f3f4f6;
+	padding: 16px;
+	gap: 16px;
 }
+.sidebar > .sidenav > div > p {
+	flex: 1;
+}
+.sidebar > .sidenav > div > svg {
+	width: 32px;
+	height: 32px;
+}
+
+.vertical-divider {
+	flex: 1;
+}
+
+.settings {
+	display: flex;
+	justify-content: center;
+	padding: 0 16px;
+}
+
+.settings > div {
+	display: flex;
+	justify-content: center;
+	padding: 8px;
+	flex: 1;
+	gap: 8px;
+}
+
+.settings > .account {
+	background-color: white;
+	color: black;
+}
+.settings > .theme {
+	border: 2px solid white;
+}
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 .dashboard-container {
+	display: flex;
+	flex-direction: column;
+	flex: 5;
+	padding: 32px 64px;
+}
+
+nav {
+	display: flex;
 	width: 100%;
-	max-width: 400px;
-	margin: 12px;
-	padding: 40px 32px;
-	background: white;
-	border-radius: 8px;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-	text-align: center;
+	gap: 32px;
 }
 
-@media (min-width: 600px) {
-	.dashboard-container {
-		margin: 32px;
-		max-width: 450px;
-	}
-}
-
-@media (min-width: 940px) {
-	.dashboard-container {
-		max-width: 420px;
-		padding: 48px 40px;
-	}
-}
-
-.dashboard-container h2 {
-	font-size: 24px;
-	margin-bottom: 24px;
-	color: #1f2937;
-}
-
-.dashboard-container button {
-	padding: 10px 24px;
-	background: #ef4444;
+nav > button, .searchbar {
+	background-color: black;
 	color: white;
-	border: none;
-	border-radius: 6px;
-	font-size: 16px;
-	font-weight: 500;
-	cursor: pointer;
+	width: 100px;
+	padding: 8px;
 }
 
-.dashboard-container button:hover {
-	background: #dc2626;
+.searchbar {
+	width: 200px;
+}
+
+.horizontal-divider {
+	flex: 1;
+}
+
+.hero-cards {
+	display: flex;
+	gap: 32px;
+	margin: 32px 0;
+}
+
+.hero-card {
+	flex: 1;
+	background-color: white;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.hero-card > h1 {
+	font-size: xx-large;
+	font-weight: 700;
+}
+
+.hero-card1 > h1 {
+}
+.hero-card1 > p {
+}
+.hero-card1 > div {
+	display: flex;
+	gap: 16px;
+}
+.hero-card1 > div > button:nth-child(1) {
+	flex: 2;
+	background-color: black;
+	color: white;
+	padding: 8px;
+}
+
+.hero-card1 > div > button:nth-child(2) {
+	flex: 1;
+	padding: 8px;
+	border-radius: 8px;
+  border: 2px solid black;
+}
+
+.hero-card2 {
+	text-align: center;
+	padding: 32px;
+	background-color: black;
+	color: white;
+}
+.hero-card2 > h3 {
+	font-weight: 700;
+}
+
+.hero-card2 > .pfps {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+
+}
+.hero-card2 > .pfps > .pfp {
+	width: 32px;
+	height: 32px;
+	background-color: black;
+}
+
+.tabs {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+}
+
+.tab {
+	flex: 1;
+	background-color: black;
+	padding: 16px;
+	justify-content: center;
+	justify-items: center;
+	color: white;
 }
