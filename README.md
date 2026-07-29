@@ -1,4 +1,9 @@
+> [!WARNING]
+> beep boop work in progress :D
+
 <div align="center">
+
+<img height="480" alt="image" src="https://github.com/user-attachments/assets/8c3dc904-0eb5-42c4-9230-28a6b70150e8" />
 
 # VeriVerdad
 
@@ -11,9 +16,11 @@
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=000000)
 
-A gamified media literacy platform designed for the UNESCO Hackathon 2026, empowering students to think critically and verify information in the digital age.
+A gamified media literacy platform designed for the UNESCO Hackathon 2026,<br> empowering students to think critically and verify information in the digital age.
 
 </div>
+
+<br>
 
 ## How to Setup Locally
 
