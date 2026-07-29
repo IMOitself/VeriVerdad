@@ -57,6 +57,7 @@
 	display: flex;
 	justify-content: center;
 	padding: 0 16px;
+	gap: 8px;
 }
 
 .settings > div {
@@ -70,9 +71,11 @@
 .settings > .account {
 	background-color: white;
 	color: black;
+	flex: 2;
 }
 .settings > .theme {
 	border: 2px solid white;
+	flex: 1;
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
@@ -108,7 +111,7 @@ nav > button, .searchbar {
 .hero-cards {
 	display: flex;
 	gap: 32px;
-	margin: 32px 0;
+	margin: 128px 0;
 }
 
 .hero-card {
