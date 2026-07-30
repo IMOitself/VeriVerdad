@@ -3,7 +3,9 @@
 
 <div align="center">
 
-<img height="480" alt="image" src="https://github.com/user-attachments/assets/8c3dc904-0eb5-42c4-9230-28a6b70150e8" />
+<img height="480" alt="Screenshot 2026-07-30 235044" src="https://github.com/user-attachments/assets/623dae9a-d425-40d8-8155-4ea462f9f1de" />
+
+</div>
 
 # VeriVerdad
 
@@ -17,8 +19,6 @@
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=000000)
 
 A gamified media literacy platform designed for the UNESCO Hackathon 2026,<br> empowering students to think critically and verify information in the digital age.
-
-</div>
 
 <br>
 
