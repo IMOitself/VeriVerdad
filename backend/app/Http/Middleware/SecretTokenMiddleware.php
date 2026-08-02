@@ -18,7 +18,9 @@ class SecretTokenMiddleware
 		$secretToken = config('secret.token');
 		
 		if (empty($secretToken) || $request->header('X-Secret-Token') !== $secretToken) {
-			abort(401);
+			return response->json([
+				'message' => 'Invalid token'
+			],401);
 		}
 
 		return $next($request);
