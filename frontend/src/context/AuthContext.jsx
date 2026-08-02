@@ -1,96 +1,77 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { api } from '../api/client';
+import { createContext, useContext, useEffect, useState } from 'react';
+import * as auth from '../api/auth';
 
-const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
+export function useAuth() {
+	return useContext(AuthContext);
+}
+
+export function AuthProvider({ children }) {
 	const [user, setUser] = useState(null);
+	const [token, setToken] = useState(localStorage.getItem('token'));
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (token) {
-			api.get('/user', token)
-				.then(data => {
-					if (data.id) setUser(data);
-					else localStorage.removeItem('token');
-					setLoading(false);
-				})
-				.catch(() => {
-					localStorage.removeItem('token');
-					setLoading(false);
-				});
-		} else {
+		if (!token) {
 			setLoading(false);
+			return;
 		}
-	}, []);
 
-	const register = async (name, email, password) => {
-		try {
-			const data = await api.post('/register', { name, email, password });
+		auth.getUser(token)
+			.then(user => {
+				setUser(user);
+			})
+			.catch(() => {
+				localStorage.removeItem('token');
+				setToken(null);
+				setUser(null);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, [token]);
 
-			if (data.errors) {
-				const errorMessages = Object.values(data.errors).flat().join(' ');
-				return { success: false, error: errorMessages };
-			}
+	async function login(credentials) {
+		const data = await auth.login(credentials);
 
-			if (data.token) {
-				localStorage.setItem('token', data.token);
-				setUser(data.user);
-				return { success: true };
-			}
+		localStorage.setItem('token', data.token);
 
-			return { success: false, error: data.message || 'Registration failed' };
-		} catch (error) {
-			return {
-				success: false,
-				error: error.message || 'Network error - please try again'
-			};
-		}
-	};
+		setToken(data.token);
+		setUser(data.user);
+	}
 
-	const login = async (email, password) => {
-		try {
-			const data = await api.post('/login', { email, password });
+	async function register(credentials) {
+		const data = await auth.register(credentials);
 
-			if (data.errors) {
-				const errorMessages = Object.values(data.errors).flat().join(' ');
-				return { success: false, error: errorMessages };
-			}
+		localStorage.setItem('token', data.token);
 
-			if (data.token) {
-				localStorage.setItem('token', data.token);
-				setUser(data.user);
-				return { success: true };
-			}
+		setToken(data.token);
+		setUser(data.user);
+	}
 
-			return { success: false, error: data.message || 'Login failed' };
-		} catch (error) {
-			return {
-				success: false,
-				error: error.message || 'Network error - please try again'
-			};
-		}
-	};
+	async function logout() {
+		await auth.logout(token);
 
-	const logout = () => {
-		const token = localStorage.getItem('token');
-		if (token) api.post('/logout', null, token);
 		localStorage.removeItem('token');
+
+		setToken(null);
 		setUser(null);
-	};
+	}
 
 	return (
-		<AuthContext.Provider value={{ user, loading, register, login, logout }}>
+		<AuthContext.Provider
+			value={{
+				user,
+				token,
+				loading,
+				login,
+				register,
+				logout,
+				authenticated: !!user,
+			}}
+		>
 			{children}
 		</AuthContext.Provider>
 	);
-};
-
-export const useAuth = () => {
-	const context = useContext(AuthContext);
-	if (!context) {
-		throw new Error('useAuth must be used within an AuthProvider');
-	}
-	return context;
-};
+}
