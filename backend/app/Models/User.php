@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['first_name', 'last_name', 'email', 'password', 'role', 'section_id'])]
 #[Hidden(['password'])]
 class User extends Authenticatable
 {
@@ -19,5 +19,10 @@ class User extends Authenticatable
 		return [
 			'password' => 'hashed',
 		];
+	}
+
+	public function section()
+	{
+		return $this->belongsTo(Section::class);
 	}
 }
