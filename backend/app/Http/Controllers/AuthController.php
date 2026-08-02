@@ -4,37 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-	public function register(Request $request)
+	public function register(RegisterRequest $request)
 	{
-		$validated = $request->validate([
-			'name' => 'required|string',
-			'email' => 'required|email|unique:users,email',
-			'password' => 'required|min:8',
-		]);
+		$validated = $request->validated();
 
+		$validated['role'] = $validated['role'] ?? 'student';
 		$user = User::create($validated);
 		$token = $user->createToken('auth-token');
 
 		return response()->json([
 			'user' => $user,
 			'token' => $token->plainTextToken,
-			]);
+		],201);
 	}
 
-	public function login(Request $request)
+	public function login(LoginRequest $request)
 	{
-		$request->validate([
-			'email' => 'required|email',
-			'password' => 'required',
-		]);
+		$validated = $request->validated();
 
-		$user = User::where('email', $request->email)->first();
+		$user = User::where('email', $validated['email'])->first();
 
-		if (! $user || ! Hash::check($request->password, $user->password)) {
+		if (! $user || ! Hash::check($validated['password'], $user->password)) {
 			return response()->json([
 				'message' => 'Incorrect email or password.'
 			], 401);
@@ -50,8 +46,8 @@ class AuthController extends Controller
 
 	public function logout(Request $request)
 	{
-		$request->user()->$currentAccessToken()->delete();
+		$request->user()->currentAccessToken()->delete();
 
-		return response()->json(204);
+		return response()->noContent();
 	}
 }
