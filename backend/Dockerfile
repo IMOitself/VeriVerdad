@@ -27,8 +27,7 @@ RUN chmod -R 775 /app/storage /app/bootstrap/cache
 RUN php artisan octane:install --server=frankenphp
 RUN setcap -r /usr/local/bin/frankenphp
 
-# Run migrations to create tables
-RUN php artisan migrate --force
+RUN php artisan migrate --force --seed
 
 ENTRYPOINT ["php", "artisan", "octane:start", "--server=frankenphp", "--host=0.0.0.0", "--port=8000"]
 
