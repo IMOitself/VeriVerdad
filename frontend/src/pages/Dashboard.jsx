@@ -32,9 +32,9 @@ const Dashboard = () => {
 						<h3>MEDIA LITERACY TIP</h3>
 						<p>“People often trust information because it comes from someone they admire. Verify the claim before believing or sharing it.”</p>
 						<div className="pfps">
-							<img src="" className="pfp" />
-							<img src="" className="pfp" />
-							<img src="" className="pfp" />
+							<img src="logo.png" className="pfp" />
+							<img src="logo.png" className="pfp" />
+							<img src="logo.png" className="pfp" />
 						</div>
 					</div>
 				</div>

@@ -121,6 +121,8 @@ nav > .searchbar > input {
 .hero-card2 > .pfps > .pfp {
 	width: 32px;
 	height: 32px;
+	border-radius: 50%;
+	background-color: white;
 }
 
 .tabs {
