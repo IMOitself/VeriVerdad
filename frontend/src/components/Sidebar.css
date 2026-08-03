@@ -19,6 +19,7 @@
 	width: 64px;
 	height: 64px;
 	background-color: white;
+	border-radius: 8px;
 }
 
 .sidebar > .logo > p {
@@ -75,8 +76,10 @@
 	background-color: white;
 	color: black;
 	flex: 2;
+	border-radius: 8px;
 }
 .sidebar > .settings > .theme {
 	border: 2px solid white;
 	flex: 1;
+	border-radius: 8px;
 }
