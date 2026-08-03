@@ -18,13 +18,33 @@ nav {
 nav > button, .searchbar {
 	background-color: black;
 	color: white;
+	padding: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+nav > button {
 	width: 100px;
+}
+
+nav > .searchbar {
+	/* width: 200px; */
 	padding: 8px;
 }
 
-.searchbar {
-	width: 200px;
+nav > .searchbar > svg {
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
 }
+
+nav > .searchbar > input {
+	flex: 1;
+	width: 200px;
+	outline: none;
+}
+
 
 .horizontal-divider {
 	flex: 1;
