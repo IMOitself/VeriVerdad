@@ -16,8 +16,8 @@ nav {
 }
 
 nav > button, .searchbar {
-	background-color: black;
-	color: white;
+	background-color: #2D2A26;
+	color: #C9C8C7;
 	padding: 8px;
 	display: flex;
 	align-items: center;
@@ -38,6 +38,7 @@ nav > .searchbar > svg {
 	width: 24px;
 	height: 24px;
 	flex-shrink: 0;
+	fill: #C9C8C7;
 }
 
 nav > .searchbar > input {
@@ -64,6 +65,7 @@ nav > .searchbar > input {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	color: #2C3E50;
 }
 
 .hero-card > h1 {
@@ -81,7 +83,7 @@ nav > .searchbar > input {
 }
 .hero-card1 > div > button:nth-child(1) {
 	flex: 2;
-	background-color: black;
+	background-color: #2C3E50;
 	color: white;
 	border-radius: 8px;
 	padding: 8px;
@@ -91,13 +93,13 @@ nav > .searchbar > input {
 	flex: 1;
 	padding: 8px;
 	border-radius: 8px;
-  border: 2px solid black;
+  border: 2px solid #2C3E50;
 }
 
 .hero-card2 {
 	text-align: center;
 	padding: 32px;
-	background-color: black;
+	background-color: #2C3E50;
 	color: white;
 	border-radius: 16px;
 }
@@ -107,6 +109,7 @@ nav > .searchbar > input {
 
 .hero-card2 > p {
 	padding: 0 40px;
+	font-size: larger;
 }
 
 .hero-card2 > .pfps {
@@ -118,7 +121,6 @@ nav > .searchbar > input {
 .hero-card2 > .pfps > .pfp {
 	width: 32px;
 	height: 32px;
-	background-color: black;
 }
 
 .tabs {
@@ -129,10 +131,11 @@ nav > .searchbar > input {
 
 .tab {
 	flex: 1;
-	background-color: black;
+	background-color: #D9D9D9;
 	padding: 16px;
 	justify-content: center;
 	justify-items: center;
-	color: white;
+	color: #2C3E50;
 	border-radius: 8px;
+	fill: #2C3E50;
 }
