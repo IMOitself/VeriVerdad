@@ -118,4 +118,61 @@ class TaskController extends Controller
 			'new_badges' => $newBadges,
 		]);
 	}
+
+	public function update($id, Request $request)
+	{
+		$task = Task::findOrFail($id);
+
+		$request->validate([
+			'title'            => 'sometimes|string|max:255',
+			'target_media_url' => 'sometimes|string',
+			'due_date'         => 'sometimes|date',
+		]);
+
+		$task->update($request->only(['title', 'target_media_url', 'due_date', 'section_id']));
+
+		return response()->json([
+			'success' => true,
+			'data'    => $task->load('section'),
+		]);
+	}
+
+	public function destroy($id)
+	{
+		$task = Task::findOrFail($id);
+		$task->delete();
+
+		return response()->json([
+			'success' => true,
+			'message' => 'Task deleted successfully.',
+		]);
+	}
+
+	public function submissions($id)
+	{
+		$task = Task::findOrFail($id);
+		$submissions = $task->students()->withPivot('score', 'created_at', 'updated_at')->get();
+
+		return response()->json([
+			'success' => true,
+			'task'    => [
+				'id'    => $task->id,
+				'title' => $task->title,
+			],
+			'data'    => $submissions,
+		]);
+	}
+
+	public function unsubmit($id, Request $request)
+	{
+		$task = Task::findOrFail($id);
+		$userId = $request->input('student_id') ?? $request->user()?->id;
+
+		$task->students()->detach($userId);
+
+		return response()->json([
+			'success' => true,
+			'message' => 'Task submission cleared.',
+		]);
+	}
 }
