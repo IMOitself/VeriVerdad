@@ -3,14 +3,12 @@
 >
 > bip bap bip login and register work in progress :>
 >
-> hoping mr frontend will style it better...
+> klink klang will style the login and register page later :)
 
-<img width="1849" height="803" alt="ajgfujaerj" src="https://github.com/user-attachments/assets/08b3fcb1-59c2-4313-bbd0-e14740d2b707" />
-<img height="480" alt="Screenshot 2026-07-30 235044" src="https://github.com/user-attachments/assets/623dae9a-d425-40d8-8155-4ea462f9f1de" />
 
 <div align="center">
-
-
+<img width="1849" height="803" alt="ajgfujaerj" src="https://github.com/user-attachments/assets/08b3fcb1-59c2-4313-bbd0-e14740d2b707" />
+<img width="1920" height="1020" alt="Screenshot 2026-08-03 105203" src="https://github.com/user-attachments/assets/93066d0a-ed00-440d-9e00-60fd720e4367" />
 </div>
 
 # VeriVerdad
