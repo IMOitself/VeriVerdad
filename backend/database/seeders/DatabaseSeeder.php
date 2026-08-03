@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
 	public function run(): void
 	{
 		$teacher = User::firstOrCreate(
-			['email' => 'teacher@veriverdad.ph'],
+			['email' => 'teacher@demo.com'],
 			[
-				'first_name' => 'Russel',
+				'first_name' => 'Demo',
 				'last_name'  => 'Teacher',
-				'password'   => 'password123',
+				'password'   => 'V3ri#Verd@d2026!',
 				'role'       => 'teacher',
 			]
 		);
@@ -28,11 +28,23 @@ class DatabaseSeeder extends Seeder
 		);
 
 		$student = User::firstOrCreate(
-			['email' => 'student@veriverdad.ph'],
+			['email' => 'student@demo.com'],
 			[
-				'first_name' => 'Marwin',
+				'first_name' => 'Demo',
 				'last_name'  => 'Student',
-				'password'   => 'password123',
+				'password'   => 'V3ri#Verd@d2026!',
+				'role'       => 'student',
+				'section_id' => $section->id,
+			]
+		);
+
+		// Also seed demo@demo.com for convenience
+		User::firstOrCreate(
+			['email' => 'demo@demo.com'],
+			[
+				'first_name' => 'Demo',
+				'last_name'  => 'User',
+				'password'   => 'V3ri#Verd@d2026!',
 				'role'       => 'student',
 				'section_id' => $section->id,
 			]
@@ -40,44 +52,34 @@ class DatabaseSeeder extends Seeder
 
 		$badges = [
 			[
-				'name'        => 'Fact-Checking Rookie',
-				'description' => 'Completed your first VeriBot Socratic quiz.',
-				'icon'        => 'shield-check',
+				'name'        => 'Currency',
+				'description' => 'Mastered checking dates, timelines, and information freshness.',
+				'icon'        => 'calendar',
 			],
 			[
-				'name'        => 'Critical Thinker',
-				'description' => 'Achieved a perfect 100% score on a VeriBot quiz.',
-				'icon'        => 'brain',
+				'name'        => 'Relevance',
+				'description' => 'Mastered evaluating topic fit and audience context.',
+				'icon'        => 'filter',
 			],
 			[
-				'name'        => 'Truth Seeker',
-				'description' => 'Verified 5 different claims or news articles.',
-				'icon'        => 'search',
+				'name'        => 'Authority',
+				'description' => 'Mastered verifying author credentials and official primary sources.',
+				'icon'        => 'badge-check',
 			],
 			[
-				'name'        => 'Eagle Eye',
-				'description' => 'Successfully spotted an outdated claim or manipulated graphic.',
+				'name'        => 'Accuracy',
+				'description' => 'Mastered cross-referencing claims and verifying factual evidence.',
+				'icon'        => 'check-circle',
+			],
+			[
+				'name'        => 'Purpose',
+				'description' => 'Mastered detecting bias, emotional manipulation, and author intent.',
 				'icon'        => 'eye',
-			],
-			[
-				'name'        => 'Master Fact-Checker',
-				'description' => 'Completed 10 media literacy verification tasks.',
-				'icon'        => 'award',
 			],
 		];
 
 		foreach ($badges as $badgeData) {
 			Badge::firstOrCreate(['name' => $badgeData['name']], $badgeData);
 		}
-
-		Task::firstOrCreate(
-			['title' => 'Verify August 2026 Weather Suspension Claim'],
-			[
-				'teacher_id'       => $teacher->id,
-				'section_id'       => $section->id,
-				'target_media_url' => 'https://facebook.com/lvcc.announcements/posts/101',
-				'due_date'         => now()->addDays(7),
-			]
-		);
 	}
 }
