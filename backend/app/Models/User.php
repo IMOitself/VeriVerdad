@@ -25,4 +25,27 @@ class User extends Authenticatable
 	{
 		return $this->belongsTo(Section::class);
 	}
+
+	public function tasks()
+	{
+		return $this->belongsToMany(Task::class, 'task_user')
+			->withPivot('score')
+			->withTimestamps();
+	}
+
+	public function createdTasks()
+	{
+		return $this->hasMany(Task::class, 'teacher_id');
+	}
+
+	public function badges()
+	{
+		return $this->belongsToMany(Badge::class, 'badge_user')
+			->withTimestamps();
+	}
+
+	public function veribots()
+	{
+		return $this->hasMany(Veribot::class);
+	}
 }
