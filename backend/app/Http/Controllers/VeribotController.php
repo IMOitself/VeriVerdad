@@ -132,14 +132,48 @@ class VeribotController extends Controller
 		]);
 	}
 
+	public function index(Request $request)
+	{
+		$sectionId = $request->query('section_id');
+
+		$query = Veribot::with('user:id,first_name,last_name,email,section_id')->latest();
+
+		if ($sectionId) {
+			$query->whereHas('user', function ($q) use ($sectionId) {
+				$q->where('section_id', $sectionId);
+			});
+		}
+
+		$items = $query->limit(100)->get()->map(function ($item) {
+			$item->details = json_decode($item->details, true);
+			return $item;
+		});
+
+		return response()->json([
+			'success' => true,
+			'data'    => $items,
+		]);
+	}
+
 	public function show($id)
 	{
-		$veribot = Veribot::findOrFail($id);
+		$veribot = Veribot::with('user:id,first_name,last_name,email')->findOrFail($id);
 		$veribot->details = json_decode($veribot->details, true);
 
 		return response()->json([
 			'success' => true,
 			'data'    => $veribot,
+		]);
+	}
+
+	public function destroy($id)
+	{
+		$veribot = Veribot::findOrFail($id);
+		$veribot->delete();
+
+		return response()->json([
+			'success' => true,
+			'message' => 'Verification history record deleted successfully.',
 		]);
 	}
 }
