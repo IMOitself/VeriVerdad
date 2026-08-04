@@ -1,2 +1,8 @@
-/* Don't touch this */
+@import '@fontsource/jetbrains-mono';
 @import 'tailwindcss';
+
+@layer base {
+  body {
+    font-family: 'JetBrains Mono';
+  }
+}
