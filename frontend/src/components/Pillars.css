@@ -1,0 +1,64 @@
+.landing-pillars {
+  padding: 80px 32px;
+  background-color: #F8FAFC;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.pillars-container {
+  max-width: 720px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.pillars-title {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  color: #1E293B;
+  text-align: center;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.pillars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+
+.pillar-item {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.pillar-item:last-child {
+  border-bottom: none;
+}
+
+.pillar-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  min-width: 96px;
+  flex-shrink: 0;
+}
+
+.pillar-desc {
+  font-size: 16px;
+  line-height: 24px;
+  color: #475569;
+  margin: 0;
+}

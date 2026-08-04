@@ -1,0 +1,47 @@
+.landing-social-proof {
+  padding: 24px 32px;
+  background-color: #FFFFFF;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.social-proof-container {
+  max-width: 1040px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.social-proof-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #94A3B8;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.social-proof-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #E2E8F0;
+  flex-shrink: 0;
+}
+
+.social-proof-items {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.social-proof-item {
+  font-size: 16px;
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+}
