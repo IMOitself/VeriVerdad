@@ -1,16 +1,7 @@
 > [!WARNING]
-> beep boop work in progress :D
->
-> bip bap bip login and register work in progress :>
->
-> klink klang will style the login and register page later :)
+> proceeding to finish front-end
 
-
-<div align="center">
-<img width="1849" height="803" alt="ajgfujaerj" src="https://github.com/user-attachments/assets/08b3fcb1-59c2-4313-bbd0-e14740d2b707" />
-<img width="1920" height="1020" alt="Screenshot 2026-08-03 105203" src="https://github.com/user-attachments/assets/93066d0a-ed00-440d-9e00-60fd720e4367" />
-</div>
-
+<img width="1866" height="3523" alt="pasted file" src="https://github.com/user-attachments/assets/0b407ab0-7782-4195-889f-b44b5437123a" />
 # VeriVerdad
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
