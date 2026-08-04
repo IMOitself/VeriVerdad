@@ -13,7 +13,7 @@ export default function Footer() {
           <h4 className="footer-heading">Explore</h4>
           <ul className="footer-links">
             <li><a href="https://github.com/zamuwelle/VeriVerdad" target="_blank" rel="noreferrer">GitHub Project</a></li>
-            <li><a href="#pillars">CRAAP Guide</a></li>
+            <li><a href="#framework">Framework</a></li>
             <li><a href="#features">Features</a></li>
           </ul>
         </div>

@@ -25,7 +25,7 @@ export default function Pillars() {
   ];
 
   return (
-    <section className="landing-pillars" id="pillars">
+    <section className="landing-pillars" id="framework">
       <div className="pillars-container">
         <h2 className="pillars-title">The 5 Checks for Every Source (CRAAP)</h2>
         <div className="pillars-list">

@@ -11,7 +11,7 @@ export default function Navbar() {
 
       <nav className="landing-nav">
         <a href="#features" className="nav-link">Features</a>
-        <a href="#pillars" className="nav-link">Framework</a>
+        <a href="#framework" className="nav-link">Framework</a>
         <a href="#how-it-works" className="nav-link">How It Works</a>
         <a href="#faq" className="nav-link">FAQ</a>
       </nav>
