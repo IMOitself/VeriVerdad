@@ -12,43 +12,31 @@ class DatabaseSeeder extends Seeder
 {
 	public function run(): void
 	{
-		$teacher = User::firstOrCreate(
-			['email' => 'teacher@demo.com'],
-			[
-				'first_name' => 'Demo',
-				'last_name'  => 'Teacher',
-				'password'   => 'V3ri#Verd@d2026!',
-				'role'       => 'teacher',
-			]
-		);
+		// $teacher = User::firstOrCreate(
+		// 	['email' => 'demo@demo.com'],
+		// 	[
+		// 		'first_name' => 'Demo',
+		// 		'last_name'  => 'Demo',
+		// 		'password'   => 'demo',
+		// 		'role'       => 'teacher',
+		// 	]
+		// );
 
-		$section = Section::firstOrCreate(
-			['name' => '12-Galatians'],
-			['teacher_id' => $teacher->id]
-		);
+		// $section = Section::firstOrCreate(
+		// 	['name' => '12-Galatians'],
+		// 	['teacher_id' => $teacher->id]
+		// );
 
-		$student = User::firstOrCreate(
-			['email' => 'student@demo.com'],
-			[
-				'first_name' => 'Demo',
-				'last_name'  => 'Student',
-				'password'   => 'V3ri#Verd@d2026!',
-				'role'       => 'student',
-				'section_id' => $section->id,
-			]
-		);
-
-		// Also seed demo@demo.com for convenience
-		User::firstOrCreate(
-			['email' => 'demo@demo.com'],
-			[
-				'first_name' => 'Demo',
-				'last_name'  => 'User',
-				'password'   => 'V3ri#Verd@d2026!',
-				'role'       => 'student',
-				'section_id' => $section->id,
-			]
-		);
+		// $student = User::firstOrCreate(
+		// 	['email' => 'demo@demo.com'],
+		// 	[
+		// 		'first_name' => 'Demo',
+		// 		'last_name'  => 'Demo',
+		// 		'password'   => 'demo',
+		// 		'role'       => 'student',
+		// 		'section_id' => $section->id,
+		// 	]
+		// );
 
 		$badges = [
 			[
