@@ -25,8 +25,15 @@ export default function Login() {
 		} else {
 			if (result.errors) {
 				setFieldErrors(result.errors);
+			} else if (result.message) {
+				setFieldErrors({
+					email: [result.message],
+					password: [result.message]
+				});
+			} else if (result.error) {
+				setError(result.error);
 			} else {
-				setError(result.message || result.error || 'Something went wrong');
+				setError('Something went wrong');
 			}
 		}
 	}
