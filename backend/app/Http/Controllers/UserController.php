@@ -9,13 +9,7 @@ class UserController extends Controller
 {
 	public function index(Request $request)
 	{
-		$sectionId = $request->query('section_id');
-
-		$query = User::with(['section', 'badges'])->withCount('veribots');
-
-		if ($sectionId) {
-			$query->where('section_id', $sectionId);
-		}
+		$query = User::with(['badges'])->withCount('veribots');
 
 		return response()->json([
 			'success' => true,
@@ -31,7 +25,7 @@ class UserController extends Controller
 			return response()->json(['message' => 'User not found.'], 404);
 		}
 
-		$user->load(['section', 'badges'])->loadCount('veribots');
+		$user->load(['badges'])->loadCount('veribots');
 
 		return response()->json([
 			'success' => true,
@@ -48,17 +42,14 @@ class UserController extends Controller
 		}
 
 		$request->validate([
-			'first_name'       => 'sometimes|string|max:100',
-			'last_name'        => 'sometimes|string|max:100',
-			'section_id'       => 'nullable|exists:sections,id',
-			'tokens_allocated' => 'sometimes|integer|min:0',
+			'username' => 'sometimes|string|max:100',
 		]);
 
-		$user->update($request->only(['first_name', 'last_name', 'section_id', 'tokens_allocated']));
+		$user->update($request->only(['username']));
 
 		return response()->json([
 			'success' => true,
-			'data'    => $user->load(['section', 'badges'])->loadCount('veribots'),
+			'data'    => $user->load(['badges'])->loadCount('veribots'),
 		]);
 	}
 

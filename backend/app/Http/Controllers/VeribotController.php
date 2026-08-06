@@ -49,7 +49,7 @@ class VeribotController extends Controller
 				], 503);
 			}
 
-			$userId = $user?->id ?? User::where('role', 'student')->value('id') ?? User::value('id') ?? 1;
+			$userId = $user?->id ?? User::value('id') ?? 1;
 
 			$veribot = Veribot::create([
 				'user_id'       => $userId,
@@ -134,15 +134,7 @@ class VeribotController extends Controller
 
 	public function index(Request $request)
 	{
-		$sectionId = $request->query('section_id');
-
-		$query = Veribot::with('user:id,first_name,last_name,email,section_id')->latest();
-
-		if ($sectionId) {
-			$query->whereHas('user', function ($q) use ($sectionId) {
-				$q->where('section_id', $sectionId);
-			});
-		}
+		$query = Veribot::with('user:id,username,email')->latest();
 
 		$items = $query->limit(100)->get()->map(function ($item) {
 			$item->details = json_decode($item->details, true);
@@ -157,7 +149,7 @@ class VeribotController extends Controller
 
 	public function show($id)
 	{
-		$veribot = Veribot::with('user:id,first_name,last_name,email')->findOrFail($id);
+		$veribot = Veribot::with('user:id,username,email')->findOrFail($id);
 		$veribot->details = json_decode($veribot->details, true);
 
 		return response()->json([

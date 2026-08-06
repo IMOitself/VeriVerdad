@@ -14,7 +14,6 @@ class AuthController extends Controller
 	{
 		$validated = $request->validated();
 
-		$validated['role'] = $validated['role'] ?? 'student';
 		$user = User::create($validated);
 		$token = $user->createToken('auth-token');
 

@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BadgeController;
-use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VeribotController;
@@ -38,13 +37,6 @@ Route::middleware('secret.token')->group(function () {
 		Route::get('/tasks/{id}/submissions', [TaskController::class, 'submissions']);
 		Route::delete('/tasks/{id}/submit', [TaskController::class, 'unsubmit']);
 
-		Route::get('/sections', [SectionController::class, 'index']);
-		Route::post('/sections', [SectionController::class, 'store']);
-		Route::get('/sections/{id}', [SectionController::class, 'show']);
-		Route::put('/sections/{id}', [SectionController::class, 'update']);
-		Route::delete('/sections/{id}', [SectionController::class, 'destroy']);
-		Route::get('/sections/{id}/stats', [SectionController::class, 'stats']);
-		Route::post('/sections/{id}/assign', [SectionController::class, 'assignStudent']);
 
 		Route::get('/badges', [BadgeController::class, 'index']);
 		Route::post('/badges', [BadgeController::class, 'store']);

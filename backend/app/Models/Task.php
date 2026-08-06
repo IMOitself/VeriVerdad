@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['teacher_id', 'section_id', 'title', 'target_media_url', 'due_date'])]
+#[Fillable(['teacher_id', 'title', 'target_media_url', 'due_date'])]
 class Task extends Model
 {
 	use HasFactory;
@@ -23,10 +23,6 @@ class Task extends Model
 		return $this->belongsTo(User::class, 'teacher_id');
 	}
 
-	public function section()
-	{
-		return $this->belongsTo(Section::class);
-	}
 
 	public function students()
 	{

@@ -12,31 +12,6 @@ class DatabaseSeeder extends Seeder
 {
 	public function run(): void
 	{
-		// $teacher = User::firstOrCreate(
-		// 	['email' => 'demo@demo.com'],
-		// 	[
-		// 		'first_name' => 'Demo',
-		// 		'last_name'  => 'Demo',
-		// 		'password'   => 'demo',
-		// 		'role'       => 'teacher',
-		// 	]
-		// );
-
-		// $section = Section::firstOrCreate(
-		// 	['name' => '12-Galatians'],
-		// 	['teacher_id' => $teacher->id]
-		// );
-
-		// $student = User::firstOrCreate(
-		// 	['email' => 'demo@demo.com'],
-		// 	[
-		// 		'first_name' => 'Demo',
-		// 		'last_name'  => 'Demo',
-		// 		'password'   => 'demo',
-		// 		'role'       => 'student',
-		// 		'section_id' => $section->id,
-		// 	]
-		// );
 
 		$badges = [
 			[

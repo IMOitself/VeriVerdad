@@ -11,7 +11,7 @@ class BadgeController extends Controller
 {
 	public function index(Request $request)
 	{
-		$userId = $request->user()?->id ?? User::where('role', 'student')->value('id') ?? 1;
+		$userId = $request->user()?->id ?? User::value('id') ?? 1;
 		$user = User::find($userId);
 
 		$userBadgeIds = $user ? $user->badges()->pluck('badges.id')->toArray() : [];
@@ -45,7 +45,7 @@ class BadgeController extends Controller
 
 	public function show(int $id)
 	{
-		$badge = Badge::with('users:id,first_name,last_name,email')->findOrFail($id);
+		$badge = Badge::with('users:id,username,email')->findOrFail($id);
 
 		return response()->json([
 			'success' => true,
