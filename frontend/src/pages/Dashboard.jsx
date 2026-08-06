@@ -1,6 +1,5 @@
 import './Dashboard.css';
 import Sidebar from '../components/dashboard/Sidebar';
-import LogoutButton from '../components/shared/LogoutButton';
 
 export default function Dashboard() {
 
@@ -61,7 +60,6 @@ export default function Dashboard() {
 						<p>About Us</p>
 					</div>
 				</div>
-				<LogoutButton />
 			</div>
 		</div>
 	);
