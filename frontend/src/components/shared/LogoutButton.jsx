@@ -1,4 +1,4 @@
-import { logout } from '../api.js';
+import { logout } from '../../api.js';
 
 export default function LogoutButton() {
 	async function handleLogout() {
