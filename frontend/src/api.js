@@ -47,7 +47,8 @@ export async function login(data) {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Something went wrong'
+				message: result.message || 'Something went wrong',
+				errors: result.errors || null
 			}
 		}
 
