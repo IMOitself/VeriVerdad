@@ -1,1 +1,45 @@
-/* TaskCard.css */
+.task-card {
+	background-color: #FFFFFF;
+	border: 1px solid #E2E8F0;
+	border-radius: 8px;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.task-category {
+	font-size: 12px;
+	font-weight: 600;
+	color: #64748B;
+	text-transform: uppercase;
+}
+
+.task-info h4 {
+	font-size: 15px;
+	font-weight: 600;
+	margin: 4px 0;
+	color: #1E293B;
+}
+
+.task-info p {
+	font-size: 12px;
+	color: #94A3B8;
+	margin: 0;
+}
+
+.btn-task-start {
+	padding: 8px 16px;
+	background-color: #2C3E50;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 8px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-task-start:hover {
+	opacity: 0.8;
+}

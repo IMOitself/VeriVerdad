@@ -172,3 +172,35 @@
 .tab:hover {
 	opacity: 0.8;
 }
+
+.dashboard-grid {
+	display: flex;
+	gap: 24px;
+	width: 100%;
+}
+
+.dashboard-col {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.col-title {
+	font-size: 18px;
+	font-weight: 700;
+	color: #1E293B;
+	margin: 0;
+}
+
+.task-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.badge-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
