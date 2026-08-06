@@ -1,1 +1,152 @@
-/* Register.css */
+.register-page {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #F8FAFC;
+	padding: 32px;
+	box-sizing: border-box;
+}
+
+.register-container {
+	background-color: #FFFFFF;
+	border: 1px solid #E2E8F0;
+	border-radius: 16px;
+	padding: 48px 40px;
+	max-width: 400px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.register-header {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	text-align: center;
+}
+
+.register-header h1 {
+	font-size: 24px;
+	font-weight: 700;
+	color: #1E293B;
+	margin: 0;
+}
+
+.register-header p {
+	font-size: 14px;
+	color: #64748B;
+	margin: 0;
+}
+
+.register-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.form-group label {
+	font-size: 14px;
+	font-weight: 600;
+	color: #1E293B;
+}
+
+.form-group input {
+	padding: 10px 14px;
+	border: 1px solid #E2E8F0;
+	border-radius: 8px;
+	font-size: 14px;
+	color: #1E293B;
+	background-color: #FFFFFF;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #2C3E50;
+}
+
+.btn-register-submit {
+	padding: 12px;
+	background-color: #2C3E50;
+	color: #FFFFFF;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	margin-top: 8px;
+}
+
+.btn-register-submit:hover {
+	opacity: 0.8;
+}
+
+.register-footer {
+	text-align: center;
+	font-size: 14px;
+	color: #475569;
+}
+
+.register-footer a {
+	color: #2C3E50;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.register-footer a:hover {
+	opacity: 0.8;
+}
+
+.password-wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.password-wrapper input {
+	flex: 1;
+	padding-right: 44px;
+}
+
+.toggle-password {
+	position: absolute;
+	right: 12px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.6;
+}
+
+.toggle-password:hover {
+	opacity: 0.8;
+}
+
+.toggle-password svg {
+	width: 20px;
+	height: 20px;
+}
+
+.error-general {
+	background-color: #FEE2E2;
+	color: #DC2626;
+	padding: 10px 14px;
+	border-radius: 8px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.error-field {
+	color: #DC2626;
+	font-size: 13px;
+	margin-top: 4px;
+}
