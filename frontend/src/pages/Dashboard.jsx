@@ -2,38 +2,26 @@ import './Dashboard.css';
 import Sidebar from '../components/dashboard/Sidebar';
 
 export default function Dashboard() {
-
 	return (
 		<div className="dashboard-page">
 			<Sidebar />
 			<div className="dashboard-container">
-				<nav>
-					<button>Contact Us</button>
-					<button>Services</button>
-					<button>Features</button>
-					<div className="horizontal-divider" />
-					<div className="searchbar">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" /></svg>
-						<input type="text" placeholder="Search..." />
-					</div>
-				</nav>
-
 				<div className="hero-cards">
-					<div className="hero-card1 hero-card">
+					<div className="hero-card hero-card1">
 						<h1>Verify Before You Believe.</h1>
 						<p>Analyze websites, news articles, and social media posts using AI-powered source verification designed to help Filipinos identify misinformation.</p>
-						<div>
-							<button>Verify a link</button>
-							<button>Learn More</button>
+						<div className="hero-card-buttons">
+							<button className="btn-primary">Verify a link</button>
+							<button className="btn-secondary">Learn More</button>
 						</div>
 					</div>
-					<div className="hero-card2 hero-card">
+					<div className="hero-card hero-card2">
 						<h3>MEDIA LITERACY TIP</h3>
 						<p>“People often trust information because it comes from someone they admire. Verify the claim before believing or sharing it.”</p>
 						<div className="pfps">
-							<img src="logo.png" className="pfp" />
-							<img src="logo.png" className="pfp" />
-							<img src="logo.png" className="pfp" />
+							<img src="logo.png" className="pfp" alt="PFP" />
+							<img src="logo.png" className="pfp" alt="PFP" />
+							<img src="logo.png" className="pfp" alt="PFP" />
 						</div>
 					</div>
 				</div>
@@ -54,10 +42,6 @@ export default function Dashboard() {
 					<div className="tab">
 						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z" /></svg>
 						<p>Statistics</p>
-					</div>
-					<div className="tab">
-						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M440-280h80v-240h-80v240Zm68.5-331.5Q520-623 520-640t-11.5-28.5Q497-680 480-680t-28.5 11.5Q440-657 440-640t11.5 28.5Q463-600 480-600t28.5-11.5ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 20-2 40t-6 40h-82q5-20 7.5-40t2.5-40q0-20-2.5-40t-7.5-40H654q3 20 4.5 40t1.5 40q0 20-1.5 40t-4.5 40h-80q3-20 4.5-40t1.5-40q0-20-1.5-40t-4.5-40H386q-3 20-4.5 40t-1.5 40q0 20 1.5 40t4.5 40h134v80H404q12 43 31 82.5t45 75.5q20 0 40-2.5t40-4.5v82q-20 2-40 4.5T480-80ZM170-400h136q-3-20-4.5-40t-1.5-40q0-20 1.5-40t4.5-40H170q-5 20-7.5 40t-2.5 40q0 20 2.5 40t7.5 40Zm34-240h118q9-37 22.5-72.5T376-782q-55 18-99 54.5T204-640Zm172 462q-18-34-31.5-69.5T322-320H204q29 51 73 87.5t99 54.5Zm28-462h152q-12-43-31-82.5T480-798q-26 36-45 75.5T404-640Zm234 0h118q-29-51-73-87.5T584-782q18 34 31.5 69.5T638-640Z" /></svg>
-						<p>About Us</p>
 					</div>
 				</div>
 			</div>

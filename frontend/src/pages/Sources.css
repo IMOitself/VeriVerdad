@@ -1,1 +1,134 @@
-/* Sources.css */
+.page-layout {
+	display: flex;
+	min-height: 100vh;
+	background-color: #F8FAFC;
+	color: #1E293B;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.page-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 24px 32px;
+	gap: 24px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.sources-section {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.sources-section h2 {
+	font-size: 18px;
+	font-weight: 700;
+	color: #1E293B;
+	margin: 0;
+}
+
+.badges-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+}
+
+.badge-card {
+	background-color: #FFFFFF;
+	border: 1px solid #E2E8F0;
+	border-radius: 8px;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.badge-card.locked {
+	opacity: 0.6;
+	background-color: #F8FAFC;
+}
+
+.badge-icon {
+	width: 44px;
+	height: 44px;
+	border-radius: 8px;
+	background-color: #2C3E50;
+	color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 14px;
+	flex-shrink: 0;
+}
+
+.badge-info {
+	flex: 1;
+}
+
+.badge-info h4 {
+	font-size: 15px;
+	font-weight: 700;
+	color: #1E293B;
+	margin: 0 0 4px 0;
+}
+
+.badge-info p {
+	font-size: 13px;
+	color: #64748B;
+	margin: 0;
+}
+
+.badge-status {
+	font-size: 12px;
+	font-weight: 600;
+	padding: 4px 10px;
+	border-radius: 8px;
+	background-color: #F1F5F9;
+	color: #475569;
+}
+
+.badge-card.unlocked .badge-status {
+	background-color: #2C3E50;
+	color: #FFFFFF;
+}
+
+.sources-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.source-item {
+	background-color: #FFFFFF;
+	border: 1px solid #E2E8F0;
+	border-radius: 8px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.source-tag {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	color: #64748B;
+}
+
+.source-item h4 {
+	font-size: 16px;
+	font-weight: 700;
+	color: #1E293B;
+	margin: 0;
+}
+
+.source-item p {
+	font-size: 14px;
+	line-height: 22px;
+	color: #475569;
+	margin: 0;
+}
