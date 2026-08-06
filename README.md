@@ -2,6 +2,11 @@
 > proceeding to finish front-end
 
 <img width="1866" height="3523" alt="pasted file" src="https://github.com/user-attachments/assets/0b407ab0-7782-4195-889f-b44b5437123a" />
+<img width="443" height="511" alt="image" src="https://github.com/user-attachments/assets/697cd4c7-be9c-4a55-9fd0-f28f1283ef6f" />
+<img width="412" height="591" alt="image" src="https://github.com/user-attachments/assets/087539e9-5ae3-4eb4-b2bd-98b1388e6ca0" />
+
+
+
 # VeriVerdad
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
