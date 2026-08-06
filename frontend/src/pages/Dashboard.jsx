@@ -1,6 +1,6 @@
 import './Dashboard.css';
-import Sidebar from '../components/Sidebar';
-import LogoutButton from '../components/LogoutButton';
+import Sidebar from '../components/dashboard/Sidebar';
+import LogoutButton from '../components/shared/LogoutButton';
 
 export default function Dashboard() {
 
