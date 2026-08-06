@@ -1,7 +1,9 @@
 import './Dashboard.css';
 import Sidebar from '../components/Sidebar';
+import LogoutButton from '../components/LogoutButton';
 
-const Dashboard = () => {
+export default function Dashboard() {
+
 	return (
 		<div className="dashboard-page">
 			<Sidebar />
@@ -59,10 +61,8 @@ const Dashboard = () => {
 						<p>About Us</p>
 					</div>
 				</div>
-				<button>Logout</button>
+				<LogoutButton />
 			</div>
 		</div>
 	);
-};
-
-export default Dashboard;
+}
