@@ -74,7 +74,36 @@
 .sidebar-footer {
 	display: flex;
 	flex-direction: column;
+	gap: 8px;
 	padding-top: 8px;
+}
+
+.btn-account {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	width: 100%;
+	padding: 10px 16px;
+	background-color: #34495E;
+	color: #FFFFFF;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.btn-account svg {
+	width: 20px;
+	height: 20px;
+	fill: #FFFFFF;
+}
+
+.btn-account:hover {
+	background-color: #3D566E;
 }
 
 .btn-logout {
