@@ -14,10 +14,32 @@
 	margin: 0 0 4px 0;
 }
 
+.admin-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 100%;
+}
+
 .admin-subtitle {
 	font-size: 14px;
 	color: #64748B;
 	margin: 0 0 24px 0;
+}
+
+.btn-add-user {
+	padding: 10px 16px;
+	background-color: #2C3E50;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-add-user:hover {
+	opacity: 0.8;
 }
 
 .admin-actions-cell {

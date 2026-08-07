@@ -68,7 +68,14 @@ class UserController extends Controller
 			'username' => 'sometimes|string|min:3|max:30|unique:users,username,' . $user->id,
 			'email' => 'sometimes|email|max:254|unique:users,email,' . $user->id,
 			'role' => 'sometimes|in:student,teacher,admin',
+			'new_password' => 'sometimes|nullable|string|min:8|confirmed',
 		]);
+
+		if (!empty($validated['new_password'])) {
+			$validated['password'] = $validated['new_password'];
+		}
+
+		unset($validated['new_password']);
 
 		$user->update($validated);
 

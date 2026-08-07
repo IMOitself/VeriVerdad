@@ -102,7 +102,7 @@ export default function Sidebar() {
 					<span>History</span>
 				</NavLink>
 
-				{userData.role === 'teacher' && (
+				{(userData.role === 'teacher' || userData.role === 'admin') && (
 					<NavLink
 						to="/statistics"
 						className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
