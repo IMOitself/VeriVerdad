@@ -75,7 +75,7 @@ export default function Login() {
 							<input
 								id="password"
 								type={showPassword ? "text" : "password"}
-								placeholder="password"
+								placeholder="••••••••"
 								value={form.password}
 								onChange={handleChange}
 								required
