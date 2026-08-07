@@ -44,5 +44,7 @@ class DatabaseSeeder extends Seeder
 		foreach ($badges as $badgeData) {
 			Badge::firstOrCreate(['name' => $badgeData['name']], $badgeData);
 		}
+
+		$this->call(AdminSeeder::class);
 	}
 }
