@@ -8,6 +8,7 @@ import Sources from './pages/Sources'
 import History from './pages/History'
 import Dashboard from './pages/Dashboard'
 import Statistics from './pages/Statistics'
+import Account from './pages/Account'
 import ProtectedRoute from './utils/ProtectedRoute'
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
 			{ path: '/sources', element: <Sources /> },
 			{ path: '/history', element: <History /> },
 			{ path: '/statistics', element: <Statistics /> },
+			{ path: '/account', element: <Account /> },
 		]
 	}
 ])
