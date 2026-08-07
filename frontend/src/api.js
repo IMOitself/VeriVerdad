@@ -90,3 +90,68 @@ export async function logout() {
 		}
 	}
 }
+
+export async function getProfile() {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/profile`, {
+			method: 'GET',
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			}
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to fetch profile',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function updateProfile(data) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/profile`, {
+			method: 'PATCH',
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			},
+			body: JSON.stringify(data)
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to update profile',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
