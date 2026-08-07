@@ -9,6 +9,7 @@ import History from './pages/History'
 import Dashboard from './pages/Dashboard'
 import Statistics from './pages/Statistics'
 import Account from './pages/Account'
+import Admin from './pages/Admin'
 import ProtectedRoute from './utils/ProtectedRoute'
 
 const router = createBrowserRouter([
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
 			{ path: '/history', element: <History /> },
 			{ path: '/statistics', element: <Statistics /> },
 			{ path: '/account', element: <Account /> },
+			{ path: '/admin', element: <Admin /> },
 		]
 	}
 ])
