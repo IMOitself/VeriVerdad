@@ -16,6 +16,8 @@ return new class extends Migration
 			$table->string('username')->unique();
 			$table->string('email')->unique();
 			$table->string('password');
+			$table->enum('role', ['student', 'teacher', 'admin'])->default('student');
+			$table->foreignId('section_id')->nullable()->constrained('sections')->onDelete('set null');
 			$table->timestamps();
 		});
 	}
@@ -24,7 +26,7 @@ return new class extends Migration
 	 * Reverse the migrations.
 	 */
 	public function down(): void
-		{
-			Schema::dropIfExists('users');
-		}
+	{
+		Schema::dropIfExists('users');
+	}
 };
