@@ -155,3 +155,100 @@ export async function updateProfile(data) {
 		}
 	}
 }
+
+export async function getUsers() {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/users`, {
+			method: 'GET',
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			}
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to fetch users',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function updateUser(id, data) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/users/${id}`, {
+			method: 'PATCH',
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			},
+			body: JSON.stringify(data)
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to update user',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function deleteUser(id) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/users/${id}`, {
+			method: 'DELETE',
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			}
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to delete user',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
