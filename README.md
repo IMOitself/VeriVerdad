@@ -4,11 +4,12 @@
 <img width="1866" height="3523" alt="pasted file" src="https://github.com/user-attachments/assets/0b407ab0-7782-4195-889f-b44b5437123a" />
 <img width="443" height="511" alt="image" src="https://github.com/user-attachments/assets/697cd4c7-be9c-4a55-9fd0-f28f1283ef6f" />
 <img width="412" height="591" alt="image" src="https://github.com/user-attachments/assets/087539e9-5ae3-4eb4-b2bd-98b1388e6ca0" />
-
-
+<img width="1866" height="964" alt="image" src="https://github.com/user-attachments/assets/4ab44dbf-5866-43f3-b31a-282e157e6f0f" />
 
 # VeriVerdad
 
+<div align="center">
+	
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -17,6 +18,8 @@
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=000000)
+
+</div>
 
 A gamified media literacy platform designed for the UNESCO Hackathon 2026,<br> empowering students to think critically and verify information in the digital age.
 
