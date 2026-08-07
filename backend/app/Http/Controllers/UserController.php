@@ -11,7 +11,8 @@ class UserController extends Controller
 	 */
 	public function index()
 	{
-			//
+		$users = \App\Models\User::all();
+		return response()->json(['data' => $users], 200);
 	}
 
 	/**
@@ -58,18 +59,37 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, string $id)
 	{
-			//
+		$user = \App\Models\User::find($id);
+		if (!$user) {
+			return response()->json(['message' => 'User not found'], 404);
+		}
+
+		$validated = $request->validate([
+			'username' => 'sometimes|string|min:3|max:30|unique:users,username,' . $user->id,
+			'email' => 'sometimes|email|max:254|unique:users,email,' . $user->id,
+			'role' => 'sometimes|in:student,teacher,admin',
+		]);
+
+		$user->update($validated);
+
+		return response()->json(['data' => $user], 200);
 	}
 	
 	public function updateProfile(Request $request)
 	{
 		$user = $request->user();
 		
-		$validated = $request->validate([
+		$rules = [
 			'username' => 'sometimes|string|min:3|max:30|unique:users,username,' . $user->id,
 			'email' => 'sometimes|email|max:254|unique:users,email,' . $user->id,
 			'new_password' => 'sometimes|string|min:8|confirmed',
-		]);
+		];
+
+		if ($user->role === 'admin') {
+			$rules['role'] = 'sometimes|in:student,teacher,admin';
+		}
+
+		$validated = $request->validate($rules);
 		
 		if (isset($validated['new_password'])) {
 			$validated['password'] = $validated['new_password'];
@@ -89,6 +109,11 @@ class UserController extends Controller
 	 */
 	public function destroy(string $id)
 	{
-			//
+		$user = \App\Models\User::find($id);
+		if (!$user) {
+			return response()->json(['message' => 'User not found'], 404);
+		}
+		$user->delete();
+		return response()->json(['message' => 'User deleted successfully'], 200);
 	}
 }
