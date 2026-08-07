@@ -14,12 +14,8 @@ Route::middleware('secret.token')->group(function () {
 
 	Route::middleware('auth:sanctum')->group(function () {
 		Route::post('/logout', [AuthController::class, 'logout']);
-
-		Route::get('/users', [UserController::class, 'index']);
-		Route::get('/user', [UserController::class, 'show']);
-		Route::get('/users/{id}', [UserController::class, 'show']);
-		Route::put('/users/{id?}', [UserController::class, 'update']);
-		Route::delete('/users/{id}', [UserController::class, 'destroy']);
+		Route::patch('/profile', [UserController::class, 'updateProfile']);
+		Route::get('/profile', [UserController::class, 'showProfile']);
 
 		Route::get('/veribot', [VeribotController::class, 'index']);
 		Route::post('/veribot', [VeribotController::class, 'analyze']);
@@ -36,7 +32,6 @@ Route::middleware('secret.token')->group(function () {
 		Route::post('/tasks/{id}/submit', [TaskController::class, 'submit']);
 		Route::get('/tasks/{id}/submissions', [TaskController::class, 'submissions']);
 		Route::delete('/tasks/{id}/submit', [TaskController::class, 'unsubmit']);
-
 
 		Route::get('/badges', [BadgeController::class, 'index']);
 		Route::post('/badges', [BadgeController::class, 'store']);
