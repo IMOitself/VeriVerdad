@@ -1,0 +1,154 @@
+.admin-card {
+	background-color: #FFFFFF;
+	border: 1px solid #E2E8F0;
+	border-radius: 8px;
+	padding: 24px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.admin-card h2 {
+	font-size: 20px;
+	font-weight: 700;
+	color: #1E293B;
+	margin: 0 0 4px 0;
+}
+
+.admin-subtitle {
+	font-size: 14px;
+	color: #64748B;
+	margin: 0 0 24px 0;
+}
+
+.admin-actions-cell {
+	display: flex;
+	gap: 8px;
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+	padding: 12px 16px;
+	text-align: left;
+	border-bottom: 1px solid #E2E8F0;
+}
+
+.admin-table th {
+	background-color: #F8FAFC;
+	color: #475569;
+	font-weight: 600;
+}
+
+.username-cell {
+	font-weight: 600;
+	color: #1E293B;
+}
+
+.role-badge {
+	padding: 4px 10px;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.role-badge.student {
+	background-color: #E0F2FE;
+	color: #0369A1;
+}
+
+.role-badge.teacher {
+	background-color: #FEF3C7;
+	color: #B45309;
+}
+
+.role-badge.admin {
+	background-color: #FCE7F3;
+	color: #BE185D;
+}
+
+.btn-edit {
+	padding: 6px 12px;
+	background-color: #2C3E50;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-edit:hover {
+	opacity: 0.8;
+}
+
+.btn-delete {
+	padding: 6px 12px;
+	background-color: #EF4444;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-delete:hover {
+	opacity: 0.8;
+}
+
+/* Edit Modal */
+.edit-modal-form {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.edit-modal-form .form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.edit-modal-form label {
+	font-size: 12px;
+	font-weight: 600;
+	color: #475569;
+}
+
+.edit-modal-form input,
+.edit-modal-form select {
+	padding: 8px 12px;
+	border: 1px solid #CBD5E1;
+	border-radius: 6px;
+	font-size: 14px;
+	color: #1E293B;
+}
+
+.modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.btn-modal-save {
+	padding: 8px 16px;
+	background-color: #2C3E50;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-modal-save:hover {
+	opacity: 0.8;
+}
