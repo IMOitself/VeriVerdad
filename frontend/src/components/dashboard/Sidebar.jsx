@@ -5,24 +5,30 @@ import { getProfile } from '../../api.js';
 import './Sidebar.css';
 
 export default function Sidebar() {
-	const [username, setUsername] = useState(function () {
+	const [userData, setUserData] = useState(function () {
 		const cachedUser = localStorage.getItem('user');
 		if (cachedUser) {
 			try {
 				const parsed = JSON.parse(cachedUser);
-				return parsed.username || 'User';
+				return {
+					username: parsed.username || 'User',
+					role: parsed.role || 'student'
+				};
 			} catch (e) {
-				return 'User';
+				return { username: 'User', role: 'student' };
 			}
 		}
-		return 'User';
+		return { username: 'User', role: 'student' };
 	});
 
 	useEffect(function () {
 		async function loadUser() {
 			const result = await getProfile();
-			if (result.success && result.data && result.data.username) {
-				setUsername(result.data.username);
+			if (result.success && result.data) {
+				setUserData({
+					username: result.data.username || 'User',
+					role: result.data.role || 'student'
+				});
 				localStorage.setItem('user', JSON.stringify(result.data));
 			}
 		}
@@ -32,7 +38,10 @@ export default function Sidebar() {
 			if (cachedUser) {
 				try {
 					const parsed = JSON.parse(cachedUser);
-					if (parsed.username) setUsername(parsed.username);
+					setUserData({
+						username: parsed.username || 'User',
+						role: parsed.role || 'student'
+					});
 				} catch (e) {}
 			}
 		}
@@ -93,15 +102,29 @@ export default function Sidebar() {
 					<span>History</span>
 				</NavLink>
 
-				<NavLink
-					to="/statistics"
-					className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-						<path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z" />
-					</svg>
-					<span>Statistics</span>
-				</NavLink>
+				{userData.role === 'teacher' && (
+					<NavLink
+						to="/statistics"
+						className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+							<path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z" />
+						</svg>
+						<span>Statistics</span>
+					</NavLink>
+				)}
+
+				{userData.role === 'admin' && (
+					<NavLink
+						to="/admin"
+						className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+							<path d="M722.5-297.5Q740-315 740-340t-17.5-42.5Q705-400 680-400t-42.5 17.5Q620-365 620-340t17.5 42.5Q655-280 680-280t42.5-17.5ZM680-160q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z" />
+						</svg>
+						<span>Admin</span>
+					</NavLink>
+				)}
 			</nav>
 
 			<div className="sidebar-footer">
@@ -112,7 +135,7 @@ export default function Sidebar() {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
 						<path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm146.5-204.5Q340-521 340-580t40.5-99.5Q421-720 480-720t99.5 40.5Q620-639 620-580t-40.5 99.5Q539-440 480-440t-99.5-40.5ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm100-95.5q47-15.5 86-44.5-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160q53 0 100-15.5ZM523-537q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm-43-43Zm0 360Z" />
 					</svg>
-					<span>{username}</span>
+					<span>{userData.username}</span>
 				</NavLink>
 				<LogoutButton />
 			</div>
