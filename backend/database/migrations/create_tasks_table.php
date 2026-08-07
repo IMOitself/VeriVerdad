@@ -14,6 +14,7 @@ return new class extends Migration
 		Schema::create('tasks', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('teacher_id')->constrained('users')->cascadeOnDelete();
+			$table->foreignId('section_id')->nullable()->constrained('sections')->nullOnDelete();
 			$table->string('title');
 			$table->text('target_media_url');
 			$table->timestamp('due_date');
