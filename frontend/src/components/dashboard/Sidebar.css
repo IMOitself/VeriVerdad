@@ -12,13 +12,30 @@
 	padding: 24px 16px;
 	gap: 24px;
 	user-select: none;
+	transition: width 0.2s ease, min-width 0.2s ease, padding 0.2s ease;
+}
+
+.sidebar.collapsed {
+	width: 72px;
+	min-width: 72px;
+	padding: 24px 10px;
+}
+
+.sidebar-header {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 0 4px;
+}
+
+.sidebar.collapsed .sidebar-header {
+	align-items: center;
 }
 
 .sidebar-brand {
 	display: flex;
 	align-items: center;
 	gap: 12px;
-	padding: 0 8px;
 }
 
 .sidebar-logo-img {
@@ -34,6 +51,34 @@
 	font-weight: 700;
 	letter-spacing: 0.05em;
 	color: #FFFFFF;
+}
+
+.sidebar-toggle-btn {
+	background: none;
+	border: none;
+	color: #C9C8C7;
+	cursor: pointer;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	align-self: flex-end;
+}
+
+.sidebar.collapsed .sidebar-toggle-btn {
+	align-self: center;
+}
+
+.sidebar-toggle-btn svg {
+	width: 22px;
+	height: 22px;
+	fill: currentColor;
+}
+
+.sidebar-toggle-btn:hover {
+	color: #FFFFFF;
+	background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-nav {
@@ -55,10 +100,16 @@
 	border-radius: 8px;
 }
 
+.sidebar.collapsed .nav-item {
+	justify-content: center;
+	padding: 12px;
+}
+
 .nav-item svg {
 	width: 22px;
 	height: 22px;
 	fill: currentColor;
+	flex-shrink: 0;
 }
 
 .nav-item:hover {
@@ -96,10 +147,15 @@
 	cursor: pointer;
 }
 
+.sidebar.collapsed .btn-account {
+	padding: 10px;
+}
+
 .btn-account svg {
 	width: 20px;
 	height: 20px;
 	fill: #FFFFFF;
+	flex-shrink: 0;
 }
 
 .btn-account:hover {
@@ -116,6 +172,14 @@
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.sidebar.collapsed .btn-logout {
+	padding: 10px;
 }
 
 .btn-logout:hover {
