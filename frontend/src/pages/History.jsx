@@ -1,50 +1,124 @@
-import './History.css';
-import Sidebar from '../components/dashboard/Sidebar';
-
-const history = [
-	{ id: 1, url: 'https://facebook.com/posts/viral-typhoon-news-claim', date: 'Aug 06, 2026', score: 92, bias: false },
-	{ id: 2, url: 'https://news-update-2026.net/celebrity-endorsed-health-miracle', date: 'Aug 04, 2026', score: 35, bias: true },
-	{ id: 3, url: 'https://social-blog.com/influencer-political-statement', date: 'Jul 29, 2026', score: 68, bias: false },
-];
-
-function scoreClass(score) {
-	if (score >= 80) return 'high';
-	if (score >= 60) return 'mid';
-	return 'low';
-}
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import { getHistory, deleteVeribotSession } from '../api.js'
+import './History.css'
+import Sidebar from '../components/dashboard/Sidebar'
 
 export default function History() {
+	const [historyItems, setHistoryItems] = useState([])
+	const [deletingId, setDeletingId] = useState(null)
+	const navigate = useNavigate()
+
+	useEffect(function () {
+		async function fetchUserHistory() {
+			const res = await getHistory()
+			if (res.success && res.data) {
+				setHistoryItems(res.data)
+			}
+		}
+		fetchUserHistory()
+	}, [])
+
+	function handleOpenChat(item) {
+		navigate('/veribot', { state: { session: item, fromHistory: true } })
+	}
+
+	async function handleDeleteChat(e, id) {
+		e.stopPropagation()
+		if (!window.confirm('Are you sure you want to delete this chat session?')) {
+			return
+		}
+
+		setDeletingId(id)
+		const res = await deleteVeribotSession(id)
+		setDeletingId(null)
+
+		if (res.success) {
+			setHistoryItems((prev) => prev.filter((item) => item.id !== id))
+		} else {
+			alert(res.message || 'Failed to delete chat session.')
+		}
+	}
+
 	return (
 		<div className="page-layout">
 			<Sidebar />
-			<div className="page-container">
-				<section className="history-table-card">
-					<table className="history-table">
-						<thead>
-							<tr>
-								<th>Target Claim / URL</th>
-								<th>Date Verified</th>
-								<th>Truth Score</th>
-								<th>Idol Bias Status</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{history.map(function (item) {
+			<div className="page-container history-page-container">
+				<div className="history-wrapper">
+					<div className="history-header">
+						<h2>Saved Verification Chats</h2>
+						<p className="history-subtitle">
+							Resume, review, or delete your past Socratic verification sessions
+						</p>
+					</div>
+
+					<div className="history-stack-list">
+						{historyItems.length > 0 ? (
+							historyItems.map(function (item) {
+								const dateStr = item.created_at
+									? new Date(item.created_at).toLocaleDateString(undefined, {
+										month: 'short',
+										day: 'numeric',
+										year: 'numeric',
+									})
+									: 'Recent'
+
 								return (
-									<tr key={item.id}>
-										<td className="claim-cell">{item.url}</td>
-										<td>{item.date}</td>
-										<td><span className={`score-tag ${scoreClass(item.score)}`}>{item.score} / 100</span></td>
-										<td><span className={`bias-tag ${item.bias ? 'flagged' : 'clean'}`}>{item.bias ? 'Idol Bias Flagged' : 'No Bias'}</span></td>
-										<td><button className="btn-view">View Analysis</button></td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-				</section>
+									<div
+										key={item.id}
+										className="history-stack-item"
+										onClick={() => handleOpenChat(item)}
+									>
+										<div className="stack-left-content">
+											<h3 className="stack-item-title">
+												{item.title || item.input_query}
+											</h3>
+											<p className="stack-item-query">{item.input_query}</p>
+										</div>
+
+										<div className="stack-right-meta">
+											<span className="stack-item-date">{dateStr}</span>
+											<span
+												className={`bias-status ${item.bias_detected ? 'flagged' : 'clean'}`}
+											>
+												{item.bias_detected
+													? 'Idol Bias Flagged'
+													: 'No Bias Detected'}
+											</span>
+
+											<div className="stack-actions">
+												<button
+													className="btn-resume"
+													onClick={(e) => {
+														e.stopPropagation()
+														handleOpenChat(item)
+													}}
+												>
+													Open
+												</button>
+												<button
+													className="btn-delete-card"
+													onClick={(e) => handleDeleteChat(e, item.id)}
+													disabled={deletingId === item.id}
+												>
+													Delete
+												</button>
+											</div>
+										</div>
+									</div>
+								)
+							})
+						) : (
+							<div className="empty-history-box">
+								<p>
+									No saved verification sessions yet. Start a new verification
+									in VeriBot AI!
+								</p>
+							</div>
+						)}
+					</div>
+				</div>
 			</div>
 		</div>
-	);
+	)
 }

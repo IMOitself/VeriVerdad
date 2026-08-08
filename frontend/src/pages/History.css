@@ -1,115 +1,189 @@
 .page-layout {
 	display: flex;
 	min-height: 100vh;
-	background-color: #F8FAFC;
-	color: #1E293B;
+	background-color: #f8fafc;
+	color: #1e293b;
 	width: 100%;
 	box-sizing: border-box;
 }
 
-.page-container {
+.history-page-container {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding: 24px 32px;
-	gap: 24px;
+	align-items: center;
+	padding: 40px 48px;
 	box-sizing: border-box;
 	width: 100%;
+	min-height: 100vh;
+	overflow-y: auto;
 }
 
-.history-table-card {
-	background-color: #FFFFFF;
-	border: 1px solid #E2E8F0;
-	border-radius: 8px;
-	padding: 24px;
-	overflow-x: auto;
-}
-
-.history-table {
+.history-wrapper {
 	width: 100%;
-	border-collapse: collapse;
-	text-align: left;
-	font-size: 14px;
+	max-width: 780px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
-.history-table th {
-	padding: 12px 16px;
-	font-size: 12px;
+.history-header {
+	margin-bottom: 4px;
+}
+
+.history-header h2 {
+	font-size: 22px;
 	font-weight: 700;
-	letter-spacing: 0.05em;
-	color: #64748B;
-	border-bottom: 1px solid #E2E8F0;
-	text-transform: uppercase;
+	color: #1e293b;
+	margin: 0 0 4px 0;
 }
 
-.history-table td {
-	padding: 16px;
-	border-bottom: 1px solid #F1F5F9;
-	color: #1E293B;
+.history-subtitle {
+	font-size: 14px;
+	color: #64748b;
+	margin: 0;
 }
 
-.history-table tr:last-child td {
-	border-bottom: none;
+/* One-line Stack List Layout */
+.history-stack-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
 }
 
-.claim-cell {
-	font-family: inherit;
-	max-width: 400px;
+.history-stack-item {
+	background-color: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	padding: 14px 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	cursor: pointer;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease;
+}
+
+.history-stack-item:hover {
+	border-color: #cbd5e1;
+	background-color: #fafafc;
+}
+
+.stack-left-content {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.stack-item-title {
+	font-size: 15px;
+	font-weight: 700;
+	color: #1e293b;
+	margin: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-.score-tag {
-	font-weight: 700;
-	font-size: 12px;
-	padding: 4px 8px;
-	border-radius: 8px;
+.stack-item-query {
+	font-size: 13px;
+	color: #64748b;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.score-tag.high {
-	background-color: #DCFCE7;
-	color: #166534;
+.stack-right-meta {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex-shrink: 0;
 }
 
-.score-tag.mid {
-	background-color: #FEF9C3;
-	color: #854D0E;
-}
-
-.score-tag.low {
-	background-color: #FEE2E2;
-	color: #991B1B;
-}
-
-.bias-tag {
+.stack-item-date {
 	font-size: 12px;
 	font-weight: 600;
-	padding: 4px 10px;
-	border-radius: 8px;
+	color: #94a3b8;
+	white-space: nowrap;
 }
 
-.bias-tag.clean {
-	background-color: #F1F5F9;
+.bias-status {
+	font-size: 11px;
+	font-weight: 700;
+	padding: 4px 8px;
+	border-radius: 6px;
+	white-space: nowrap;
+}
+
+.bias-status.clean {
+	background-color: #f1f5f9;
 	color: #475569;
 }
 
-.bias-tag.flagged {
-	background-color: #FEE2E2;
-	color: #991B1B;
+.bias-status.flagged {
+	background-color: #fee2e2;
+	color: #991b1b;
 }
 
-.btn-view {
+.stack-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.btn-resume {
 	padding: 6px 14px;
-	background-color: #2C3E50;
-	color: #FFFFFF;
+	background-color: #2c3e50;
+	color: #ffffff;
 	border: none;
-	border-radius: 8px;
-	font-size: 13px;
+	border-radius: 6px;
+	font-size: 12px;
 	font-weight: 600;
 	cursor: pointer;
+	transition: opacity 0.2s ease;
 }
 
-.btn-view:hover {
-	opacity: 0.8;
+.btn-resume:hover {
+	opacity: 0.85;
+}
+
+.btn-delete-card {
+	background-color: #fef2f2;
+	border: 1px solid #fecaca;
+	color: #dc2626;
+	padding: 5px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 700;
+	transition: all 0.2s ease;
+}
+
+.btn-delete-card:hover {
+	color: #ffffff;
+	background-color: #ef4444;
+	border-color: #ef4444;
+	box-shadow: 0 2px 6px rgba(239, 68, 68, 0.25);
+}
+
+.btn-delete-card:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.empty-history-box {
+	background-color: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 40px;
+	text-align: center;
+	color: #64748b;
+	font-size: 14px;
 }
