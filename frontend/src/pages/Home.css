@@ -1,1 +1,5 @@
-/* Home.css */
+.page-content {
+	flex: 1;
+	padding: 24px 32px;
+	box-sizing: border-box;
+}

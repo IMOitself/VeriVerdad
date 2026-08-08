@@ -1,5 +1,5 @@
-import './Home.css';
-import Sidebar from '../components/dashboard/Sidebar';
+import './Home.css'
+import Sidebar from '../components/dashboard/Sidebar'
 
 export default function Home() {
 	return (
@@ -9,5 +9,5 @@ export default function Home() {
 				<h1>Home</h1>
 			</main>
 		</div>
-	);
+	)
 }
