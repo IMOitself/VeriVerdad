@@ -1,4 +1,4 @@
-import './TaskCard.css';
+import './TaskCard.css'
 
 export default function TaskCard({ category, title, due }) {
 	return (
@@ -10,5 +10,5 @@ export default function TaskCard({ category, title, due }) {
 			</div>
 			<button className="btn-task-start">Start Task</button>
 		</div>
-	);
+	)
 }
