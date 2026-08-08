@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['user_id', 'input_query', 'quiz_score', 'bias_detected', 'details'])]
+#[Fillable(['user_id', 'title', 'input_query', 'quiz_score', 'bias_detected', 'details'])]
 class Veribot extends Model
 {
 	use HasFactory;
