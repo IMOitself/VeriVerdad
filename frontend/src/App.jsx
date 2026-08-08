@@ -8,6 +8,7 @@ import Sources from './pages/Sources'
 import History from './pages/History'
 import Dashboard from './pages/Dashboard'
 import Statistics from './pages/Statistics'
+import Classrooms from './pages/Classrooms'
 import Account from './pages/Account'
 import Admin from './pages/Admin'
 import ProtectedRoute from './utils/ProtectedRoute'
@@ -24,9 +25,11 @@ const router = createBrowserRouter([
 			{ path: '/veribot', element: <Veribot /> },
 			{ path: '/sources', element: <Sources /> },
 			{ path: '/history', element: <History /> },
+			{ path: '/classrooms', element: <Classrooms /> },
+			{ path: '/sections', element: <Classrooms /> },
 			{ path: '/statistics', element: <Statistics /> },
 			{ path: '/account', element: <Account /> },
-			{ path: '/admin', element: <Admin /> },
+			{ path: '/admin', element: <Admin /> }
 		]
 	}
 ])
