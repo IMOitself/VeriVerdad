@@ -1,0 +1,117 @@
+.hero-top-info {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 4px;
+}
+
+.section-pill-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 14px;
+	border-radius: 20px;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.section-pill-tag svg {
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+}
+
+.section-pill-tag.assigned {
+	background-color: #ecfdf5;
+	border: 1px solid #a7f3d0;
+	color: #065f46;
+}
+
+.section-pill-tag.assigned svg {
+	fill: #059669;
+}
+
+.section-pill-tag.unassigned {
+	background-color: #fffbeb;
+	border: 1px solid #fde68a;
+	color: #92400e;
+}
+
+.section-pill-tag.unassigned svg {
+	fill: #d97706;
+}
+
+.section-pill-tag.admin {
+	background-color: #fce7f3;
+	border: 1px solid #fbcfe8;
+	color: #9d174d;
+}
+
+.section-pill-tag.admin svg {
+	fill: #be185d;
+}
+
+.unassigned-hint {
+	font-size: 12px;
+	opacity: 0.85;
+	font-style: italic;
+}
+
+.section-code-pill-sm {
+	font-family: monospace;
+	font-size: 11px;
+	font-weight: 700;
+	background-color: rgba(0, 0, 0, 0.06);
+	padding: 2px 6px;
+	border-radius: 4px;
+	margin-left: 2px;
+}
+
+.teacher-sections-banner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.teacher-banner-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #475569;
+}
+
+.teacher-banner-label svg {
+	width: 16px;
+	height: 16px;
+	fill: #2c3e50;
+}
+
+.teacher-sections-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.teacher-section-badge-sm {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	background-color: #fef3c7;
+	border: 1px solid #fde68a;
+	color: #92400e;
+	padding: 4px 10px;
+	border-radius: 16px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.teacher-section-badge-sm.empty {
+	background-color: #f1f5f9;
+	border-color: #e2e8f0;
+	color: #64748b;
+	font-weight: normal;
+}
