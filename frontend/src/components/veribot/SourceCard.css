@@ -1,0 +1,63 @@
+.veribot-sources-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 12px;
+	padding-top: 10px;
+	border-top: 1px solid #e2e8f0;
+}
+
+.source-card {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	background-color: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	padding: 8px 12px;
+	max-width: 220px;
+	min-width: 130px;
+	text-decoration: none;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.source-card:hover {
+	background-color: #ffffff;
+	border-color: #cbd5e1;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.source-card-header {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.source-favicon {
+	width: 14px;
+	height: 14px;
+	border-radius: 3px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+
+.source-domain {
+	font-size: 11px;
+	font-weight: 600;
+	color: #64748b;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.source-title {
+	font-size: 12px;
+	font-weight: 500;
+	color: #1e293b;
+	line-height: 1.3;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
