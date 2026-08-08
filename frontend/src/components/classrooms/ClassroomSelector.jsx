@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Chevron } from '../shared/icons'
 import './ClassroomSelector.css'
 
 export default function ClassroomSelector({
@@ -50,15 +51,7 @@ export default function ClassroomSelector({
 								: 'No classrooms created yet'}
 						</span>
 						<span className="custom-dropdown-chevron">
-							{isDropdownOpen ? (
-								<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-									<path d="m280-400 200-200 200 200H280Z" />
-								</svg>
-							) : (
-								<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-									<path d="M480-360 280-560h400L480-360Z" />
-								</svg>
-							)}
+							<Chevron open={isDropdownOpen} />
 						</span>
 					</button>
 					{isDropdownOpen && sections.length > 0 && (

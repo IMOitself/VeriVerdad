@@ -1,8 +1,8 @@
 .roster-card {
-	background: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 12px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-card);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -15,7 +15,7 @@
 	flex-wrap: wrap;
 	gap: 12px;
 	padding: 16px 20px;
-	border-bottom: 1px solid #e2e8f0;
+	border-bottom: 1px solid var(--color-border);
 	background: #fafcfe;
 }
 
@@ -28,22 +28,22 @@
 .roster-title {
 	font-size: 16px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0;
 }
 
 .roster-subtitle {
 	font-size: 12px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	margin: 4px 0 0 0;
 }
 
 .roster-count-badge {
 	font-size: 12px;
-	background: #e2e8f0;
+	background: var(--color-border);
 	color: #475569;
 	padding: 2px 8px;
-	border-radius: 12px;
+	border-radius: var(--radius-lg);
 	font-weight: 600;
 }
 
@@ -54,23 +54,23 @@
 }
 
 .roster-search-input {
-	background: #ffffff;
+	background: var(--color-surface);
 	border: 1px solid #cbd5e1;
 	padding: 7px 12px;
 	border-radius: 6px;
 	font-size: 12px;
 	outline: none;
-	color: #1e293b;
+	color: var(--color-text);
 	width: 180px;
 }
 
 .roster-search-input:focus {
-	border-color: #2c3e50;
+	border-color: var(--color-primary);
 }
 
 .btn-enroll-primary {
-	background: #2c3e50;
-	color: #ffffff;
+	background: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
 	border-radius: 6px;
 	padding: 7px 14px;
@@ -80,7 +80,7 @@
 }
 
 .btn-enroll-primary:hover {
-	background: #1a252f;
+	background: var(--color-primary-hover);
 }
 
 .roster-table-container {
@@ -95,14 +95,14 @@
 }
 
 .classrooms-table th {
-	background: #f8fafc;
-	color: #64748b;
+	background: var(--color-bg);
+	color: var(--color-text-muted);
 	font-size: 11px;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	padding: 12px 18px;
-	border-bottom: 1px solid #e2e8f0;
+	border-bottom: 1px solid var(--color-border);
 }
 
 .classrooms-table td {
@@ -129,8 +129,8 @@
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
-	background: #2c3e50;
-	color: #ffffff;
+	background: var(--color-primary);
+	color: var(--color-surface);
 	font-size: 12px;
 	font-weight: 700;
 	display: flex;
@@ -141,11 +141,11 @@
 
 .student-name {
 	font-weight: 600;
-	color: #1e293b;
+	color: var(--color-text);
 }
 
 .cell-muted {
-	color: #64748b;
+	color: var(--color-text-muted);
 }
 
 .badge-pill-group {
@@ -161,18 +161,18 @@
 	color: #1d4ed8;
 	border: 1px solid #bfdbfe;
 	padding: 2px 6px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 }
 
 .badge-empty-tag {
 	font-size: 12px;
-	color: #94a3b8;
+	color: var(--color-text-faint);
 	font-style: italic;
 }
 
 .badge-more-tag {
 	font-size: 11px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	font-weight: 600;
 }
 
@@ -194,7 +194,7 @@
 	background: transparent;
 	border: 1px solid #fecaca;
 	color: #dc2626;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	padding: 4px 10px;
 	font-size: 11px;
 	font-weight: 600;
@@ -208,7 +208,7 @@
 .cell-empty-state {
 	text-align: center;
 	padding: 40px 16px;
-	color: #64748b;
+	color: var(--color-text-muted);
 }
 
 .empty-roster-action {
@@ -219,8 +219,8 @@
 }
 
 .btn-enroll-empty {
-	background: #2c3e50;
-	color: #ffffff;
+	background: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
 	border-radius: 6px;
 	padding: 7px 16px;
@@ -230,5 +230,5 @@
 }
 
 .btn-enroll-empty:hover {
-	background: #1a252f;
+	background: var(--color-primary-hover);
 }

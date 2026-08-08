@@ -1,6 +1,6 @@
 .landing-pillars {
 	padding: 80px 32px;
-	background-color: #f8fafc;
+	background-color: var(--color-bg);
 	display: flex;
 	justify-content: center;
 	box-sizing: border-box;
@@ -19,7 +19,7 @@
 	font-size: 32px;
 	line-height: 40px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	text-align: center;
 	text-wrap: balance;
 	margin: 0;
@@ -30,10 +30,10 @@
 	flex-direction: column;
 	gap: 0;
 	width: 100%;
-	border: 1px solid #e2e8f0;
-	border-radius: 8px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
 	overflow: hidden;
-	background-color: #ffffff;
+	background-color: var(--color-surface);
 }
 
 .pillar-item {
@@ -41,7 +41,7 @@
 	align-items: baseline;
 	gap: 24px;
 	padding: 16px 24px;
-	border-bottom: 1px solid #e2e8f0;
+	border-bottom: 1px solid var(--color-border);
 }
 
 .pillar-item:last-child {
@@ -51,7 +51,7 @@
 .pillar-name {
 	font-size: 16px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	min-width: 96px;
 	flex-shrink: 0;
 }

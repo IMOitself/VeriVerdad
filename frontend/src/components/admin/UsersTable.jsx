@@ -36,7 +36,7 @@ export default function UsersTable({
 							</td>
 							<td>
 								{user.section ? (
-									<span className="section-badge">
+									<span className="section-badge chip chip--blue">
 										{user.section.name} ({user.section.code})
 									</span>
 								) : (

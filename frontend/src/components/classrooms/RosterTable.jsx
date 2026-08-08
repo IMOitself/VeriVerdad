@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Pagination from '../shared/Pagination'
+import usePagination from '../../hooks/usePagination'
 import './RosterTable.css'
 
 const ROSTER_PER_PAGE = 6
@@ -11,7 +12,13 @@ export default function RosterTable({
 	onRemoveStudent
 }) {
 	const [search, setSearch] = useState('')
-	const [page, setPage] = useState(1)
+
+	const filtered = students.filter(
+		(s) =>
+			s.username?.toLowerCase().includes(search.toLowerCase()) ||
+			s.email?.toLowerCase().includes(search.toLowerCase())
+	)
+	const { page, setPage, totalPages, pageItems } = usePagination(filtered, ROSTER_PER_PAGE)
 
 	useEffect(
 		function () {
@@ -19,15 +26,6 @@ export default function RosterTable({
 		},
 		[search, students.length]
 	)
-
-	const filtered = students.filter(
-		(s) =>
-			s.username?.toLowerCase().includes(search.toLowerCase()) ||
-			s.email?.toLowerCase().includes(search.toLowerCase())
-	)
-	const totalPages = Math.ceil(filtered.length / ROSTER_PER_PAGE) || 1
-	const startIdx = (page - 1) * ROSTER_PER_PAGE
-	const pageItems = filtered.slice(startIdx, startIdx + ROSTER_PER_PAGE)
 
 	return (
 		<div className="roster-card">
@@ -83,7 +81,7 @@ export default function RosterTable({
 										<div className="badge-pill-group">
 											{student.badges && student.badges.length > 0 ? (
 												student.badges.slice(0, 3).map((b) => (
-													<span key={b.id} className="badge-tag" title={b.name}>
+													<span key={b.id} className="badge-tag chip chip--blue" title={b.name}>
 														{b.name}
 													</span>
 												))
@@ -98,7 +96,7 @@ export default function RosterTable({
 										</div>
 									</td>
 									<td>
-										<span className="status-badge-active">Enrolled</span>
+										<span className="status-badge-active chip chip--green">Enrolled</span>
 									</td>
 									<td className="text-right">
 										<button

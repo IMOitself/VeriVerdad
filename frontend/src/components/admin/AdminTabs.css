@@ -21,16 +21,16 @@
 	margin-bottom: -2px;
 	font-size: 13px;
 	font-weight: 600;
-	color: #64748b;
+	color: var(--color-text-muted);
 	cursor: pointer;
 }
 
 .admin-tab-btn:hover {
-	color: #1e293b;
+	color: var(--color-text);
 }
 
 .admin-tab-btn.active {
-	color: #2c3e50;
-	border-bottom-color: #2c3e50;
+	color: var(--color-primary);
+	border-bottom-color: var(--color-primary);
 	font-weight: 700;
 }

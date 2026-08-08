@@ -1,12 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Pagination from '../shared/Pagination'
+import usePagination from '../../hooks/usePagination'
+import '../admin/AdminTable.css'
 import './ClassroomAuditTable.css'
 
 const ITEMS_PER_PAGE = 10
 
 export default function ClassroomAuditTable({ students = [] }) {
-	const [currentPage, setCurrentPage] = useState(1)
-	const totalPages = Math.max(1, Math.ceil(students.length / ITEMS_PER_PAGE))
+	const {
+		page: currentPage,
+		setPage: setCurrentPage,
+		totalPages,
+		pageItems: currentStudents
+	} = usePagination(students, ITEMS_PER_PAGE)
 
 	useEffect(
 		function () {
@@ -14,9 +20,6 @@ export default function ClassroomAuditTable({ students = [] }) {
 		},
 		[students.length]
 	)
-
-	const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-	const currentStudents = students.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
 	return (
 		<div className="audit-card">
@@ -69,7 +72,7 @@ export default function ClassroomAuditTable({ students = [] }) {
 													student.badges.map((b) => (
 														<span
 															key={b.id}
-															className="badge-pill"
+															className="badge-pill chip chip--blue"
 															title={b.description || b.name}
 														>
 															{b.name}
@@ -81,7 +84,7 @@ export default function ClassroomAuditTable({ students = [] }) {
 											</div>
 										</td>
 										<td>
-											<span className="status-badge active">Enrolled</span>
+											<span className="status-badge active chip chip--green">Enrolled</span>
 										</td>
 									</tr>
 								)

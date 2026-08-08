@@ -17,7 +17,7 @@ export default function SectionStatusBanner({ role, assignedSection, taughtSecti
 						</svg>
 						<span>
 							Classroom Section: <strong>{assignedSection.name}</strong>{' '}
-							<span className="section-code-pill-sm">
+							<span className="section-code-pill-sm chip chip--mono">
 								{assignedSection.code}
 							</span>
 						</span>
@@ -58,7 +58,7 @@ export default function SectionStatusBanner({ role, assignedSection, taughtSecti
 							taughtSections.map((sec) => (
 								<span key={sec.id} className="teacher-section-badge-sm">
 									{sec.name}{' '}
-									<span className="section-code-pill-sm">
+									<span className="section-code-pill-sm chip chip--mono">
 										{sec.code}
 									</span>
 								</span>

@@ -2,27 +2,20 @@ import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router'
 import LogoutButton from '../shared/LogoutButton'
 import { getProfile } from '../../api.js'
+import useCurrentUser from '../../hooks/useCurrentUser'
 import './Sidebar.css'
 
 export default function Sidebar() {
+	const [user] = useCurrentUser()
 	const [isCollapsed, setIsCollapsed] = useState(function () {
 		return localStorage.getItem('sidebar_collapsed') === 'true'
 	})
 
 	const [userData, setUserData] = useState(function () {
-		const cachedUser = localStorage.getItem('user')
-		if (cachedUser) {
-			try {
-				const parsed = JSON.parse(cachedUser)
-				return {
-					username: parsed.username || 'User',
-					role: parsed.role || 'student'
-				}
-			} catch (e) {
-				return { username: 'User', role: 'student' }
-			}
+		return {
+			username: user?.username || 'User',
+			role: user?.role || 'student'
 		}
-		return { username: 'User', role: 'student' }
 	})
 
 	useEffect(function () {

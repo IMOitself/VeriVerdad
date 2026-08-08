@@ -1,7 +1,7 @@
 .gauge-card {
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 8px;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
 	padding: 24px;
 	display: flex;
 	flex-direction: column;
@@ -12,7 +12,7 @@
 .gauge-label {
 	font-size: 16px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0 0 16px 0;
 	align-self: flex-start;
 }
@@ -34,7 +34,7 @@
 .gauge-value {
 	font-size: 32px;
 	font-weight: 800;
-	color: #1e293b;
+	color: var(--color-text);
 	margin-top: -10px;
 }
 

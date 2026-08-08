@@ -4,11 +4,11 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 16px;
-	background: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 12px;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
 	padding: 16px 20px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	box-shadow: var(--shadow-card);
 }
 
 .classrooms-dropdown-group {
@@ -24,7 +24,7 @@
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
-	color: #64748b;
+	color: var(--color-text-muted);
 }
 
 .custom-dropdown-container {
@@ -38,20 +38,20 @@
 	justify-content: space-between;
 	gap: 12px;
 	width: 100%;
-	background: #f8fafc;
+	background: var(--color-bg);
 	border: 1px solid #cbd5e1;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	padding: 8px 12px;
 	font-size: 14px;
 	font-weight: 600;
-	color: #1e293b;
+	color: var(--color-text);
 	cursor: pointer;
 	text-align: left;
 }
 
 .custom-dropdown-trigger:hover:not(:disabled) {
 	background: #eef2f6;
-	border-color: #94a3b8;
+	border-color: var(--color-text-faint);
 }
 
 .custom-dropdown-trigger:disabled {
@@ -75,7 +75,7 @@
 .custom-dropdown-chevron svg {
 	width: 20px;
 	height: 20px;
-	fill: #64748b;
+	fill: var(--color-text-muted);
 }
 
 .custom-dropdown-menu {
@@ -84,9 +84,9 @@
 	left: 0;
 	right: 0;
 	min-width: 240px;
-	background: #ffffff;
+	background: var(--color-surface);
 	border: 1px solid #cbd5e1;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 	z-index: 50;
 	max-height: 240px;
@@ -110,7 +110,7 @@
 }
 
 .custom-dropdown-option:hover {
-	background: #e2e8f0;
+	background: var(--color-border);
 }
 
 .custom-dropdown-option.active {
@@ -119,17 +119,17 @@
 }
 
 .option-name {
-	color: #1e293b;
+	color: var(--color-text);
 	font-weight: 600;
 }
 
 .option-code {
 	font-family: monospace;
 	font-size: 11px;
-	color: #64748b;
-	background: #e2e8f0;
+	color: var(--color-text-muted);
+	background: var(--color-border);
 	padding: 2px 6px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 }
 
 .classrooms-quick-stats {
@@ -155,14 +155,14 @@
 
 .quick-code-btn .code-label {
 	font-size: 11px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	font-weight: 600;
 }
 
 .quick-code-btn code {
 	font-family: monospace;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 }
 
 .quick-code-btn:hover {
@@ -174,12 +174,12 @@
 	top: -24px;
 	left: 50%;
 	transform: translateX(-50%);
-	background: #1e293b;
-	color: #ffffff;
+	background: var(--color-text);
+	color: var(--color-surface);
 	font-size: 10px;
 	font-weight: 600;
 	padding: 2px 6px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	white-space: nowrap;
 }
 
@@ -187,8 +187,8 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 5px;
-	background: #f8fafc;
-	border: 1px solid #e2e8f0;
+	background: var(--color-bg);
+	border: 1px solid var(--color-border);
 	padding: 6px 10px;
 	border-radius: 6px;
 	font-size: 12px;
@@ -196,12 +196,12 @@
 }
 
 .info-label {
-	color: #94a3b8;
+	color: var(--color-text-faint);
 	font-weight: 500;
 }
 
 .info-value {
-	color: #1e293b;
+	color: var(--color-text);
 	font-weight: 600;
 }
 
@@ -212,10 +212,10 @@
 }
 
 .btn-primary-action {
-	background: #2c3e50;
-	color: #ffffff;
+	background: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	padding: 9px 16px;
 	font-size: 13px;
 	font-weight: 600;
@@ -224,14 +224,14 @@
 }
 
 .btn-primary-action:hover {
-	background: #1a252f;
+	background: var(--color-primary-hover);
 }
 
 .btn-outline-action {
-	background: #ffffff;
+	background: var(--color-surface);
 	border: 1px solid #cbd5e1;
 	color: #334155;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	padding: 8px 14px;
 	font-size: 12px;
 	font-weight: 600;
@@ -240,14 +240,14 @@
 
 .btn-outline-action:hover {
 	background: #eef2f6;
-	border-color: #94a3b8;
+	border-color: var(--color-text-faint);
 }
 
 .btn-danger-outline {
 	background: #fef2f2;
 	border: 1px solid #fecaca;
 	color: #dc2626;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	padding: 8px 14px;
 	font-size: 12px;
 	font-weight: 600;

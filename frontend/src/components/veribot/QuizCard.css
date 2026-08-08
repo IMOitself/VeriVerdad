@@ -11,13 +11,13 @@
 .quiz-step-count {
 	font-size: 12px;
 	font-weight: 700;
-	color: #64748b;
+	color: var(--color-text-muted);
 }
 
 .inline-quiz-box {
-	background-color: #f8fafc;
+	background-color: var(--color-bg);
 	border: 1px solid #cbd5e1;
-	border-radius: 12px;
+	border-radius: var(--radius-lg);
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
@@ -28,13 +28,13 @@
 	font-size: 11px;
 	font-weight: 700;
 	letter-spacing: 0.05em;
-	color: #64748b;
+	color: var(--color-text-muted);
 }
 
 .inline-quiz-box h3 {
 	font-size: 15px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0;
 }
 
@@ -50,26 +50,26 @@
 	align-items: center;
 	gap: 12px;
 	padding: 12px 16px;
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 8px;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
 	font-size: 13px;
-	color: #1e293b;
+	color: var(--color-text);
 	text-align: left;
 	cursor: pointer;
 }
 
 .inline-opt:hover {
 	opacity: 0.8;
-	border-color: #2c3e50;
+	border-color: var(--color-primary);
 }
 
 .opt-key {
 	width: 22px;
 	height: 22px;
-	border-radius: 4px;
-	background-color: #2c3e50;
-	color: #ffffff;
+	border-radius: var(--radius-sm);
+	background-color: var(--color-primary);
+	color: var(--color-surface);
 	font-weight: 700;
 	font-size: 11px;
 	display: flex;
@@ -79,9 +79,9 @@
 }
 
 .quiz-complete-card {
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 12px;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
 	padding: 24px;
 	text-align: center;
 }
@@ -89,22 +89,22 @@
 .quiz-complete-card h3 {
 	font-size: 18px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0 0 8px 0;
 }
 
 .quiz-complete-card p {
 	font-size: 14px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	margin: 0 0 16px 0;
 }
 
 .btn-finish-quiz {
 	padding: 8px 20px;
-	background-color: #2c3e50;
-	color: #ffffff;
+	background-color: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	font-size: 13px;
 	font-weight: 600;
 	cursor: pointer;

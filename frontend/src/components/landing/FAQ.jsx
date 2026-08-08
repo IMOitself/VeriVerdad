@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Chevron } from '../shared/icons'
 import './FAQ.css'
 
 export default function FAQ() {
@@ -43,27 +44,7 @@ export default function FAQ() {
 								>
 									<span className="faq-question-text">{faq.q}</span>
 									<span className="faq-icon">
-										{isOpen ? (
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												height="24px"
-												viewBox="0 -960 960 960"
-												width="24px"
-												fill="#1f1f1f"
-											>
-												<path d="m280-400 200-200 200 200H280Z" />
-											</svg>
-										) : (
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												height="24px"
-												viewBox="0 -960 960 960"
-												width="24px"
-												fill="#1f1f1f"
-											>
-												<path d="M480-360 280-560h400L480-360Z" />
-											</svg>
-										)}
+										<Chevron open={isOpen} />
 									</span>
 								</button>
 								{isOpen && <p className="faq-answer">{faq.a}</p>}

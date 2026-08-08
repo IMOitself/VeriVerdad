@@ -30,7 +30,7 @@ export default function SectionsTable({
 							<tr key={sec.id}>
 								<td className="username-cell">{sec.name}</td>
 								<td>
-									<span className="section-code-pill">{sec.code}</span>
+									<span className="section-code-pill chip chip--mono">{sec.code}</span>
 								</td>
 								<td>
 									{sec.teacher ? (

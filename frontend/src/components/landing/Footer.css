@@ -1,7 +1,7 @@
 .landing-footer {
 	padding: 64px 32px 32px 32px;
-	background-color: #2c3e50;
-	color: #94a3b8;
+	background-color: var(--color-primary);
+	color: var(--color-text-faint);
 	box-sizing: border-box;
 }
 
@@ -23,7 +23,7 @@
 .footer-brand {
 	font-size: 16px;
 	font-weight: 700;
-	color: #ffffff;
+	color: var(--color-surface);
 	letter-spacing: 0.05em;
 	margin: 0;
 }
@@ -31,14 +31,14 @@
 .footer-tagline {
 	font-size: 16px;
 	line-height: 24px;
-	color: #94a3b8;
+	color: var(--color-text-faint);
 	margin: 0;
 }
 
 .footer-heading {
 	font-size: 16px;
 	font-weight: 600;
-	color: #ffffff;
+	color: var(--color-surface);
 	margin: 0;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .footer-links a {
-	color: #94a3b8;
+	color: var(--color-text-faint);
 	text-decoration: none;
 	font-size: 16px;
 	transition: color 0.15s ease-in-out;
@@ -65,7 +65,7 @@
 .footer-text {
 	font-size: 16px;
 	line-height: 24px;
-	color: #94a3b8;
+	color: var(--color-text-faint);
 	margin: 0;
 }
 
@@ -74,5 +74,5 @@
 	margin: 16px auto 0 auto;
 	text-align: center;
 	font-size: 16px;
-	color: #64748b;
+	color: var(--color-text-muted);
 }

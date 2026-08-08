@@ -1,7 +1,7 @@
 .bias-card {
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 8px;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
 	padding: 24px;
 	display: flex;
 	flex-direction: column;
@@ -11,13 +11,13 @@
 .bias-card h3 {
 	font-size: 16px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0 0 4px 0;
 }
 
 .bias-subtitle {
 	font-size: 13px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	margin: 0 0 20px 0;
 }
 
@@ -28,9 +28,9 @@
 
 .bias-stat-box {
 	flex: 1;
-	background-color: #f8fafc;
-	border: 1px solid #e2e8f0;
-	border-radius: 8px;
+	background-color: var(--color-bg);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
@@ -40,11 +40,11 @@
 .bias-number {
 	font-size: 24px;
 	font-weight: 800;
-	color: #2c3e50;
+	color: var(--color-primary);
 }
 
 .bias-label {
 	font-size: 12px;
 	font-weight: 600;
-	color: #64748b;
+	color: var(--color-text-muted);
 }

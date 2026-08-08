@@ -64,7 +64,7 @@
 	font-weight: 700;
 	background-color: rgba(0, 0, 0, 0.06);
 	padding: 2px 6px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	margin-left: 2px;
 }
 
@@ -87,7 +87,7 @@
 .teacher-banner-label svg {
 	width: 16px;
 	height: 16px;
-	fill: #2c3e50;
+	fill: var(--color-primary);
 }
 
 .teacher-sections-pills {
@@ -111,7 +111,7 @@
 
 .teacher-section-badge-sm.empty {
 	background-color: #f1f5f9;
-	border-color: #e2e8f0;
-	color: #64748b;
+	border-color: var(--color-border);
+	color: var(--color-text-muted);
 	font-weight: normal;
 }
