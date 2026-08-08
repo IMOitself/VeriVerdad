@@ -1,4 +1,4 @@
-import './StatCard.css';
+import './StatCard.css'
 
 export default function StatCard({ label, value }) {
 	return (
@@ -6,5 +6,5 @@ export default function StatCard({ label, value }) {
 			<h3>{label}</h3>
 			<p>{value}</p>
 		</div>
-	);
+	)
 }
