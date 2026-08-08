@@ -1,0 +1,31 @@
+.role-badge {
+	padding: 3px 8px;
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.role-badge.student {
+	background-color: #e0f2fe;
+	color: #0369a1;
+}
+
+.role-badge.teacher {
+	background-color: #fef3c7;
+	color: #b45309;
+}
+
+.role-badge.admin {
+	background-color: #fce7f3;
+	color: #be185d;
+}
+
+.section-badge {
+	font-size: 11px;
+	font-weight: 600;
+	background-color: #eff6ff;
+	color: #1d4ed8;
+	padding: 3px 8px;
+	border-radius: 4px;
+}
