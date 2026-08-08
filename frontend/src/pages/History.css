@@ -12,7 +12,6 @@
 
 .history-wrapper {
 	width: 100%;
-	max-width: 780px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
