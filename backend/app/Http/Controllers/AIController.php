@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Gemini\Data\Content;
-use Gemini\Data\GoogleSearch;
-use Gemini\Data\Tool;
 
 class AIController extends Controller
 {
 	private const REQUIRED_FIELDS = ['summary', 'ground_truth_verdict'];
 
-	public function processAI(string $prompt, ?Content $systemInstruction = null, string $searchQuery = ''): ?array
+	public function processAI(string $prompt, ?string $systemInstruction = null, string $searchQuery = ''): ?array
 	{
 		$cleanedQuery = $this->cleanSearchQuery($searchQuery ?: $prompt);
 		$tavily = $this->searchTavily($cleanedQuery);
@@ -24,8 +21,7 @@ class AIController extends Controller
 			? "TODAY'S CURRENT DATE: {$todayStr} ({$todayDate})\n\nREAL-TIME WEB SEARCH RESULTS:\n{$tavily['context']}\n\nIMPORTANT VERIFICATION INSTRUCTION: Always compare the publication date of evidence against the claim date. Sources published before the claim date or marked [OUTDATED] cannot verify current claims.\n\n{$prompt}"
 			: "TODAY'S CURRENT DATE: {$todayStr} ({$todayDate})\n\n{$prompt}";
 
-		return $this->processGemini($enrichedPrompt, $systemInstruction, $tavily['sources'])
-			?? $this->processGroq($enrichedPrompt, $systemInstruction, $cleanedQuery, $tavily['sources']);
+		return $this->processGroq($enrichedPrompt, $systemInstruction, $cleanedQuery, $tavily['sources']);
 	}
 
 	public function cleanSearchQuery(string $query): string
@@ -48,7 +44,7 @@ class AIController extends Controller
 
 		if ($keyCount === 0) return ['context' => null, 'sources' => []];
 
-		$startIndex = Cache::increment('ai_tavily_key_index') % $keyCount;
+		$startIndex = $this->getRotatingStartIndex('ai_tavily_key_index', $keyCount);
 
 		for ($i = 0; $i < $keyCount; $i++) {
 			$keyIndex = ($startIndex + $i) % $keyCount;
@@ -203,78 +199,23 @@ class AIController extends Controller
 		];
 	}
 
-	public function processGemini(string $prompt, ?Content $systemInstruction = null, array $tavilySources = []): ?array
-	{
-		$keys = config('gemini.api_keys', []);
-		$keyCount = count($keys);
-
-		if ($keyCount === 0) return null;
-
-		$startIndex = Cache::increment('ai_gemini_key_index') % $keyCount;
-
-		$models = [
-			'gemini-2.0-flash',
-			'gemini-2.0-flash-lite',
-			'gemini-flash-latest',
-		];
-
-		for ($i = 0; $i < $keyCount; $i++) {
-			$keyIndex = ($startIndex + $i) % $keyCount;
-			$apiKey = $keys[$keyIndex];
-
-			foreach ($models as $modelName) {
-				try {
-					$client = \Gemini::factory()->withApiKey($apiKey)->make();
-
-					$generativeModel = $client->generativeModel(model: $modelName)
-						->withTool(new Tool(googleSearch: GoogleSearch::from()));
-
-					if ($systemInstruction !== null) {
-						$generativeModel->withSystemInstruction($systemInstruction);
-					}
-
-					$response = $generativeModel->generateContent($prompt);
-					$rawText = $response->text();
-
-					$groundingSources = [];
-					foreach ($response->candidates[0]->groundingMetadata?->groundingChunks ?? [] as $chunk) {
-						if ($chunk->web !== null) {
-							$groundingSources[] = ['title' => $chunk->web->title, 'url' => $chunk->web->uri];
-						}
-					}
-
-					$effectiveSources = !empty($groundingSources) ? $groundingSources : $tavilySources;
-					$normalized = $this->extractAndNormalizeJson($rawText, $effectiveSources);
-
-					if ($normalized !== null) {
-						return $normalized;
-					}
-				} catch (\Throwable) {
-					usleep(100000);
-					continue;
-				}
-			}
-		}
-
-		return null;
-	}
-
-	public function processGroq(string $prompt, ?Content $systemInstruction = null, string $searchQuery = '', array $tavilySources = []): ?array
+	public function processGroq(string $prompt, ?string $systemInstruction = null, string $searchQuery = '', array $tavilySources = []): ?array
 	{
 		$keys = config('groq.api_keys', []);
 		$keyCount = count($keys);
 
 		if ($keyCount === 0) return null;
 
-		$startIndex = Cache::increment('ai_groq_key_index') % $keyCount;
+		$startIndex = $this->getRotatingStartIndex('ai_groq_key_index', $keyCount);
 
 		$models = [
 			config('groq.default_model', 'llama-3.3-70b-versatile'),
 			'llama-3.1-8b-instant',
 		];
 
-		$systemText = $systemInstruction?->parts[0]->text
-			?? (file_exists(resource_path('prompts/Veribot.md')) ? file_get_contents(resource_path('prompts/Veribot.md')) : '');
+		$systemText = !empty($systemInstruction)
+			? $systemInstruction
+			: (file_exists(resource_path('prompts/Veribot.md')) ? file_get_contents(resource_path('prompts/Veribot.md')) : '');
 
 		$baseUrl = config('groq.base_url', 'https://api.groq.com/openai/v1');
 		$timeout = config('groq.request_timeout', 30);
@@ -319,5 +260,10 @@ class AIController extends Controller
 		}
 
 		return null;
+	}
+
+	private function getRotatingStartIndex(string $cacheKey, int $keyCount): int
+	{
+		return Cache::increment($cacheKey) % $keyCount;
 	}
 }
