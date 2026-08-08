@@ -1,8 +1,8 @@
 .page-layout {
 	display: flex;
 	min-height: 100vh;
-	background-color: #f8fafc;
-	color: #1e293b;
+	background-color: var(--color-bg);
+	color: var(--color-text);
 	width: 100%;
 	box-sizing: border-box;
 }
