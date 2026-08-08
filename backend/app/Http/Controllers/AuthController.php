@@ -13,21 +13,23 @@ class AuthController extends Controller
 	public function register(RegisterRequest $request)
 	{
 		$validated = $request->validated();
+		$validated['role'] = $validated['role'] ?? 'student';
 
 		$user = User::create($validated);
+		$user->load(['badges', 'section:id,name,code', 'taughtSections:id,name,code,teacher_id']);
 		$token = $user->createToken('auth-token');
 
 		return response()->json([
 			'user' => $user,
 			'token' => $token->plainTextToken,
-		],201);
+		], 201);
 	}
 
 	public function login(LoginRequest $request)
 	{
 		$validated = $request->validated();
 
-		$user = User::where('email', $validated['email'])->first();
+		$user = User::with(['badges', 'section:id,name,code', 'taughtSections:id,name,code,teacher_id'])->where('email', $validated['email'])->first();
 
 		if (! $user || ! Hash::check($validated['password'], $user->password)) {
 			return response()->json([
