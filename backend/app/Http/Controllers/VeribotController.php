@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Veribot;
 use Illuminate\Http\Request;
-use Gemini\Data\Content;
 
 class VeribotController extends Controller
 {
@@ -16,12 +15,12 @@ class VeribotController extends Controller
 		$this->aiController = $aiController;
 	}
 
-	private function getSystemInstruction(string $currentDate, string $currentYear): Content
+	private function getSystemInstruction(string $currentDate, string $currentYear): string
 	{
 		$promptPath = resource_path('prompts/Veribot.md');
 		$masterPrompt = file_exists($promptPath) ? file_get_contents($promptPath) : '';
 
-		return Content::parse("{$masterPrompt}\n\n## Dynamic Date Context\nToday is {$currentDate} ({$currentYear}). Always evaluate news, weather, and claims relative to this current date and year. Sources published before the claim date CANNOT verify it.");
+		return "{$masterPrompt}\n\n## Dynamic Date Context\nToday is {$currentDate} ({$currentYear}). Always evaluate news, weather, and claims relative to this current date and year. Sources published before the claim date CANNOT verify it.";
 	}
 
 	public function analyze(Request $request)
@@ -31,7 +30,6 @@ class VeribotController extends Controller
 		]);
 
 		$inputQuery = trim($request->input('input_query'));
-		$user = $request->user();
 
 		try {
 			$currentDate = date('F j, Y');
@@ -49,7 +47,7 @@ class VeribotController extends Controller
 				], 503);
 			}
 
-			$userId = $user?->id ?? User::value('id') ?? 1;
+			$userId = $this->resolveUserId($request);
 
 			$veribot = Veribot::create([
 				'user_id'       => $userId,
@@ -115,7 +113,7 @@ class VeribotController extends Controller
 
 	public function history(Request $request)
 	{
-		$userId = $request->user()?->id ?? User::value('id') ?? 1;
+		$userId = $this->resolveUserId($request);
 
 		$history = Veribot::where('user_id', $userId)
 			->latest()
@@ -167,5 +165,10 @@ class VeribotController extends Controller
 			'success' => true,
 			'message' => 'Verification history record deleted successfully.',
 		]);
+	}
+
+	private function resolveUserId(Request $request): int
+	{
+		return $request->user()?->id ?? User::value('id') ?? 1;
 	}
 }
