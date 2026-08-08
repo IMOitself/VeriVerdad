@@ -17,27 +17,22 @@ class DatabaseSeeder extends Seeder
 			[
 				'name'        => 'Currency',
 				'description' => 'Mastered checking dates, timelines, and information freshness.',
-				'icon'        => 'calendar',
 			],
 			[
 				'name'        => 'Relevance',
 				'description' => 'Mastered evaluating topic fit and audience context.',
-				'icon'        => 'filter',
 			],
 			[
 				'name'        => 'Authority',
 				'description' => 'Mastered verifying author credentials and official primary sources.',
-				'icon'        => 'badge-check',
 			],
 			[
 				'name'        => 'Accuracy',
 				'description' => 'Mastered cross-referencing claims and verifying factual evidence.',
-				'icon'        => 'check-circle',
 			],
 			[
 				'name'        => 'Purpose',
 				'description' => 'Mastered detecting bias, emotional manipulation, and author intent.',
-				'icon'        => 'eye',
 			],
 		];
 
@@ -46,5 +41,7 @@ class DatabaseSeeder extends Seeder
 		}
 
 		$this->call(AdminSeeder::class);
+		$this->call(StudentSeeder::class);
+		$this->call(SectionSeeder::class);
 	}
 }
