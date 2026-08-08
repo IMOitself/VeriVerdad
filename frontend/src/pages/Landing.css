@@ -2,8 +2,8 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background-color: #ffffff;
-	color: #1e293b;
+	background-color: var(--color-surface);
+	color: var(--color-text);
 	width: 100%;
 	box-sizing: border-box;
 }

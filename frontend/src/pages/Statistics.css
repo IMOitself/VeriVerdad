@@ -30,13 +30,13 @@
 	border: 1px solid #fecaca;
 	color: #dc2626;
 	padding: 12px 18px;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	font-size: 14px;
 }
 
 .btn-retry-stats {
 	background-color: #dc2626;
-	color: #ffffff;
+	color: var(--color-surface);
 	border: none;
 	border-radius: 6px;
 	padding: 6px 14px;

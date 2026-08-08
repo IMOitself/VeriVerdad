@@ -1,3 +1,4 @@
+import '../styles/PageLayout.css'
 import './Home.css'
 import Sidebar from '../components/dashboard/Sidebar'
 

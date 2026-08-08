@@ -10,6 +10,8 @@ import {
 	deleteSection,
 	logout,
 } from '../api.js'
+import useCurrentUser from '../hooks/useCurrentUser'
+import usePagination from '../hooks/usePagination'
 import './Admin.css'
 import Sidebar from '../components/dashboard/Sidebar'
 import ConfirmModal from '../components/shared/ConfirmModal'
@@ -27,9 +29,7 @@ export default function Admin() {
 	const [sections, setSections] = useState([])
 	const [error, setError] = useState('')
 
-	const [userPage, setUserPage] = useState(1)
-	const [sectionPage, setSectionPage] = useState(1)
-
+	const [currentUser] = useCurrentUser()
 	const [selectedUserId, setSelectedUserId] = useState(null)
 	const [editingUser, setEditingUser] = useState(null)
 	const [isAddUserOpen, setIsAddUserOpen] = useState(false)
@@ -37,14 +37,6 @@ export default function Admin() {
 	const [selectedSectionId, setSelectedSectionId] = useState(null)
 	const [isAddSectionOpen, setIsAddSectionOpen] = useState(false)
 	const [editingSection, setEditingSection] = useState(null)
-
-	const currentUser = (function () {
-		try {
-			return JSON.parse(localStorage.getItem('user'))
-		} catch (e) {
-			return null
-		}
-	})()
 
 	useEffect(function () {
 		loadData()
@@ -69,22 +61,19 @@ export default function Admin() {
 		(u) => u.role === 'teacher' || u.role === 'admin'
 	)
 
-	const totalUserPages = Math.max(1, Math.ceil(users.length / ITEMS_PER_PAGE))
-	const startUserIdx = (userPage - 1) * ITEMS_PER_PAGE
-	const paginatedUsers = users.slice(
-		startUserIdx,
-		startUserIdx + ITEMS_PER_PAGE
-	)
+	const {
+		page: userPage,
+		setPage: setUserPage,
+		totalPages: totalUserPages,
+		pageItems: paginatedUsers
+	} = usePagination(users, ITEMS_PER_PAGE)
 
-	const totalSectionPages = Math.max(
-		1,
-		Math.ceil(sections.length / ITEMS_PER_PAGE)
-	)
-	const startSecIdx = (sectionPage - 1) * ITEMS_PER_PAGE
-	const paginatedSections = sections.slice(
-		startSecIdx,
-		startSecIdx + ITEMS_PER_PAGE
-	)
+	const {
+		page: sectionPage,
+		setPage: setSectionPage,
+		totalPages: totalSectionPages,
+		pageItems: paginatedSections
+	} = usePagination(sections, ITEMS_PER_PAGE)
 
 	async function handleConfirmDeleteUser() {
 		if (!selectedUserId) return

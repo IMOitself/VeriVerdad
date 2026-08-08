@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { getHistory, deleteVeribotSession } from '../api.js'
+import '../styles/PageLayout.css'
 import './History.css'
 import Sidebar from '../components/dashboard/Sidebar'
 

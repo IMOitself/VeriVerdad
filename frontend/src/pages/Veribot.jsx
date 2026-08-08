@@ -5,6 +5,7 @@ import {
 	submitVeribotQuiz,
 	deleteVeribotSession,
 } from '../api.js'
+import '../styles/PageLayout.css'
 import './Veribot.css'
 import Sidebar from '../components/dashboard/Sidebar'
 import VeribotTopBar from '../components/veribot/VeribotTopBar'

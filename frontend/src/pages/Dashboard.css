@@ -1,8 +1,8 @@
 .dashboard-page {
 	display: flex;
 	min-height: 100vh;
-	background-color: #f8fafc;
-	color: #1e293b;
+	background-color: var(--color-bg);
+	color: var(--color-text);
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -24,7 +24,7 @@
 }
 
 .hero-card {
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	padding: 32px;
 	display: flex;
 	flex-direction: column;
@@ -33,9 +33,9 @@
 
 .hero-card1 {
 	flex: 1.4;
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	color: #2c3e50;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	color: var(--color-primary);
 	justify-content: space-between;
 	gap: 16px;
 }
@@ -45,7 +45,7 @@
 	font-weight: 700;
 	line-height: 40px;
 	letter-spacing: -0.02em;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0;
 }
 
@@ -65,10 +65,10 @@
 
 .btn-primary {
 	padding: 10px 24px;
-	background-color: #2c3e50;
-	color: #ffffff;
+	background-color: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
@@ -81,9 +81,9 @@
 .btn-secondary {
 	padding: 10px 20px;
 	background-color: transparent;
-	color: #2c3e50;
-	border: 1px solid #2c3e50;
-	border-radius: 8px;
+	color: var(--color-primary);
+	border: 1px solid var(--color-primary);
+	border-radius: var(--radius-md);
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
@@ -95,27 +95,27 @@
 
 .hero-card2 {
 	flex: 1;
-	background-color: #2c3e50;
-	color: #ffffff;
+	background-color: var(--color-primary);
+	color: var(--color-surface);
 	text-align: center;
 	justify-content: space-between;
 	align-items: center;
 	gap: 16px;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 }
 
 .hero-card2 h3 {
 	font-size: 12px;
 	font-weight: 700;
 	letter-spacing: 0.08em;
-	color: #94a3b8;
+	color: var(--color-text-faint);
 	margin: 0;
 }
 
 .hero-card2 p {
 	font-size: 15px;
 	line-height: 24px;
-	color: #e2e8f0;
+	color: var(--color-border);
 	margin: 0;
 	font-style: italic;
 }
@@ -130,7 +130,7 @@
 	width: 36px;
 	height: 36px;
 	border-radius: 50%;
-	background-color: #ffffff;
+	background-color: var(--color-surface);
 	object-fit: cover;
 }
 
@@ -150,7 +150,7 @@
 .col-title {
 	font-size: 18px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0;
 }
 

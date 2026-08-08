@@ -1,7 +1,7 @@
 .account-card {
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 8px;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
 	padding: 24px;
 	max-width: 600px;
 	margin: 0 auto;
@@ -10,13 +10,13 @@
 .account-card h2 {
 	font-size: 20px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0 0 4px 0;
 }
 
 .account-subtitle {
 	font-size: 14px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	margin: 0 0 24px 0;
 }
 
@@ -66,67 +66,34 @@
 	border: 1px solid #cbd5e1;
 	border-radius: 6px;
 	font-size: 14px;
-	color: #1e293b;
-	background-color: #ffffff;
+	color: var(--color-text);
+	background-color: var(--color-surface);
 }
 
 .form-group input:disabled {
-	background-color: #f8fafc;
-	color: #94a3b8;
+	background-color: var(--color-bg);
+	color: var(--color-text-faint);
 	cursor: not-allowed;
 }
 
 .divider {
 	border: 0;
-	border-top: 1px solid #e2e8f0;
+	border-top: 1px solid var(--color-border);
 	margin: 12px 0;
 }
 
 .account-card h3 {
 	font-size: 16px;
 	font-weight: 600;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0 0 8px 0;
-}
-
-.password-wrapper {
-	position: relative;
-	display: flex;
-	align-items: center;
-}
-
-.password-wrapper input {
-	flex: 1;
-	padding-right: 44px;
-}
-
-.toggle-password {
-	position: absolute;
-	right: 12px;
-	background: none;
-	border: none;
-	cursor: pointer;
-	padding: 4px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 0.6;
-}
-
-.toggle-password:hover {
-	opacity: 0.8;
-}
-
-.toggle-password svg {
-	width: 20px;
-	height: 20px;
 }
 
 .btn-save {
 	align-self: flex-start;
 	padding: 10px 20px;
-	background-color: #2c3e50;
-	color: #ffffff;
+	background-color: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
 	border-radius: 6px;
 	font-size: 14px;

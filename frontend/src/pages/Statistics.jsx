@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useCurrentUser from '../hooks/useCurrentUser'
 import { getStats, getUsers, getSections, getProfile } from '../api.js'
 import './Statistics.css'
 import Sidebar from '../components/dashboard/Sidebar'
@@ -33,13 +34,7 @@ export default function Statistics() {
 	const [allStudents, setAllStudents] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState('')
-	const [user, setUser] = useState(function () {
-		try {
-			return JSON.parse(localStorage.getItem('user'))
-		} catch (e) {
-			return null
-		}
-	})
+	const [user, setUser] = useCurrentUser()
 
 	useEffect(function () {
 		async function fetchInitialData() {

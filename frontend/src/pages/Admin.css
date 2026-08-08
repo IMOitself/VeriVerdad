@@ -1,17 +1,17 @@
 .admin-card {
-	background-color: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 12px;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
 	padding: 24px;
 	width: 100%;
 	box-sizing: border-box;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	box-shadow: var(--shadow-card);
 }
 
 .admin-card h2 {
 	font-size: 20px;
 	font-weight: 700;
-	color: #1e293b;
+	color: var(--color-text);
 	margin: 0 0 4px 0;
 }
 
@@ -31,14 +31,14 @@
 
 .admin-subtitle {
 	font-size: 13px;
-	color: #64748b;
+	color: var(--color-text-muted);
 	margin: 0;
 }
 
 .btn-add-user {
 	padding: 8px 16px;
-	background-color: #2c3e50;
-	color: #ffffff;
+	background-color: var(--color-primary);
+	color: var(--color-surface);
 	border: none;
 	border-radius: 6px;
 	font-size: 13px;

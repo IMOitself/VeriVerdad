@@ -9,6 +9,8 @@ import {
 	updateUser,
 	getProfile,
 } from '../api.js'
+import useCurrentUser from '../hooks/useCurrentUser'
+import '../styles/PageLayout.css'
 import './Classrooms.css'
 import Sidebar from '../components/dashboard/Sidebar'
 import ConfirmModal from '../components/shared/ConfirmModal'
@@ -18,13 +20,7 @@ import EnrollStudentModal from '../components/classrooms/EnrollStudentModal'
 import SectionFormModal from '../components/classrooms/SectionFormModal'
 
 export default function Classrooms() {
-	const [user, setUser] = useState(function () {
-		try {
-			return JSON.parse(localStorage.getItem('user'))
-		} catch (e) {
-			return null
-		}
-	})
+	const [user, setUser] = useCurrentUser()
 	const [sections, setSections] = useState([])
 	const [allUsers, setAllUsers] = useState([])
 	const [selectedSectionId, setSelectedSectionId] = useState(null)

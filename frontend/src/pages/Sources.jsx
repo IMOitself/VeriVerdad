@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getBadges, getProfile } from '../api.js'
+import '../styles/PageLayout.css'
 import './Sources.css'
 import Sidebar from '../components/dashboard/Sidebar'
 import BadgeCard from '../components/dashboard/BadgeCard'
