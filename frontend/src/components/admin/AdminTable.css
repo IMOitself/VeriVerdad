@@ -1,0 +1,77 @@
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+
+.admin-table th,
+.admin-table td {
+	padding: 12px 14px;
+	text-align: left;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.admin-table th {
+	background-color: #f8fafc;
+	color: #475569;
+	font-weight: 600;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.admin-actions-cell {
+	display: flex;
+	gap: 8px;
+}
+
+.username-cell {
+	font-weight: 600;
+	color: #1e293b;
+}
+
+.btn-edit {
+	padding: 5px 12px;
+	background-color: #2c3e50;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-edit:hover {
+	opacity: 0.85;
+}
+
+.btn-delete {
+	padding: 5px 12px;
+	background-color: #fef2f2;
+	border: 1px solid #fecaca;
+	color: #dc2626;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-delete:hover {
+	background-color: #ef4444;
+	color: #ffffff;
+	border-color: #ef4444;
+}
+
+.text-muted {
+	color: #94a3b8;
+	font-size: 12px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.py-4 {
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
