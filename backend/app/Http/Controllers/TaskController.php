@@ -3,149 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-	public function index(Request $request)
+	public function index()
 	{
-		$user = $request->user();
-
-		$tasks = Task::with(['teacher'])
-			->latest()
-			->get()
-			->map(function ($task) use ($user) {
-				$userId = $user?->id ?? User::value('id');
-				$submission = $task->students()->where('user_id', $userId)->first();
-				$task->is_completed = (bool)$submission;
-				$task->user_score = $submission?->pivot?->score;
-				return $task;
-			});
-
-		return response()->json([
-			'success' => true,
-			'data'    => $tasks,
-		]);
+		$tasks = Task::with(['teacher', 'section'])->get();
+		return response()->json(['data' => $tasks], 200);
 	}
 
 	public function store(Request $request)
 	{
-		$request->validate([
-			'title'            => 'required|string|max:255',
-			'target_media_url' => 'required|string',
-			'due_date'         => 'required|date',
+		$validated = $request->validate([
+			'teacher_id' => 'required|exists:users,id',
+			'section_id' => 'nullable|exists:sections,id',
+			'title' => 'required|string|max:255',
+			'target_media_url' => 'required|url',
+			'due_date' => 'required|date',
 		]);
 
-		$teacherId = $request->user()?->id ?? User::value('id') ?? 1;
+		$task = Task::create($validated);
 
-		$task = Task::create([
-			'teacher_id'       => $teacherId,
-			'title'            => $request->input('title'),
-			'target_media_url' => $request->input('target_media_url'),
-			'due_date'         => $request->input('due_date'),
-		]);
-
-		return response()->json([
-			'success' => true,
-			'data'    => $task,
-		], 201);
+		return response()->json(['data' => $task], 201);
 	}
 
-	public function show($id, Request $request)
+	public function show(string $id)
 	{
-		$task = Task::with(['teacher'])->findOrFail($id);
-		$user = $request->user();
-
-		$userId = $user?->id ?? User::value('id');
-		$submission = $task->students()->where('user_id', $userId)->first();
-		$task->is_completed = (bool)$submission;
-		$task->user_score = $submission?->pivot?->score;
-
-		return response()->json([
-			'success' => true,
-			'data'    => $task,
-		]);
+		$task = Task::with(['teacher', 'section'])->find($id);
+		if (!$task) {
+			return response()->json(['message' => 'Task not found'], 404);
+		}
+		return response()->json(['data' => $task], 200);
 	}
 
-	public function submit($id, Request $request)
+	public function update(Request $request, string $id)
 	{
-		$request->validate([
-			'score' => 'required|integer|min:0|max:100',
+		$task = Task::find($id);
+		if (!$task) {
+			return response()->json(['message' => 'Task not found'], 404);
+		}
+
+		$validated = $request->validate([
+			'teacher_id' => 'sometimes|exists:users,id',
+			'section_id' => 'sometimes|nullable|exists:sections,id',
+			'title' => 'sometimes|string|max:255',
+			'target_media_url' => 'sometimes|url',
+			'due_date' => 'sometimes|date',
 		]);
 
-		$task = Task::findOrFail($id);
-		$userId = $request->user()?->id ?? User::value('id') ?? 1;
-		$score = (int)$request->input('score');
+		$task->update($validated);
 
-		$task->students()->syncWithoutDetaching([
-			$userId => ['score' => $score],
-		]);
-
-		$newBadges = BadgeController::evaluateBadges($userId);
-
-		return response()->json([
-			'success'    => true,
-			'task_id'    => $task->id,
-			'score'      => $score,
-			'new_badges' => $newBadges,
-		]);
+		return response()->json(['data' => $task], 200);
 	}
 
-	public function update($id, Request $request)
+	public function destroy(string $id)
 	{
-		$task = Task::findOrFail($id);
+		$task = Task::find($id);
+		if (!$task) {
+			return response()->json(['message' => 'Task not found'], 404);
+		}
 
-		$request->validate([
-			'title'            => 'sometimes|string|max:255',
-			'target_media_url' => 'sometimes|string',
-			'due_date'         => 'sometimes|date',
-		]);
-
-		$task->update($request->only(['title', 'target_media_url', 'due_date']));
-
-		return response()->json([
-			'success' => true,
-			'data'    => $task,
-		]);
-	}
-
-	public function destroy($id)
-	{
-		$task = Task::findOrFail($id);
 		$task->delete();
-
-		return response()->json([
-			'success' => true,
-			'message' => 'Task deleted successfully.',
-		]);
-	}
-
-	public function submissions($id)
-	{
-		$task = Task::findOrFail($id);
-		$submissions = $task->students()->withPivot('score', 'created_at', 'updated_at')->get();
-
-		return response()->json([
-			'success' => true,
-			'task'    => [
-				'id'    => $task->id,
-				'title' => $task->title,
-			],
-			'data'    => $submissions,
-		]);
-	}
-
-	public function unsubmit($id, Request $request)
-	{
-		$task = Task::findOrFail($id);
-		$userId = $request->input('student_id') ?? $request->user()?->id;
-
-		$task->students()->detach($userId);
-
-		return response()->json([
-			'success' => true,
-			'message' => 'Task submission cleared.',
-		]);
+		return response()->json(['message' => 'Task deleted successfully'], 200);
 	}
 }
