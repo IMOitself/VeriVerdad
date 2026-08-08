@@ -13,7 +13,7 @@ class AuthController extends Controller
 	public function register(RegisterRequest $request)
 	{
 		$validated = $request->validated();
-		$validated['role'] = $validated['role'] ?? 'student';
+		$validated['role'] = 'student';
 
 		$user = User::create($validated);
 		$user->load(['badges', 'section:id,name,code', 'taughtSections:id,name,code,teacher_id']);
