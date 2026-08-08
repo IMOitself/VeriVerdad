@@ -14,6 +14,7 @@ return new class extends Migration
 		Schema::create('veribots', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+			$table->string('title')->default('Verification Session');
 			$table->text('input_query');
 			$table->integer('quiz_score');
 			$table->boolean('bias_detected');
