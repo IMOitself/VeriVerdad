@@ -43,6 +43,10 @@ class SectionController extends Controller
 
 		$isTeacher = $authUser && $authUser->role === 'teacher';
 
+		if ($request->has('code')) {
+			$request->merge(['code' => strtoupper(trim((string)$request->input('code', '')))]);
+		}
+
 		$validated = $request->validate([
 			'name'       => 'required|string|max:255',
 			'code'       => 'required|string|max:50|unique:sections,code',
@@ -108,6 +112,10 @@ class SectionController extends Controller
 			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
 		}
 
+		if ($request->has('code')) {
+			$request->merge(['code' => strtoupper(trim((string)$request->input('code', '')))]);
+		}
+
 		$validated = $request->validate([
 			'name'       => 'sometimes|string|max:255',
 			'code'       => 'sometimes|string|max:50|unique:sections,code,' . $section->id,
@@ -149,6 +157,7 @@ class SectionController extends Controller
 			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
 		}
 
+		$section->students()->update(['section_id' => null]);
 		$section->delete();
 		return response()->json(['success' => true, 'message' => 'Section deleted successfully'], 200);
 	}
