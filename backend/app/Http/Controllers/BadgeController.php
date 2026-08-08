@@ -29,6 +29,11 @@ class BadgeController extends Controller
 
 	public function store(Request $request)
 	{
+		$authUser = $request->user();
+		if (!$authUser || $authUser->role !== 'admin') {
+			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
+		}
+
 		$request->validate([
 			'name'        => 'required|string|unique:badges,name|max:100',
 			'description' => 'required|string',
@@ -55,6 +60,11 @@ class BadgeController extends Controller
 
 	public function update(Request $request, int $id)
 	{
+		$authUser = $request->user();
+		if (!$authUser || $authUser->role !== 'admin') {
+			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
+		}
+
 		$badge = Badge::findOrFail($id);
 
 		$request->validate([
@@ -71,8 +81,13 @@ class BadgeController extends Controller
 		]);
 	}
 
-	public function destroy(int $id)
+	public function destroy(Request $request, int $id)
 	{
+		$authUser = $request->user();
+		if (!$authUser || $authUser->role !== 'admin') {
+			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
+		}
+
 		$badge = Badge::findOrFail($id);
 		$badge->delete();
 
@@ -84,6 +99,11 @@ class BadgeController extends Controller
 
 	public function attachUser(Request $request, int $id)
 	{
+		$authUser = $request->user();
+		if (!$authUser || $authUser->role !== 'admin') {
+			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
+		}
+
 		$request->validate([
 			'user_id' => 'required|exists:users,id',
 		]);
@@ -102,6 +122,11 @@ class BadgeController extends Controller
 
 	public function detachUser(Request $request, int $id)
 	{
+		$authUser = $request->user();
+		if (!$authUser || $authUser->role !== 'admin') {
+			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
+		}
+
 		$request->validate([
 			'user_id' => 'required|exists:users,id',
 		]);
