@@ -1,0 +1,138 @@
+.audit-card {
+	background-color: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.audit-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 16px;
+}
+
+.audit-card h3 {
+	font-size: 16px;
+	font-weight: 700;
+	color: #1e293b;
+	margin: 0 0 2px 0;
+}
+
+.audit-subtitle {
+	font-size: 12px;
+	color: #64748b;
+	margin: 0;
+}
+
+.audit-roster-count {
+	font-size: 12px;
+	color: #475569;
+	background-color: #f8fafc;
+	padding: 5px 10px;
+	border-radius: 6px;
+	border: 1px solid #e2e8f0;
+}
+
+.audit-table-container {
+	overflow-x: auto;
+	width: 100%;
+	min-height: 480px;
+}
+
+.audit-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+
+.audit-table th,
+.audit-table td {
+	padding: 10px 14px;
+	text-align: left;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.audit-table th {
+	background-color: #f8fafc;
+	color: #64748b;
+	font-weight: 700;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.student-name {
+	font-weight: 600;
+	color: #1e293b;
+}
+
+.student-email {
+	color: #64748b;
+	font-size: 12px;
+}
+
+.audit-section-badge {
+	font-size: 11px;
+	font-weight: 600;
+	color: #1d4ed8;
+	background-color: #eff6ff;
+	padding: 2px 6px;
+	border-radius: 4px;
+	display: inline-block;
+}
+
+.audit-unassigned-badge {
+	font-size: 11px;
+	color: #94a3b8;
+	background-color: #f1f5f9;
+	padding: 2px 6px;
+	border-radius: 4px;
+	display: inline-block;
+}
+
+.badges-list-cell {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	align-items: center;
+}
+
+.badge-pill {
+	font-size: 11px;
+	font-weight: 600;
+	color: #1d4ed8;
+	background-color: #eff6ff;
+	border: 1px solid #bfdbfe;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+.status-badge {
+	font-size: 11px;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 10px;
+}
+
+.status-badge.active {
+	background-color: #ecfdf5;
+	color: #065f46;
+}
+
+.text-muted {
+	color: #94a3b8;
+	font-size: 12px;
+}
+
+.audit-empty-cell {
+	text-align: center;
+	color: #64748b;
+	padding: 30px;
+}
