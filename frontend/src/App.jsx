@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router'
 import Landing from './pages/Landing'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -31,7 +31,8 @@ const router = createBrowserRouter([
 			{ path: '/account', element: <Account /> },
 			{ path: '/admin', element: <Admin /> }
 		]
-	}
+	},
+	{ path: '*', element: <Navigate to="/" /> }
 ])
 
 export default function App() {
