@@ -1,0 +1,260 @@
+.classrooms-control-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 16px;
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 16px 20px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.classrooms-dropdown-group {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 220px;
+}
+
+.dropdown-field-label {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #64748b;
+}
+
+.custom-dropdown-container {
+	position: relative;
+	width: 100%;
+}
+
+.custom-dropdown-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	background: #f8fafc;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	padding: 8px 12px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #1e293b;
+	cursor: pointer;
+	text-align: left;
+}
+
+.custom-dropdown-trigger:hover:not(:disabled) {
+	background: #eef2f6;
+	border-color: #94a3b8;
+}
+
+.custom-dropdown-trigger:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.selected-section-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.custom-dropdown-chevron {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.custom-dropdown-chevron svg {
+	width: 20px;
+	height: 20px;
+	fill: #64748b;
+}
+
+.custom-dropdown-menu {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	min-width: 240px;
+	background: #ffffff;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+	z-index: 50;
+	max-height: 240px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	padding: 4px;
+}
+
+.custom-dropdown-option {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+	border: none;
+	background: transparent;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 13px;
+	text-align: left;
+}
+
+.custom-dropdown-option:hover {
+	background: #e2e8f0;
+}
+
+.custom-dropdown-option.active {
+	background: #dbeafe;
+	font-weight: 700;
+}
+
+.option-name {
+	color: #1e293b;
+	font-weight: 600;
+}
+
+.option-code {
+	font-family: monospace;
+	font-size: 11px;
+	color: #64748b;
+	background: #e2e8f0;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+.classrooms-quick-stats {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.quick-code-btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: #f1f5f9;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	padding: 6px 10px;
+	cursor: pointer;
+	font-size: 12px;
+	color: #334155;
+}
+
+.quick-code-btn .code-label {
+	font-size: 11px;
+	color: #64748b;
+	font-weight: 600;
+}
+
+.quick-code-btn code {
+	font-family: monospace;
+	font-weight: 700;
+	color: #1e293b;
+}
+
+.quick-code-btn:hover {
+	background: #dbe2ea;
+}
+
+.tooltip-tag {
+	position: absolute;
+	top: -24px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #1e293b;
+	color: #ffffff;
+	font-size: 10px;
+	font-weight: 600;
+	padding: 2px 6px;
+	border-radius: 4px;
+	white-space: nowrap;
+}
+
+.quick-info-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-size: 12px;
+	color: #475569;
+}
+
+.info-label {
+	color: #94a3b8;
+	font-weight: 500;
+}
+
+.info-value {
+	color: #1e293b;
+	font-weight: 600;
+}
+
+.classrooms-top-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.btn-primary-action {
+	background: #2c3e50;
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	padding: 9px 16px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.btn-primary-action:hover {
+	background: #1a252f;
+}
+
+.btn-outline-action {
+	background: #ffffff;
+	border: 1px solid #cbd5e1;
+	color: #334155;
+	border-radius: 8px;
+	padding: 8px 14px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-outline-action:hover {
+	background: #eef2f6;
+	border-color: #94a3b8;
+}
+
+.btn-danger-outline {
+	background: #fef2f2;
+	border: 1px solid #fecaca;
+	color: #dc2626;
+	border-radius: 8px;
+	padding: 8px 14px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-danger-outline:hover {
+	background: #fee2e2;
+	border-color: #fca5a5;
+}
