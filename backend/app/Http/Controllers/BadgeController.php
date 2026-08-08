@@ -37,10 +37,9 @@ class BadgeController extends Controller
 		$request->validate([
 			'name'        => 'required|string|unique:badges,name|max:100',
 			'description' => 'required|string',
-			'icon'        => 'required|string|max:100',
 		]);
 
-		$badge = Badge::create($request->only(['name', 'description', 'icon']));
+		$badge = Badge::create($request->only(['name', 'description']));
 
 		return response()->json([
 			'success' => true,
@@ -70,10 +69,9 @@ class BadgeController extends Controller
 		$request->validate([
 			'name'        => 'sometimes|string|max:100|unique:badges,name,' . $badge->id,
 			'description' => 'sometimes|string',
-			'icon'        => 'sometimes|string|max:100',
 		]);
 
-		$badge->update($request->only(['name', 'description', 'icon']));
+		$badge->update($request->only(['name', 'description']));
 
 		return response()->json([
 			'success' => true,
@@ -154,21 +152,18 @@ class BadgeController extends Controller
 		$hasPerfectScore = Veribot::where('user_id', $userId)->where('quiz_score', 100)->exists();
 		$hasIdentifiedBias = Veribot::where('user_id', $userId)->where('bias_detected', true)->exists();
 
-		// Pillar 1: Currency (Awarded on first verification check)
 		$currency = Badge::where('name', 'Currency')->first();
 		if ($currency && !in_array($currency->id, $unlockedBadgeIds) && $veribotCount >= 1) {
 			$user->badges()->attach($currency->id);
 			$newlyAwarded[] = $currency;
 		}
 
-		// Pillar 2: Relevance (Awarded after 2 completed quizzes)
 		$relevance = Badge::where('name', 'Relevance')->first();
 		if ($relevance && !in_array($relevance->id, $unlockedBadgeIds) && $veribotCount >= 2) {
 			$user->badges()->attach($relevance->id);
 			$newlyAwarded[] = $relevance;
 		}
 
-		// Pillar 3: Authority (Awarded on high scoring quiz >= 80%)
 		$authority = Badge::where('name', 'Authority')->first();
 		$hasHighScore = Veribot::where('user_id', $userId)->where('quiz_score', '>=', 80)->exists();
 		if ($authority && !in_array($authority->id, $unlockedBadgeIds) && $hasHighScore) {
@@ -176,14 +171,12 @@ class BadgeController extends Controller
 			$newlyAwarded[] = $authority;
 		}
 
-		// Pillar 4: Accuracy (Awarded on perfect 100% quiz score)
 		$accuracy = Badge::where('name', 'Accuracy')->first();
 		if ($accuracy && !in_array($accuracy->id, $unlockedBadgeIds) && $hasPerfectScore) {
 			$user->badges()->attach($accuracy->id);
 			$newlyAwarded[] = $accuracy;
 		}
 
-		// Pillar 5: Purpose (Awarded when bias/manipulation is correctly analyzed)
 		$purpose = Badge::where('name', 'Purpose')->first();
 		if ($purpose && !in_array($purpose->id, $unlockedBadgeIds) && $hasIdentifiedBias) {
 			$user->badges()->attach($purpose->id);
