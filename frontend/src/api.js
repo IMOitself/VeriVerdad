@@ -3,7 +3,7 @@ const SECRET_TOKEN = import.meta.env.VITE_SECRET_TOKEN
 
 const headers = {
 	'Content-Type': 'application/json',
-	'X-Secret-Token': SECRET_TOKEN,
+	'X-Secret-Token': SECRET_TOKEN
 }
 
 export async function register(data) {
@@ -11,7 +11,7 @@ export async function register(data) {
 		const response = await fetch(`${API_URL}/api/register`, {
 			method: 'POST',
 			headers,
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -20,7 +20,7 @@ export async function register(data) {
 			return {
 				success: false,
 				message: result.message || 'Something went wrong',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -28,7 +28,7 @@ export async function register(data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -38,7 +38,7 @@ export async function login(data) {
 		const response = await fetch(`${API_URL}/api/login`, {
 			method: 'POST',
 			headers,
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -47,7 +47,7 @@ export async function login(data) {
 			return {
 				success: false,
 				message: result.message || 'Something went wrong',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -55,7 +55,7 @@ export async function login(data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -68,14 +68,14 @@ export async function logout() {
 			method: 'POST',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		if (!response.ok) {
 			return {
 				success: false,
-				message: 'Logout failed',
+				message: 'Logout failed'
 			}
 		}
 
@@ -83,7 +83,7 @@ export async function logout() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -96,8 +96,8 @@ export async function getProfile() {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -106,7 +106,7 @@ export async function getProfile() {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch profile',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -114,7 +114,7 @@ export async function getProfile() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -127,9 +127,9 @@ export async function updateProfile(data) {
 			method: 'PATCH',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -138,7 +138,7 @@ export async function updateProfile(data) {
 			return {
 				success: false,
 				message: result.message || 'Failed to update profile',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -146,7 +146,7 @@ export async function updateProfile(data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -159,8 +159,8 @@ export async function getUsers() {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -169,7 +169,7 @@ export async function getUsers() {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch users',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -177,7 +177,7 @@ export async function getUsers() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -190,9 +190,9 @@ export async function updateUser(id, data) {
 			method: 'PATCH',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -201,7 +201,7 @@ export async function updateUser(id, data) {
 			return {
 				success: false,
 				message: result.message || 'Failed to update user',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -209,7 +209,7 @@ export async function updateUser(id, data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -222,8 +222,8 @@ export async function deleteUser(id) {
 			method: 'DELETE',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -232,7 +232,7 @@ export async function deleteUser(id) {
 			return {
 				success: false,
 				message: result.message || 'Failed to delete user',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -240,7 +240,7 @@ export async function deleteUser(id) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -253,8 +253,8 @@ export async function getTasks() {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -263,7 +263,7 @@ export async function getTasks() {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch tasks',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -271,7 +271,7 @@ export async function getTasks() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -284,9 +284,9 @@ export async function createTask(data) {
 			method: 'POST',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -295,7 +295,7 @@ export async function createTask(data) {
 			return {
 				success: false,
 				message: result.message || 'Failed to create task',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -303,7 +303,7 @@ export async function createTask(data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -316,8 +316,8 @@ export async function getBadges() {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -326,7 +326,7 @@ export async function getBadges() {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch badges',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -334,7 +334,7 @@ export async function getBadges() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -347,8 +347,8 @@ export async function getHistory() {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -357,7 +357,7 @@ export async function getHistory() {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch history',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -365,7 +365,7 @@ export async function getHistory() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -381,8 +381,8 @@ export async function getStats(sectionId = null) {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -391,7 +391,7 @@ export async function getStats(sectionId = null) {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch statistics',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -399,7 +399,7 @@ export async function getStats(sectionId = null) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -407,7 +407,7 @@ export async function getStats(sectionId = null) {
 export async function analyzeVeribot(
 	inputQuery,
 	history = [],
-	veribotId = null,
+	veribotId = null
 ) {
 	try {
 		const token = localStorage.getItem('token')
@@ -416,13 +416,13 @@ export async function analyzeVeribot(
 			method: 'POST',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
 			body: JSON.stringify({
 				input_query: inputQuery,
 				history: history,
-				veribot_id: veribotId || undefined,
-			}),
+				veribot_id: veribotId || undefined
+			})
 		})
 
 		const result = await response.json()
@@ -431,7 +431,7 @@ export async function analyzeVeribot(
 			return {
 				success: false,
 				message: result.message || 'Verification request failed.',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -439,7 +439,7 @@ export async function analyzeVeribot(
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -452,12 +452,12 @@ export async function submitVeribotQuiz(veribotId, answers) {
 			method: 'POST',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
 			body: JSON.stringify({
 				veribot_id: veribotId,
-				answers: answers,
-			}),
+				answers: answers
+			})
 		})
 
 		const result = await response.json()
@@ -465,7 +465,7 @@ export async function submitVeribotQuiz(veribotId, answers) {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Quiz submission failed.',
+				message: result.message || 'Quiz submission failed.'
 			}
 		}
 
@@ -473,7 +473,7 @@ export async function submitVeribotQuiz(veribotId, answers) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -486,8 +486,8 @@ export async function deleteVeribotSession(id) {
 			method: 'DELETE',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -495,7 +495,7 @@ export async function deleteVeribotSession(id) {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Failed to delete chat session',
+				message: result.message || 'Failed to delete chat session'
 			}
 		}
 
@@ -503,7 +503,7 @@ export async function deleteVeribotSession(id) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -512,7 +512,7 @@ export async function getPublicSections() {
 	try {
 		const response = await fetch(`${API_URL}/api/sections-list`, {
 			method: 'GET',
-			headers,
+			headers
 		})
 
 		const result = await response.json()
@@ -520,7 +520,7 @@ export async function getPublicSections() {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Failed to fetch sections',
+				message: result.message || 'Failed to fetch sections'
 			}
 		}
 
@@ -528,7 +528,7 @@ export async function getPublicSections() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -541,8 +541,8 @@ export async function getSections() {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -550,7 +550,7 @@ export async function getSections() {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Failed to fetch sections',
+				message: result.message || 'Failed to fetch sections'
 			}
 		}
 
@@ -558,7 +558,7 @@ export async function getSections() {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -571,9 +571,9 @@ export async function createSection(data) {
 			method: 'POST',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -582,7 +582,7 @@ export async function createSection(data) {
 			return {
 				success: false,
 				message: result.message || 'Failed to create section',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -590,7 +590,7 @@ export async function createSection(data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -603,9 +603,9 @@ export async function updateSection(id, data) {
 			method: 'PATCH',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		})
 
 		const result = await response.json()
@@ -614,7 +614,7 @@ export async function updateSection(id, data) {
 			return {
 				success: false,
 				message: result.message || 'Failed to update section',
-				errors: result.errors || null,
+				errors: result.errors || null
 			}
 		}
 
@@ -622,7 +622,7 @@ export async function updateSection(id, data) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -635,8 +635,8 @@ export async function deleteSection(id) {
 			method: 'DELETE',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -644,7 +644,7 @@ export async function deleteSection(id) {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Failed to delete section',
+				message: result.message || 'Failed to delete section'
 			}
 		}
 
@@ -652,7 +652,7 @@ export async function deleteSection(id) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
@@ -665,8 +665,8 @@ export async function getSectionStats(id) {
 			method: 'GET',
 			headers: {
 				...headers,
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		})
 
 		const result = await response.json()
@@ -674,7 +674,7 @@ export async function getSectionStats(id) {
 		if (!response.ok) {
 			return {
 				success: false,
-				message: result.message || 'Failed to fetch section statistics',
+				message: result.message || 'Failed to fetch section statistics'
 			}
 		}
 
@@ -682,7 +682,7 @@ export async function getSectionStats(id) {
 	} catch (err) {
 		return {
 			success: false,
-			error: 'Check your internet connection',
+			error: 'Check your internet connection'
 		}
 	}
 }
