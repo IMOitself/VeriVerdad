@@ -1,0 +1,66 @@
+.craap-card {
+	background-color: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+.craap-card h3 {
+	font-size: 16px;
+	font-weight: 700;
+	color: #1e293b;
+	margin: 0 0 4px 0;
+}
+
+.craap-subtitle {
+	font-size: 13px;
+	color: #64748b;
+	margin: 0 0 20px 0;
+}
+
+.craap-bars {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.craap-bar-group {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.craap-bar-header {
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+	font-weight: 600;
+	color: #334155;
+	margin-bottom: 6px;
+}
+
+.craap-bar-name {
+	font-weight: 600;
+	color: #334155;
+}
+
+.craap-bar-score {
+	font-weight: 700;
+	color: #2c3e50;
+}
+
+.craap-bar-track {
+	height: 10px;
+	background-color: #f1f5f9;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.craap-bar-fill {
+	height: 100%;
+	background-color: #2c3e50;
+	border-radius: 6px;
+}
