@@ -59,23 +59,28 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, string $id)
 	{
-		$user = \App\Models\User::find($id);
-		if (!$user) {
-			return response()->json(['message' => 'User not found'], 404);
+		$authUser = $request->user();
+		$isAdmin = $authUser && $authUser->role === 'admin';
+		$isSelfWithoutRole = $authUser && (int)$authUser->id === (int)$id && !$request->has('role');
+
+		if (!$isAdmin && !$isSelfWithoutRole) {
+			return response()->json(['message' => 'Unauthorized action.'], 403);
+		}
+
+		$user = $this->findOrFail404(\App\Models\User::class, $id, 'User');
+		if ($user instanceof \Illuminate\Http\JsonResponse) {
+			return $user;
 		}
 
 		$validated = $request->validate([
 			'username' => 'sometimes|string|min:3|max:30|unique:users,username,' . $user->id,
 			'email' => 'sometimes|email|max:254|unique:users,email,' . $user->id,
 			'role' => 'sometimes|in:student,teacher,admin',
+			'section_id' => 'sometimes|nullable|exists:sections,id',
 			'new_password' => 'sometimes|nullable|string|min:8|confirmed',
 		]);
 
-		if (!empty($validated['new_password'])) {
-			$validated['password'] = $validated['new_password'];
-		}
-
-		unset($validated['new_password']);
+		$validated = $this->applyPasswordChange($validated);
 
 		$user->update($validated);
 
@@ -98,11 +103,7 @@ class UserController extends Controller
 
 		$validated = $request->validate($rules);
 		
-		if (isset($validated['new_password'])) {
-			$validated['password'] = $validated['new_password'];
-		}
-		
-		unset($validated['new_password']);
+		$validated = $this->applyPasswordChange($validated);
 		
 		$user->update($validated);
 		
@@ -114,13 +115,29 @@ class UserController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(string $id)
+	public function destroy(Request $request, string $id)
 	{
-		$user = \App\Models\User::find($id);
-		if (!$user) {
-			return response()->json(['message' => 'User not found'], 404);
+		$authUser = $request->user();
+		if (!$authUser || $authUser->role !== 'admin') {
+			return response()->json(['message' => 'Unauthorized action.'], 403);
+		}
+
+		$user = $this->findOrFail404(\App\Models\User::class, $id, 'User');
+		if ($user instanceof \Illuminate\Http\JsonResponse) {
+			return $user;
 		}
 		$user->delete();
 		return response()->json(['message' => 'User deleted successfully'], 200);
+	}
+
+	private function applyPasswordChange(array $validated): array
+	{
+		if (!empty($validated['new_password'])) {
+			$validated['password'] = $validated['new_password'];
+		}
+
+		unset($validated['new_password']);
+
+		return $validated;
 	}
 }
