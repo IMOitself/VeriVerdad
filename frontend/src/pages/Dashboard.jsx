@@ -55,7 +55,7 @@ export default function Dashboard() {
 		fetchDashboardData()
 	}, [])
 
-	const role = user?.role || 'student'
+	const role = user?.role
 	const assignedSection = user?.section
 	const taughtSections = user?.taught_sections || user?.taughtSections || []
 
@@ -63,7 +63,6 @@ export default function Dashboard() {
 		const payload = {
 			title: form.title,
 			target_media_url: form.target_media_url,
-			due_date: form.due_date,
 			section_id: parseInt(form.section_id),
 			teacher_id: user.id
 		}
@@ -140,11 +139,6 @@ export default function Dashboard() {
 												task.section ? task.section.name : 'General Task'
 											}
 											title={task.title}
-											due={
-												task.due_date
-													? new Date(task.due_date).toLocaleDateString()
-													: 'No due date'
-											}
 										/>
 									)
 								})
@@ -190,7 +184,6 @@ export default function Dashboard() {
 					initialValues={{
 						title: '',
 						target_media_url: '',
-						due_date: '',
 						section_id: ''
 					}}
 					sections={sections}
