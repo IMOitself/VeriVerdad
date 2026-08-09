@@ -7,9 +7,21 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$tasks = Task::with(['teacher', 'section'])->get();
+		$authUser = $request->user();
+		if (!$authUser) {
+			return response()->json(['data' => []], 200);
+		}
+
+		$query = Task::with(['teacher', 'section']);
+		if ($authUser->role === 'student') {
+			$query->where('section_id', $authUser->section_id);
+		} elseif ($authUser->role === 'teacher') {
+			$query->where('teacher_id', $authUser->id);
+		}
+
+		$tasks = $query->get();
 		return response()->json(['data' => $tasks], 200);
 	}
 
@@ -21,7 +33,7 @@ class TaskController extends Controller
 		}
 
 		$validated = $request->validate([
-			'teacher_id' => 'required|exists:users,id',
+			'teacher_id' => ['required', \Illuminate\Validation\Rule::exists('users', 'id')->whereIn('role', ['teacher', 'admin'])],
 			'section_id' => 'nullable|exists:sections,id',
 			'title' => 'required|string|max:255',
 			'target_media_url' => 'required|url',
@@ -59,7 +71,7 @@ class TaskController extends Controller
 		}
 
 		$validated = $request->validate([
-			'teacher_id' => 'sometimes|exists:users,id',
+			'teacher_id' => ['sometimes', \Illuminate\Validation\Rule::exists('users', 'id')->whereIn('role', ['teacher', 'admin'])],
 			'section_id' => 'sometimes|nullable|exists:sections,id',
 			'title' => 'sometimes|string|max:255',
 			'target_media_url' => 'sometimes|url',

@@ -13,6 +13,10 @@ class SectionController extends Controller
 	public function index(Request $request)
 	{
 		$authUser = $request->user();
+		if (!$authUser || $authUser->role === 'student') {
+			return response()->json(['success' => false, 'message' => 'Unauthorized action.'], 403);
+		}
+
 		$query = Section::with([
 			'teacher:id,username,email',
 			'students:id,username,email,section_id,role',
@@ -50,7 +54,9 @@ class SectionController extends Controller
 		$validated = $request->validate([
 			'name'       => 'required|string|max:255',
 			'code'       => 'required|string|max:50|unique:sections,code',
-			'teacher_id' => $isTeacher ? 'nullable|exists:users,id' : 'required|exists:users,id',
+			'teacher_id' => $isTeacher 
+				? ['nullable', \Illuminate\Validation\Rule::exists('users', 'id')->whereIn('role', ['teacher', 'admin'])]
+				: ['required', \Illuminate\Validation\Rule::exists('users', 'id')->whereIn('role', ['teacher', 'admin'])],
 		]);
 
 		if ($isTeacher) {
@@ -119,7 +125,7 @@ class SectionController extends Controller
 		$validated = $request->validate([
 			'name'       => 'sometimes|string|max:255',
 			'code'       => 'sometimes|string|max:50|unique:sections,code,' . $section->id,
-			'teacher_id' => 'sometimes|exists:users,id',
+			'teacher_id' => ['sometimes', \Illuminate\Validation\Rule::exists('users', 'id')->whereIn('role', ['teacher', 'admin'])],
 		]);
 
 		if ($authUser && $authUser->role === 'teacher') {

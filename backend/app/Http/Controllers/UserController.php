@@ -9,8 +9,13 @@ class UserController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+		$authUser = $request->user();
+		if (!$authUser || !in_array($authUser->role, ['admin', 'teacher'])) {
+			return response()->json(['message' => 'Unauthorized action.'], 403);
+		}
+
 		$users = \App\Models\User::all();
 		return response()->json(['data' => $users], 200);
 	}
@@ -59,17 +64,23 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, string $id)
 	{
+		$user = $this->findOrFail404(\App\Models\User::class, $id, 'User');
+		if ($user instanceof \Illuminate\Http\JsonResponse) {
+			return $user;
+		}
+
 		$authUser = $request->user();
 		$isAdmin = $authUser && $authUser->role === 'admin';
 		$isSelfWithoutRole = $authUser && (int)$authUser->id === (int)$id && !$request->has('role');
 
-		if (!$isAdmin && !$isSelfWithoutRole) {
-			return response()->json(['message' => 'Unauthorized action.'], 403);
-		}
+		$keys = $request->except(['section_id']);
+		$isTeacherUpdatingStudentSection = $authUser && $authUser->role === 'teacher' 
+			&& $user->role === 'student' 
+			&& $request->has('section_id')
+			&& empty($keys);
 
-		$user = $this->findOrFail404(\App\Models\User::class, $id, 'User');
-		if ($user instanceof \Illuminate\Http\JsonResponse) {
-			return $user;
+		if (!$isAdmin && !$isSelfWithoutRole && !$isTeacherUpdatingStudentSection) {
+			return response()->json(['message' => 'Unauthorized action.'], 403);
 		}
 
 		$validated = $request->validate([
