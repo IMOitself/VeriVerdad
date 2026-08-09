@@ -308,6 +308,38 @@ export async function createTask(data) {
 	}
 }
 
+export async function updateTask(id, data) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/tasks/${id}`, {
+			method: 'PATCH',
+			headers: {
+				...headers,
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(data)
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to update task',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
 export async function getBadges() {
 	try {
 		const token = localStorage.getItem('token')
@@ -326,6 +358,132 @@ export async function getBadges() {
 			return {
 				success: false,
 				message: result.message || 'Failed to fetch badges',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function getBadgesAdmin() {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/badges`, {
+			method: 'GET',
+			headers: {
+				...headers,
+				Authorization: `Bearer ${token}`
+			}
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to fetch badges',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function createBadge(data) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/badges`, {
+			method: 'POST',
+			headers: {
+				...headers,
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(data)
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to create badge',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function updateBadge(id, data) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/badges/${id}`, {
+			method: 'PATCH',
+			headers: {
+				...headers,
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(data)
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to update badge',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
+export async function deleteBadge(id) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/badges/${id}`, {
+			method: 'DELETE',
+			headers: {
+				...headers,
+				Authorization: `Bearer ${token}`
+			}
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to delete badge',
 				errors: result.errors || null
 			}
 		}
@@ -407,7 +565,8 @@ export async function getStats(sectionId = null) {
 export async function analyzeVeribot(
 	inputQuery,
 	history = [],
-	veribotId = null
+	veribotId = null,
+	taskId = null
 ) {
 	try {
 		const token = localStorage.getItem('token')
@@ -421,7 +580,8 @@ export async function analyzeVeribot(
 			body: JSON.stringify({
 				input_query: inputQuery,
 				history: history,
-				veribot_id: veribotId || undefined
+				veribot_id: veribotId || undefined,
+				task_id: taskId || undefined
 			})
 		})
 
