@@ -29,6 +29,7 @@ class VeribotController extends Controller
 	{
 		$request->validate([
 			'input_query' => 'required|string|min:2',
+			'task_id' => 'sometimes|nullable|exists:tasks,id',
 		]);
 
 		$inputQuery = trim($request->input('input_query'));
@@ -53,6 +54,7 @@ class VeribotController extends Controller
 
 			$veribot = Veribot::create([
 				'user_id'       => $userId,
+				'task_id'       => $request->input('task_id'),
 				'input_query'   => $inputQuery,
 				'quiz_score'    => 0,
 				'bias_detected' => $aiResult['bias_detected'] ?? false,
@@ -99,6 +101,13 @@ class VeribotController extends Controller
 		$veribot->update([
 			'quiz_score' => $score,
 		]);
+
+		if ($veribot->task_id) {
+			$task = Task::find($veribot->task_id);
+			if ($task) {
+				$task->students()->updateExistingPivot($veribot->user_id, ['score' => $score]);
+			}
+		}
 
 		$newBadges = BadgeController::evaluateBadges($veribot->user_id);
 
