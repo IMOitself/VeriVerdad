@@ -42,8 +42,8 @@ class StudentSeeder extends Seeder
 			);
 
 			if ($badges->isNotEmpty()) {
-				$takeCount = ($index % 3) + 2;
-				$user->badges()->sync($badges->take($takeCount));
+				$takeCount = rand(1, 4);
+				$user->badges()->sync($badges->random($takeCount));
 			}
 		}
 	}
