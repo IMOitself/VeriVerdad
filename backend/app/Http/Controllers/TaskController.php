@@ -14,7 +14,7 @@ class TaskController extends Controller
 			return response()->json(['data' => []], 200);
 		}
 
-		$query = Task::with(['teacher', 'section']);
+		$query = Task::with(['teacher', 'section', 'students']);
 		if ($authUser->role === 'student') {
 			$query->where('section_id', $authUser->section_id);
 		} elseif ($authUser->role === 'teacher') {
@@ -38,9 +38,22 @@ class TaskController extends Controller
 			'title' => 'required|string|max:255',
 			'target_media_url' => 'required|url',
 			'due_date' => 'required|date',
+			'student_ids' => 'sometimes|array',
+			'student_ids.*' => 'exists:users,id',
 		]);
 
 		$task = Task::create($validated);
+
+		if ($request->has('student_ids')) {
+			$studentIds = $request->input('student_ids');
+			$task->students()->sync(array_fill_keys($studentIds, ['score' => null]));
+		} elseif ($task->section_id) {
+			$studentIds = \App\Models\User::where('section_id', $task->section_id)
+				->where('role', 'student')
+				->pluck('id')
+				->toArray();
+			$task->students()->sync(array_fill_keys($studentIds, ['score' => null]));
+		}
 
 		return response()->json(['data' => $task], 201);
 	}
@@ -76,9 +89,16 @@ class TaskController extends Controller
 			'title' => 'sometimes|string|max:255',
 			'target_media_url' => 'sometimes|url',
 			'due_date' => 'sometimes|date',
+			'student_ids' => 'sometimes|array',
+			'student_ids.*' => 'exists:users,id',
 		]);
 
 		$task->update($validated);
+
+		if ($request->has('student_ids')) {
+			$studentIds = $request->input('student_ids');
+			$task->students()->sync(array_fill_keys($studentIds, ['score' => null]));
+		}
 
 		return response()->json(['data' => $task], 200);
 	}
