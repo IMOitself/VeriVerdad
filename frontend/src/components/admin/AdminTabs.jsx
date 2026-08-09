@@ -4,7 +4,8 @@ export default function AdminTabs({
 	activeTab,
 	onSelectTab,
 	userCount,
-	sectionCount
+	sectionCount,
+	badgeCount
 }) {
 	return (
 		<div className="admin-nav-bar">
@@ -20,6 +21,12 @@ export default function AdminTabs({
 					onClick={() => onSelectTab('sections')}
 				>
 					Classroom Sections ({sectionCount})
+				</button>
+				<button
+					className={`admin-tab-btn ${activeTab === 'badges' ? 'active' : ''}`}
+					onClick={() => onSelectTab('badges')}
+				>
+					Badges ({badgeCount})
 				</button>
 			</div>
 		</div>
