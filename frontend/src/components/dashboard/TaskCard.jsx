@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router'
 import './TaskCard.css'
 
-export default function TaskCard({ task, category, title, due }) {
+export default function TaskCard({ task, category, title }) {
 	const navigate = useNavigate()
 
 	return (
@@ -9,7 +9,6 @@ export default function TaskCard({ task, category, title, due }) {
 			<div className="task-info">
 				<span className="task-category">{category}</span>
 				<h4>{title}</h4>
-				<p>Due: {due}</p>
 			</div>
 			<button 
 				className="btn-task-start"

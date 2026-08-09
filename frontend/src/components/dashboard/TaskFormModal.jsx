@@ -58,17 +58,7 @@ export default function TaskFormModal({
 					/>
 					{errors.target_media_url && <span className="error-text">{errors.target_media_url[0]}</span>}
 				</div>
-				<div className="form-item">
-					<label htmlFor="task_due_date">Due Date</label>
-					<input
-						id="task_due_date"
-						type="date"
-						value={form.due_date}
-						onChange={(e) => setForm({ ...form, due_date: e.target.value })}
-						required
-					/>
-					{errors.due_date && <span className="error-text">{errors.due_date[0]}</span>}
-				</div>
+
 				<div className="form-item">
 					<label htmlFor="task_section_id">Classroom Section</label>
 					<select

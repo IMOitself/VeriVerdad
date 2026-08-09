@@ -37,7 +37,6 @@ class TaskController extends Controller
 			'section_id' => 'nullable|exists:sections,id',
 			'title' => 'required|string|max:255',
 			'target_media_url' => 'required|url',
-			'due_date' => 'required|date',
 			'student_ids' => 'sometimes|array',
 			'student_ids.*' => 'exists:users,id',
 		]);
@@ -88,7 +87,6 @@ class TaskController extends Controller
 			'section_id' => 'sometimes|nullable|exists:sections,id',
 			'title' => 'sometimes|string|max:255',
 			'target_media_url' => 'sometimes|url',
-			'due_date' => 'sometimes|date',
 			'student_ids' => 'sometimes|array',
 			'student_ids.*' => 'exists:users,id',
 		]);
