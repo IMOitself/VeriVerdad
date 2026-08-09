@@ -340,6 +340,37 @@ export async function updateTask(id, data) {
 	}
 }
 
+export async function deleteTask(id) {
+	try {
+		const token = localStorage.getItem('token')
+
+		const response = await fetch(`${API_URL}/api/tasks/${id}`, {
+			method: 'DELETE',
+			headers: {
+				...headers,
+				Authorization: `Bearer ${token}`
+			}
+		})
+
+		const result = await response.json()
+
+		if (!response.ok) {
+			return {
+				success: false,
+				message: result.message || 'Failed to delete task',
+				errors: result.errors || null
+			}
+		}
+
+		return { success: true, ...result }
+	} catch (err) {
+		return {
+			success: false,
+			error: 'Check your internet connection'
+		}
+	}
+}
+
 export async function getBadges() {
 	try {
 		const token = localStorage.getItem('token')
