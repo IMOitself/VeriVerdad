@@ -1,16 +1,19 @@
 import { Link } from 'react-router'
 import { useState, useEffect } from 'react'
-import { getTasks, getBadges, getProfile } from '../api.js'
+import { getTasks, getBadges, getProfile, getSections, createTask } from '../api.js'
 import './Dashboard.css'
 import Sidebar from '../components/dashboard/Sidebar'
 import TaskCard from '../components/dashboard/TaskCard'
 import BadgeCard from '../components/dashboard/BadgeCard'
 import SectionStatusBanner from '../components/dashboard/SectionStatusBanner'
+import TaskFormModal from '../components/dashboard/TaskFormModal'
 
 export default function Dashboard() {
 	const [tasks, setTasks] = useState([])
+	const [sections, setSections] = useState([])
 	const [badges, setBadges] = useState([])
 	const [userBadges, setUserBadges] = useState([])
+	const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
 	const [user, setUser] = useState(function () {
 		const cachedUser = localStorage.getItem('user')
 		if (cachedUser) {
@@ -28,6 +31,11 @@ export default function Dashboard() {
 			const taskRes = await getTasks()
 			if (taskRes.success && taskRes.data) {
 				setTasks(taskRes.data)
+			}
+
+			const secRes = await getSections()
+			if (secRes.success && secRes.data) {
+				setSections(secRes.data)
 			}
 
 			const badgeRes = await getBadges()
@@ -51,18 +59,35 @@ export default function Dashboard() {
 	const assignedSection = user?.section
 	const taughtSections = user?.taught_sections || user?.taughtSections || []
 
+	async function handleCreateTask(form) {
+		const payload = {
+			title: form.title,
+			target_media_url: form.target_media_url,
+			due_date: form.due_date,
+			section_id: parseInt(form.section_id),
+			teacher_id: user.id
+		}
+		const res = await createTask(payload)
+		if (res.success) {
+			setIsAddTaskOpen(false)
+			const taskRes = await getTasks()
+			if (taskRes.success && taskRes.data) setTasks(taskRes.data)
+		}
+		return res
+	}
+
 	return (
 		<div className="dashboard-page">
 			<Sidebar />
-			<div className="dashboard-container">
+			<div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+				<SectionStatusBanner
+					role={role}
+					assignedSection={assignedSection}
+					taughtSections={taughtSections}
+				/>
+				<div className="dashboard-container">
 				<div className="hero-cards">
 					<div className="hero-card hero-card1">
-						<SectionStatusBanner
-							role={role}
-							assignedSection={assignedSection}
-							taughtSections={taughtSections}
-						/>
-
 						<h1>Verify Before You Believe.</h1>
 						<p>
 							Analyze websites, news articles, and social media posts using
@@ -86,21 +111,31 @@ export default function Dashboard() {
 						</p>
 						<div className="pfps">
 							<img src="/logo.png" className="pfp" alt="PFP" />
-							<img src="/logo.png" className="pfp" alt="PFP" />
-							<img src="/logo.png" className="pfp" alt="PFP" />
 						</div>
 					</div>
 				</div>
 
 				<div className="dashboard-grid">
 					<div className="dashboard-col">
-						<h2 className="col-title">Active Assignments</h2>
+						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+							<h2 className="col-title">Active Assignments</h2>
+							{(role === 'teacher' || role === 'admin') && (
+								<button 
+									className="btn-primary" 
+									onClick={() => setIsAddTaskOpen(true)}
+									style={{ marginBottom: '16px' }}
+								>
+									Create Task
+								</button>
+							)}
+						</div>
 						<div className="task-list">
 							{tasks.length > 0 ? (
 								tasks.map(function (task) {
 									return (
 										<TaskCard
 											key={task.id}
+											task={task}
 											category={
 												task.section ? task.section.name : 'General Task'
 											}
@@ -121,30 +156,48 @@ export default function Dashboard() {
 						</div>
 					</div>
 
-					<div className="dashboard-col">
-						<h2 className="col-title">Academic Badges</h2>
-						<div className="badge-list">
-							{badges.length > 0 ? (
-								badges.map(function (badge, index) {
-									const isUnlocked = userBadges.includes(badge.id)
-									return (
-										<BadgeCard
-											key={badge.id || index}
-											number={index + 1}
-											name={badge.name}
-											description={badge.description}
-											unlocked={isUnlocked}
-										/>
-									)
-								})
-							) : (
-								<p style={{ color: '#64748B', fontSize: '14px' }}>
-									No badges found.
-								</p>
-							)}
+					{role === 'student' && (
+						<div className="dashboard-col">
+							<h2 className="col-title">Academic Badges</h2>
+							<div className="badge-list">
+								{badges.length > 0 ? (
+									badges.map(function (badge, index) {
+										const isUnlocked = userBadges.includes(badge.id)
+										return (
+											<BadgeCard
+												key={badge.id || index}
+												number={index + 1}
+												name={badge.name}
+												description={badge.description}
+												unlocked={isUnlocked}
+											/>
+										)
+									})
+								) : (
+									<p style={{ color: '#64748B', fontSize: '14px' }}>
+										No badges found.
+									</p>
+								)}
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
+			</div>
+
+			{isAddTaskOpen && (
+				<TaskFormModal
+					mode="create"
+					initialValues={{
+						title: '',
+						target_media_url: '',
+						due_date: '',
+						section_id: ''
+					}}
+					sections={sections}
+					onSubmit={handleCreateTask}
+					onClose={() => setIsAddTaskOpen(false)}
+				/>
+			)}
 			</div>
 		</div>
 	)
