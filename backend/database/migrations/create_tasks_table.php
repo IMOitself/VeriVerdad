@@ -17,7 +17,6 @@ return new class extends Migration
 			$table->foreignId('section_id')->nullable()->constrained('sections')->nullOnDelete();
 			$table->string('title');
 			$table->text('target_media_url');
-			$table->timestamp('due_date');
 			$table->timestamps();
 		});
 	}
