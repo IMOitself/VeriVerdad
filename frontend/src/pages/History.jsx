@@ -4,10 +4,12 @@ import { getHistory, deleteVeribotSession } from '../api.js'
 import '../styles/PageLayout.css'
 import './History.css'
 import Sidebar from '../components/dashboard/Sidebar'
+import ConfirmModal from '../components/shared/ConfirmModal'
 
 export default function History() {
 	const [historyItems, setHistoryItems] = useState([])
 	const [deletingId, setDeletingId] = useState(null)
+	const [chatToDelete, setChatToDelete] = useState(null)
 	const navigate = useNavigate()
 
 	useEffect(function () {
@@ -24,18 +26,29 @@ export default function History() {
 		navigate('/veribot', { state: { session: item, fromHistory: true } })
 	}
 
-	async function handleDeleteChat(e, id) {
+	function handleDeleteChat(e, id) {
 		e.stopPropagation()
-		if (!window.confirm('Are you sure you want to delete this chat session?')) {
-			return
-		}
+		setChatToDelete(id)
+	}
 
+	async function performDelete() {
+		if (!chatToDelete) return
+
+		const id = chatToDelete
+		setChatToDelete(null)
 		setDeletingId(id)
+
 		const res = await deleteVeribotSession(id)
 		setDeletingId(null)
 
 		if (res.success) {
 			setHistoryItems((prev) => prev.filter((item) => item.id !== id))
+			try {
+				const active = JSON.parse(sessionStorage.getItem('veribot_active_session'))
+				if (active && String(active.currentSessionId) === String(id)) {
+					sessionStorage.removeItem('veribot_active_session')
+				}
+			} catch (e) {}
 		} else {
 			alert(res.message || 'Failed to delete chat session.')
 		}
@@ -120,6 +133,14 @@ export default function History() {
 					</div>
 				</div>
 			</div>
+			
+			<ConfirmModal
+				isOpen={chatToDelete !== null}
+				title="Delete Chat Session"
+				message="Are you sure you want to delete this chat session? This action cannot be undone."
+				onConfirm={performDelete}
+				onCancel={() => setChatToDelete(null)}
+			/>
 		</div>
 	)
 }

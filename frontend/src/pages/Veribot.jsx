@@ -11,6 +11,7 @@ import Sidebar from '../components/dashboard/Sidebar'
 import VeribotTopBar from '../components/veribot/VeribotTopBar'
 import ChatMessage from '../components/veribot/ChatMessage'
 import QuizCard from '../components/veribot/QuizCard'
+import ConfirmModal from '../components/shared/ConfirmModal'
 
 const STORAGE_KEY = 'veribot_active_session'
 
@@ -85,6 +86,7 @@ export default function Veribot() {
 		() => initialSaved?.quizResult || null,
 	)
 	const [submittingQuiz, setSubmittingQuiz] = useState(false)
+	const [chatToDelete, setChatToDelete] = useState(false)
 
 	const messagesEndRef = useRef(null)
 
@@ -177,16 +179,20 @@ export default function Veribot() {
 		setQuizAnswers({})
 		setQuizFinished(false)
 		setQuizResult(null)
+		if (location.state?.session) {
+			navigate(location.pathname, { replace: true, state: {} })
+		}
 	}
 
-	async function handleDeleteCurrentChat() {
+	function handleDeleteCurrentChat() {
 		if (!currentSessionId) return
-		if (!window.confirm('Are you sure you want to delete this chat session?'))
-			return
+		setChatToDelete(true)
+	}
 
+	async function performDelete() {
+		setChatToDelete(false)
 		const res = await deleteVeribotSession(currentSessionId)
 		if (res.success) {
-			window.history.replaceState({}, document.title)
 			handleNewChat()
 		} else {
 			alert(res.message || 'Failed to delete chat session.')
@@ -393,6 +399,14 @@ export default function Veribot() {
 					)}
 				</div>
 			</div>
+			
+			<ConfirmModal
+				isOpen={chatToDelete}
+				title="Delete Chat Session"
+				message="Are you sure you want to delete this chat session? This action cannot be undone."
+				onConfirm={performDelete}
+				onCancel={() => setChatToDelete(false)}
+			/>
 		</div>
 	)
 }
