@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router'
 import './TaskCard.css'
 
-export default function TaskCard({ category, title, due }) {
+export default function TaskCard({ task, category, title, due }) {
+	const navigate = useNavigate()
+
 	return (
 		<div className="task-card">
 			<div className="task-info">
@@ -8,7 +11,14 @@ export default function TaskCard({ category, title, due }) {
 				<h4>{title}</h4>
 				<p>Due: {due}</p>
 			</div>
-			<button className="btn-task-start">Start Task</button>
+			<button 
+				className="btn-task-start"
+				onClick={() => navigate('/veribot', { 
+					state: { prefillUrl: task?.target_media_url, taskId: task?.id } 
+				})}
+			>
+				Start Task
+			</button>
 		</div>
 	)
 }
