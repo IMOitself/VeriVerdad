@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Section;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Veribot;
 use Illuminate\Http\Request;
@@ -165,6 +167,85 @@ class VeribotController extends Controller
 			'success' => true,
 			'message' => 'Verification history record deleted successfully.',
 		]);
+	}
+
+	public function stats(Request $request)
+	{
+		if ($request->has('section_id')) {
+			$sectionController = app(SectionController::class);
+			return $sectionController->stats($request, $request->input('section_id'));
+		}
+
+		$authUser = $request->user();
+		$query = Section::with(['students:id,username,email,section_id,role']);
+
+		if ($authUser && $authUser->role === 'teacher') {
+			$query->where('teacher_id', $authUser->id);
+		} elseif ($authUser && $authUser->role === 'admin') {
+		} else {
+			$query->where('id', -1);
+		}
+
+		$sections = $query->get();
+		$studentIds = collect();
+		$activeTasks = 0;
+
+		foreach ($sections as $section) {
+			$studentIds = $studentIds->merge($section->students->where('role', 'student')->pluck('id'));
+			$activeTasks += Task::where('section_id', $section->id)->count();
+		}
+
+		$studentIds = $studentIds->unique();
+		$enrolledCount = $studentIds->count();
+		$veribots = $studentIds->isNotEmpty() ? Veribot::whereIn('user_id', $studentIds)->get() : collect();
+		$veribotCount = $veribots->count();
+		$avgScore = $veribotCount > 0 ? (int)round($veribots->avg('quiz_score') ?? 0) : 0;
+		$biasCount = $veribots->where('bias_detected', true)->count();
+		$biasRate = $veribotCount > 0 ? (int)round(($biasCount / $veribotCount) * 100) : 0;
+		$clickbaitRate = self::calculateClickbaitRate($veribots, $veribotCount);
+		$craapBreakdown = self::calculateCraapBreakdown($veribots, $studentIds, $enrolledCount, $avgScore);
+
+		return response()->json([
+			'success' => true,
+			'data'    => [
+				'enrolled_students' => $enrolledCount,
+				'class_average'     => $avgScore > 0 ? "{$avgScore}%" : "0%",
+				'links_verified'    => $veribotCount,
+				'active_tasks'      => $activeTasks,
+				'craap_breakdown'   => $craapBreakdown,
+				'bias_rate'         => $biasRate,
+				'clickbait_rate'    => $clickbaitRate,
+			]
+		], 200);
+	}
+
+	public static function calculateClickbaitRate($veribots, $veribotCount)
+	{
+		if ($veribotCount === 0) {
+			return 0;
+		}
+
+		$clickbaitCount = 0;
+		foreach ($veribots as $veribot) {
+			$details = is_string($veribot->details) ? json_decode($veribot->details, true) : $veribot->details;
+			$verdict = $details['ground_truth_verdict'] ?? '';
+			if ($verdict === 'misleading' || $verdict === 'false') {
+				$clickbaitCount++;
+			}
+		}
+
+		return (int)round(($clickbaitCount / $veribotCount) * 100);
+	}
+
+	public static function calculateCraapBreakdown($veribots, $studentIds, $enrolledCount, $avgScore)
+	{
+		return [
+			['name' => 'Currency', 'score' => $avgScore],
+			['name' => 'Relevance', 'score' => $avgScore],
+			['name' => 'Authority', 'score' => $avgScore],
+			['name' => 'Accuracy', 'score' => $avgScore],
+			['name' => 'Purpose', 'score' => $avgScore],
+		];
 	}
 
 	private function resolveUserId(Request $request): int
