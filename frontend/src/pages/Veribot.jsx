@@ -54,7 +54,8 @@ export default function Veribot() {
 		return initialSaved?.messages || []
 	})
 
-	const [inputQuery, setInputQuery] = useState('')
+	const [inputQuery, setInputQuery] = useState(location.state?.prefillUrl || '')
+	const [taskId, setTaskId] = useState(location.state?.taskId || null)
 	const [loading, setLoading] = useState(false)
 	const [currentSessionId, setCurrentSessionId] = useState(function () {
 		if (location.state?.session) {
@@ -213,7 +214,7 @@ export default function Veribot() {
 			text: m.text,
 		}))
 
-		const res = await analyzeVeribot(userText, historyPayload, currentSessionId)
+		const res = await analyzeVeribot(userText, historyPayload, currentSessionId, taskId)
 		setLoading(false)
 
 		if (res.success && res.analysis) {
