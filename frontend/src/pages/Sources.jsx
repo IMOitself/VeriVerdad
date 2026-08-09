@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react'
-import { getBadges, getProfile } from '../api.js'
 import '../styles/PageLayout.css'
 import './Sources.css'
 import Sidebar from '../components/dashboard/Sidebar'
-import BadgeCard from '../components/dashboard/BadgeCard'
-
 const guidelines = [
 	{
 		tag: 'AUTHORITY',
@@ -24,52 +20,10 @@ const guidelines = [
 ]
 
 export default function Sources() {
-	const [badges, setBadges] = useState([])
-	const [userBadges, setUserBadges] = useState([])
-
-	useEffect(function () {
-		async function fetchSourcesData() {
-			const res = await getBadges()
-			if (res.success && res.data) {
-				setBadges(res.data)
-			}
-
-			const profileRes = await getProfile()
-			if (profileRes.success && profileRes.data && profileRes.data.badges) {
-				setUserBadges(profileRes.data.badges.map((b) => b.id))
-			}
-		}
-		fetchSourcesData()
-	}, [])
-
 	return (
 		<div className="page-layout">
 			<Sidebar />
 			<div className="page-container">
-				<section className="sources-section">
-					<h2>Academic Badges</h2>
-					<div className="badges-grid">
-						{badges.length > 0 ? (
-							badges.map(function (badge, index) {
-								const isUnlocked = userBadges.includes(badge.id)
-								return (
-									<BadgeCard
-										key={badge.id || index}
-										number={index + 1}
-										name={badge.name}
-										description={badge.description}
-										unlocked={isUnlocked}
-									/>
-								)
-							})
-						) : (
-							<p style={{ color: '#64748B', fontSize: '14px' }}>
-								No badges loaded.
-							</p>
-						)}
-					</div>
-				</section>
-
 				<section className="sources-section">
 					<h2>Fact-Checking & Credibility Guidelines</h2>
 					<div className="sources-list">
