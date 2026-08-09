@@ -15,18 +15,18 @@ class StudentSeeder extends Seeder
 	public function run(): void
 	{
 		$students = [
-			['username' => 'juan_dela_cruz', 'email' => 'juan.delacruz@student.laverdad.edu.ph'],
-			['username' => 'maria_santos', 'email' => 'maria.santos@student.laverdad.edu.ph'],
-			['username' => 'jose_reyes', 'email' => 'jose.reyes@student.laverdad.edu.ph'],
-			['username' => 'ana_gonzales', 'email' => 'ana.gonzales@student.laverdad.edu.ph'],
-			['username' => 'mark_bautista', 'email' => 'mark.bautista@student.laverdad.edu.ph'],
-			['username' => 'grace_ramos', 'email' => 'grace.ramos@student.laverdad.edu.ph'],
-			['username' => 'carlo_mendoza', 'email' => 'carlo.mendoza@student.laverdad.edu.ph'],
-			['username' => 'bea_aquino', 'email' => 'bea.aquino@student.laverdad.edu.ph'],
-			['username' => 'paulo_castro', 'email' => 'paulo.castro@student.laverdad.edu.ph'],
-			['username' => 'joyce_torres', 'email' => 'joyce.torres@student.laverdad.edu.ph'],
-			['username' => 'david_villanueva', 'email' => 'david.villanueva@student.laverdad.edu.ph'],
-			['username' => 'sam_rodriguez', 'email' => 'sam.rodriguez@student.laverdad.edu.ph'],
+			['username' => 'juan_dela_cruz', 'email' => 'juan.delacruz@student.example.edu'],
+			['username' => 'maria_santos', 'email' => 'maria.santos@student.example.edu'],
+			['username' => 'jose_reyes', 'email' => 'jose.reyes@student.example.edu'],
+			['username' => 'ana_gonzales', 'email' => 'ana.gonzales@student.example.edu'],
+			['username' => 'mark_bautista', 'email' => 'mark.bautista@student.example.edu'],
+			['username' => 'grace_ramos', 'email' => 'grace.ramos@student.example.edu'],
+			['username' => 'carlo_mendoza', 'email' => 'carlo.mendoza@student.example.edu'],
+			['username' => 'bea_aquino', 'email' => 'bea.aquino@student.example.edu'],
+			['username' => 'paulo_castro', 'email' => 'paulo.castro@student.example.edu'],
+			['username' => 'joyce_torres', 'email' => 'joyce.torres@student.example.edu'],
+			['username' => 'david_villanueva', 'email' => 'david.villanueva@student.example.edu'],
+			['username' => 'sam_rodriguez', 'email' => 'sam.rodriguez@student.example.edu'],
 		];
 
 		$badges = Badge::pluck('id');

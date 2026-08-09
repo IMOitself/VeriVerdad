@@ -12,7 +12,7 @@ class SectionSeeder extends Seeder
 	public function run(): void
 	{
 		$teacher = User::firstOrCreate(
-			['email' => 'teacher@laverdad.edu.ph'],
+			['email' => 'teacher@example.edu'],
 			[
 				'username' => 'prof_mil_advisor',
 				'password' => Hash::make('teacher123'),
