@@ -8,6 +8,10 @@ import {
 	createSection,
 	updateSection,
 	deleteSection,
+	getBadgesAdmin,
+	createBadge,
+	updateBadge,
+	deleteBadge,
 	logout,
 } from '../api.js'
 import useCurrentUser from '../hooks/useCurrentUser'
@@ -20,6 +24,8 @@ import SectionFormModal from '../components/classrooms/SectionFormModal'
 import AdminTabs from '../components/admin/AdminTabs'
 import UsersTable from '../components/admin/UsersTable'
 import SectionsTable from '../components/admin/SectionsTable'
+import BadgesTable from '../components/admin/BadgesTable'
+import BadgeFormModal from '../components/admin/BadgeFormModal'
 
 const ITEMS_PER_PAGE = 10
 
@@ -38,6 +44,11 @@ export default function Admin() {
 	const [isAddSectionOpen, setIsAddSectionOpen] = useState(false)
 	const [editingSection, setEditingSection] = useState(null)
 
+	const [badges, setBadges] = useState([])
+	const [selectedBadgeId, setSelectedBadgeId] = useState(null)
+	const [isAddBadgeOpen, setIsAddBadgeOpen] = useState(false)
+	const [editingBadge, setEditingBadge] = useState(null)
+
 	useEffect(function () {
 		loadData()
 	}, [])
@@ -54,6 +65,11 @@ export default function Admin() {
 		const sectionsRes = await getSections()
 		if (sectionsRes.success && sectionsRes.data) {
 			setSections(sectionsRes.data)
+		}
+
+		const badgesRes = await getBadgesAdmin()
+		if (badgesRes.success && badgesRes.data) {
+			setBadges(badgesRes.data)
 		}
 	}
 
@@ -74,6 +90,13 @@ export default function Admin() {
 		totalPages: totalSectionPages,
 		pageItems: paginatedSections
 	} = usePagination(sections, ITEMS_PER_PAGE)
+
+	const {
+		page: badgePage,
+		setPage: setBadgePage,
+		totalPages: totalBadgePages,
+		pageItems: paginatedBadges
+	} = usePagination(badges, ITEMS_PER_PAGE)
 
 	async function handleConfirmDeleteUser() {
 		if (!selectedUserId) return
@@ -198,6 +221,38 @@ export default function Admin() {
 		}
 	}
 
+	async function handleCreateBadge(form) {
+		const result = await createBadge({ name: form.name, description: form.description })
+		if (result.success) {
+			setIsAddBadgeOpen(false)
+			await loadData()
+		}
+		return result
+	}
+
+	async function handleSaveBadge(form) {
+		if (!editingBadge) return { success: false }
+		const result = await updateBadge(editingBadge.id, { name: form.name, description: form.description })
+		if (result.success) {
+			await loadData()
+			setEditingBadge(null)
+		}
+		return result
+	}
+
+	async function handleConfirmDeleteBadge() {
+		if (!selectedBadgeId) return
+		const targetId = selectedBadgeId
+		setSelectedBadgeId(null)
+		const result = await deleteBadge(targetId)
+		if (result.success) {
+			setBadges(badges.filter((b) => b.id !== targetId))
+			await loadData()
+		} else {
+			setError(result.message || 'Failed to delete badge')
+		}
+	}
+
 	return (
 		<div className="page-layout">
 			<Sidebar />
@@ -212,19 +267,28 @@ export default function Admin() {
 						</div>
 
 						<div className="admin-header-actions">
-							{activeTab === 'users' ? (
+							{activeTab === 'users' && (
 								<button
 									className="btn-add-user"
 									onClick={() => setIsAddUserOpen(true)}
 								>
 									Add User
 								</button>
-							) : (
+							)}
+							{activeTab === 'sections' && (
 								<button
 									className="btn-add-user"
 									onClick={() => setIsAddSectionOpen(true)}
 								>
 									Add Section
+								</button>
+							)}
+							{activeTab === 'badges' && (
+								<button
+									className="btn-add-user"
+									onClick={() => setIsAddBadgeOpen(true)}
+								>
+									Add Badge
 								</button>
 							)}
 						</div>
@@ -235,6 +299,7 @@ export default function Admin() {
 						onSelectTab={setActiveTab}
 						userCount={users.length}
 						sectionCount={sections.length}
+						badgeCount={badges.length}
 					/>
 
 					{error && <div className="error-general">{error}</div>}
@@ -262,6 +327,19 @@ export default function Admin() {
 							itemsPerPage={ITEMS_PER_PAGE}
 							onEditSection={setEditingSection}
 							onDeleteSection={setSelectedSectionId}
+						/>
+					)}
+
+					{activeTab === 'badges' && (
+						<BadgesTable
+							badges={badges}
+							paginatedBadges={paginatedBadges}
+							page={badgePage}
+							totalPages={totalBadgePages}
+							onPageChange={setBadgePage}
+							itemsPerPage={ITEMS_PER_PAGE}
+							onEditBadge={setEditingBadge}
+							onDeleteBadge={setSelectedBadgeId}
 						/>
 					)}
 
@@ -321,6 +399,30 @@ export default function Admin() {
 						/>
 					)}
 
+					{isAddBadgeOpen && (
+						<BadgeFormModal
+							mode="create"
+							initialValues={{
+								name: '',
+								description: ''
+							}}
+							onSubmit={handleCreateBadge}
+							onClose={() => setIsAddBadgeOpen(false)}
+						/>
+					)}
+
+					{editingBadge && (
+						<BadgeFormModal
+							mode="edit"
+							initialValues={{
+								name: editingBadge.name || '',
+								description: editingBadge.description || ''
+							}}
+							onSubmit={handleSaveBadge}
+							onClose={() => setEditingBadge(null)}
+						/>
+					)}
+
 					<ConfirmModal
 						isOpen={Boolean(selectedUserId)}
 						title="Delete User Account"
@@ -335,6 +437,14 @@ export default function Admin() {
 						message="Are you sure you want to delete this section? All enrolled students will be unassigned."
 						onConfirm={handleConfirmDeleteSection}
 						onCancel={() => setSelectedSectionId(null)}
+					/>
+
+					<ConfirmModal
+						isOpen={Boolean(selectedBadgeId)}
+						title="Delete Badge"
+						message="Are you sure you want to delete this badge? It will be removed from all users who earned it."
+						onConfirm={handleConfirmDeleteBadge}
+						onCancel={() => setSelectedBadgeId(null)}
 					/>
 				</div>
 			</div>
