@@ -2,14 +2,14 @@
 
 namespace App\Http\Middleware;
 
-class SecretTokenMiddleware
+class SecretTokenMiddleware extends Middleware
 {
 	public function handle($request, $next)
 	{
 		$secretToken = config('secret.token');
 
 		if (empty($secretToken) || $request->header('X-Secret-Token') !== $secretToken) {
-			abort(401);
+			return $this->error('Unauthorized.', 401);
 		}
 
 		return $next($request);
