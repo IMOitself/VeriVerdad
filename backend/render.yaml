@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: veriverdad-api
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    region: singapore
+    plan: free
+    healthCheckPath: /api/test
+    disk:
+      name: sqlite-data
+      mountPath: /app/database
+      sizeGB: 1
+    preDeployCommand: php artisan migrate --force --seed

@@ -18,16 +18,8 @@ COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN mkdir -p /app/database && touch /app/database/database.sqlite
-RUN chmod 777 /app/database/database.sqlite
-
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 RUN chmod -R 775 /app/storage /app/bootstrap/cache
-
-RUN php artisan octane:install --server=frankenphp
-RUN setcap -r /usr/local/bin/frankenphp
-
-RUN php artisan migrate --force --seed
 
 ENTRYPOINT ["php", "artisan", "octane:start", "--server=frankenphp", "--host=0.0.0.0", "--port=8000"]
 
