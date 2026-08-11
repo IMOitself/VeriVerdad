@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Card({
+export function Card({
 	className,
 	size = "default",
 	...props
@@ -19,7 +19,7 @@ function Card({
 	)
 }
 
-function CardHeader({
+export function CardHeader({
 	className,
 	...props
 }) {
@@ -34,7 +34,7 @@ function CardHeader({
 	)
 }
 
-function CardTitle({
+export function CardTitle({
 	className,
 	...props
 }) {
@@ -49,7 +49,7 @@ function CardTitle({
 	)
 }
 
-function CardDescription({
+export function CardDescription({
 	className,
 	...props
 }) {
@@ -61,7 +61,7 @@ function CardDescription({
 	)
 }
 
-function CardAction({
+export function CardAction({
 	className,
 	...props
 }) {
@@ -76,7 +76,7 @@ function CardAction({
 	)
 }
 
-function CardContent({
+export function CardContent({
 	className,
 	...props
 }) {
@@ -88,7 +88,7 @@ function CardContent({
 	)
 }
 
-function CardFooter({
+export function CardFooter({
 	className,
 	...props
 }) {
@@ -101,14 +101,4 @@ function CardFooter({
 			)}
 			{...props} />
 	)
-}
-
-export {
-	Card,
-	CardHeader,
-	CardFooter,
-	CardTitle,
-	CardAction,
-	CardDescription,
-	CardContent,
 }

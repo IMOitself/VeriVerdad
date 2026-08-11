@@ -3,13 +3,8 @@ import { Controller, FormProvider } from "react-hook-form"
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
-export function Form({ ...props }) {
-	return <FormProvider {...props} />
-}
-
-export function FormField({ ...props }) {
-	return <Controller {...props} />
-}
+export const Form = ({ ...props }) => <FormProvider {...props} />
+export const FormField = ({ ...props }) => <Controller {...props} />
 
 export function FormItem({ className, ...props }) {
 	return (

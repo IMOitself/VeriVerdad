@@ -2,9 +2,8 @@ import { useLogout } from "@/hooks/useAuth"
 import { getUser } from "@/lib/auth"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ProtectedRoute } from "@/components/ProtectedRoute"
 
-function DashboardContent() {
+export default function Dashboard() {
 	const logoutMutation = useLogout()
 	const user = getUser()
 
@@ -30,13 +29,5 @@ function DashboardContent() {
 				</CardContent>
 			</Card>
 		</div>
-	)
-}
-
-export default function Dashboard() {
-	return (
-		<ProtectedRoute>
-			<DashboardContent />
-		</ProtectedRoute>
 	)
 }

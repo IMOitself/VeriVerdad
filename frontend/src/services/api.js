@@ -30,20 +30,16 @@ api.interceptors.response.use(
 	(error) => Promise.reject(error)
 )
 
-export function setAuth(token, user) {
+export const setAuth = (token, user) => {
 	localStorage.setItem(TOKEN_KEY, token)
 	localStorage.setItem(USER_KEY, JSON.stringify(user))
 }
 
-export function clearAuth() {
+export const clearAuth = () => {
 	localStorage.removeItem(TOKEN_KEY)
 	localStorage.removeItem(USER_KEY)
 }
 
-export function getAuthToken() {
-	return getStoredToken()
-}
+export const getAuthToken = () => getStoredToken()
 
-export function getAuthUser() {
-	return getStoredUser()
-}
+export const getAuthUser = () => getStoredUser()

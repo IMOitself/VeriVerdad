@@ -1,11 +1,11 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function Field({ className, ...props }) {
+export function Field({ className, ...props }) {
 	return <div data-slot="field" className={cn("grid gap-2", className)} {...props} />
 }
 
-function FieldLabel({ className, ...props }) {
+export function FieldLabel({ className, ...props }) {
 	return (
 		<label
 			data-slot="field-label"
@@ -15,7 +15,7 @@ function FieldLabel({ className, ...props }) {
 	)
 }
 
-function FieldDescription({ className, ...props }) {
+export function FieldDescription({ className, ...props }) {
 	return (
 		<p
 			data-slot="field-description"
@@ -25,7 +25,7 @@ function FieldDescription({ className, ...props }) {
 	)
 }
 
-function FieldGroup({ className, ...props }) {
+export function FieldGroup({ className, ...props }) {
 	return (
 		<div
 			data-slot="field-group"
@@ -35,16 +35,13 @@ function FieldGroup({ className, ...props }) {
 	)
 }
 
-function FieldError({ className, error, ...props }) {
+export function FieldError({ className, error, ...props }) {
 	return (
 		<p
 			data-slot="field-error"
 			className={cn("text-destructive text-sm leading-none h-4", className)}
-			{...props}
-		>
+			{...props}>
 			{error?.message}
 		</p>
 	)
 }
-
-export { Field, FieldLabel, FieldDescription, FieldGroup, FieldError }

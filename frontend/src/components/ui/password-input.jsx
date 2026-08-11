@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-function PasswordInput({ className, ...props }) {
+export function PasswordInput({ className, ...props }) {
 	const [visible, setVisible] = React.useState(false)
 
 	return (
@@ -27,5 +27,3 @@ function PasswordInput({ className, ...props }) {
 		</div>
 	)
 }
-
-export { PasswordInput }

@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Label({
+export function Label({
 	className,
 	...props
 }) {
@@ -16,5 +16,3 @@ function Label({
 			{...props} />
 	)
 }
-
-export { Label }
