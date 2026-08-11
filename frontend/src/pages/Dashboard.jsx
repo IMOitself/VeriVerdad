@@ -1,4 +1,6 @@
 import { Link } from 'react-router'
+import Tutorial from '../components/shared/Tutorial'
+import useTutorial from '../hooks/useTutorial'
 import { useState, useEffect } from 'react'
 import {
 	getTasks,
@@ -18,6 +20,7 @@ import TaskFormModal from '../components/dashboard/TaskFormModal'
 import ConfirmModal from '../components/shared/ConfirmModal'
 
 export default function Dashboard() {
+	const tutorial = useTutorial()
 	const [tasks, setTasks] = useState([])
 	const [sections, setSections] = useState([])
 	const [badges, setBadges] = useState([])
@@ -274,6 +277,31 @@ export default function Dashboard() {
 					onCancel={() => setTaskToDelete(null)}
 				/>
 			</div>
+
+			<Tutorial {...tutorial} />
+			<button 
+				onClick={tutorial.restart}
+				title="Start tutorial"
+				style={{
+					position: 'fixed',
+					bottom: '24px',
+					right: '24px',
+					width: '40px',
+					height: '40px',
+					borderRadius: '50%',
+					background: '#6366f1',
+					color: '#fff',
+					border: 'none',
+					fontSize: '18px',
+					fontWeight: '700',
+					cursor: 'pointer',
+					zIndex: 999,
+					boxShadow: '0 4px 12px rgba(99,102,241,0.4)'
+				}}
+				data-tour="tutorial"
+			>
+				?
+			</button>
 		</div>
 	)
 }

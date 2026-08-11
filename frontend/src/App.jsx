@@ -17,10 +17,11 @@ const router = createBrowserRouter([
 	{ path: '/', element: <Landing /> },
 	{ path: '/login', element: <Login /> },
 	{ path: '/register', element: <Register /> },
+	{ path: '/dashboard', element: <Dashboard /> },
 	{
 		element: <ProtectedRoute />,
 		children: [
-			{ path: '/dashboard', element: <Dashboard /> },
+			// { path: '/dashboard', element: <Dashboard /> },
 			{ path: '/home', element: <Home /> },
 			{ path: '/veribot', element: <Veribot /> },
 			{ path: '/sources', element: <Sources /> },

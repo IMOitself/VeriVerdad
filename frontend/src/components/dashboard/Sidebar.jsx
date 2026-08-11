@@ -82,7 +82,7 @@ export default function Sidebar() {
 				</div>
 			</div>
 
-			<nav className="sidebar-nav">
+			<nav className="sidebar-nav" data-tour="sidebar">
 				<NavLink
 					to="/dashboard"
 					className={({ isActive }) =>
@@ -102,6 +102,7 @@ export default function Sidebar() {
 						isActive ? 'nav-item active' : 'nav-item'
 					}
 					title={isCollapsed ? 'VeriBot AI' : ''}
+					data-tour="sidebar-veribot"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
 						<path d="M160-120v-200q0-33 23.5-56.5T240-400h480q33 0 56.5 23.5T800-320v200H160Zm200-320q-83 0-141.5-58.5T160-640q0-83 58.5-141.5T360-840h240q83 0 141.5 58.5T800-640q0 83-58.5 141.5T600-440H360ZM240-200h480v-120H240v120Zm120-320h240q50 0 85-35t35-85q0-50-35-85t-85-35H360q-50 0-85 35t-35 85q0 50 35 85t85 35Zm28.5-91.5Q400-623 400-640t-11.5-28.5Q377-680 360-680t-28.5 11.5Q320-657 320-640t11.5 28.5Q343-600 360-600t28.5-11.5Zm240 0Q640-623 640-640t-11.5-28.5Q617-680 600-680t-28.5 11.5Q560-657 560-640t11.5 28.5Q583-600 600-600t28.5-11.5ZM480-200Zm0-440Z" />
@@ -115,6 +116,7 @@ export default function Sidebar() {
 						isActive ? 'nav-item active' : 'nav-item'
 					}
 					title={isCollapsed ? 'History' : ''}
+					data-tour="sidebar-history"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
 						<path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
