@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('secret.token')->group(function () {
@@ -9,5 +10,9 @@ Route::middleware('secret.token')->group(function () {
 
 	Route::middleware('auth:sanctum')->group(function () {
 		Route::post('/logout', [AuthController::class, 'logout']);
+		Route::post('/chat', [ChatController::class, 'chat']);
+		Route::get('/chats', [ChatController::class, 'index']);
+		Route::get('/chats/{id}', [ChatController::class, 'show']);
+		Route::delete('/chats/{id}', [ChatController::class, 'destroy']);
 	});
 });
