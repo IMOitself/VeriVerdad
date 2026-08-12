@@ -1,5 +1,5 @@
 export const Chevron = ({ open }) => (
-	<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+	<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
 		<path d={open ? "m280-400 200-200 200 200H280Z" : "M480-360 280-560h400L480-360Z"} />
 	</svg>
 )
@@ -11,7 +11,19 @@ export const Eye = ({ visible }) => (
 )
 
 export const Menu = ({ open }) => (
-	<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--color-surface)">
+	<svg height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
 		< path d={open ? "M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z" : "M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"} />
 	</svg >
+)
+
+export const RobotIcon = props => (
+	<svg height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" {...props}>
+		<path d="M200-120q-33 0-56.5-23.5T120-200v-400q0-100 70-170t170-70h240q100 0 170 70t70 170v400q0 33-23.5 56.5T760-120H200Zm0-80h560v-400q0-66-47-113t-113-47H360q-66 0-113 47t-47 113v400Zm103.5-303.5Q280-527 280-560t23.5-56.5Q327-640 360-640t56.5 23.5Q440-593 440-560t-23.5 56.5Q393-480 360-480t-56.5-23.5Zm240 0Q520-527 520-560t23.5-56.5Q567-640 600-640t56.5 23.5Q680-593 680-560t-23.5 56.5Q633-480 600-480t-56.5-23.5ZM280-200v-80q0-33 23.5-56.5T360-360h240q33 0 56.5 23.5T680-280v80h-80v-80h-80v80h-80v-80h-80v80h-80Zm-80 0h560-560Z" />
+	</svg>
+)
+
+export const LogoutIcon = props => (
+	<svg height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" {...props}>
+		<path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+	</svg>
 )
