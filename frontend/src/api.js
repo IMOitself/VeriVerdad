@@ -28,17 +28,24 @@ export const getAuthToken = () => localStorage.getItem('auth_token')
 
 export const getAuthUser = () => JSON.parse(localStorage.getItem('auth_user'))
 
+export const login = credentials => api.post('/login', credentials).then(({ data }) => data)
+
+export const register = payload => api.post('/register', payload).then(({ data }) => data)
+
+export const logout = () => api.post('/logout').finally(clearAuth)
+
 export const sendMessage = (message, conversationId) => api.post('/chat', { message, conversation_id: conversationId })
 
 export const getConversations = () => api.get('/chats')
 
 export const getConversation = id => api.get(`/chats/${id}`).then(({ data }) => ({
-	...data,
-	messages: data.messages.map(msg => ({
+	...(data.data || data),
+	messages: ((data.data || data).messages || []).map(msg => ({
 		id: msg.id,
 		role: msg.role,
 		content: msg.content,
-		reasoning: msg.reasoning
+		reasoning: msg.reasoning,
+		created_at: msg.created_at
 	}))
 }))
 
