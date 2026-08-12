@@ -1,49 +1,40 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router'
-import { PageLoader } from './components/PageLoader'
 import { getAuthToken } from './api'
+import { PageLoader } from './components/PageLoader'
 
-export const ProtectedRoute = () => getAuthToken() ? <Outlet /> : <Navigate to="/login" replace />
+const lazyPage = importFn => async () => {
+	try {
+		const mod = await importFn()
+		return { Component: mod.Component || mod.default }
+	} catch {
+		return { Component: PageLoader }
+	}
+}
 
-export const GuestRoute = () => getAuthToken() ? <Navigate to="/sample" replace /> : <Outlet />
+const ProtectedRoute = () => getAuthToken() ? <Outlet /> : <Navigate to="/login" replace />
+
+const GuestRoute = () => getAuthToken() ? <Navigate to="/veribot" replace /> : <Outlet />
 
 export const router = createBrowserRouter([
 	{
 		HydrateFallback: PageLoader,
 		children: [
-			{
-				path: '/',
-				lazy: () => import('./pages/Landing')
-			},
+			{ path: '/', lazy: lazyPage(() => import('./pages/Landing')) },
 			{
 				element: <GuestRoute />,
 				children: [
-					{
-						path: '/login',
-						lazy: () => import('./pages/Auth')
-					},
-					{
-						path: '/register',
-						lazy: () => import('./pages/Auth')
-					}
+					{ path: '/login', lazy: lazyPage(() => import('./pages/Auth')) },
+					{ path: '/register', lazy: lazyPage(() => import('./pages/Auth')) }
 				]
 			},
 			{
 				element: <ProtectedRoute />,
 				children: [
-					{
-						path: '/sample',
-						lazy: () => import('./pages/Sample')
-					},
-					{
-						path: '/Veribot',
-						lazy: () => import('./pages/Veribot')
-					}
+					{ path: '/sample', lazy: lazyPage(() => import('./pages/Sample')) },
+					{ path: '/veribot', lazy: lazyPage(() => import('./pages/Veribot')) }
 				]
 			},
-			{
-				path: '*',
-				element: <Navigate to="/" replace />
-			}
+			{ path: '*', element: <Navigate to="/" replace /> }
 		]
 	}
 ])
