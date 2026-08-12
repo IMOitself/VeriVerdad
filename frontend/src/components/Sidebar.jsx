@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
-import { RobotIcon, LogoutIcon } from '../components/Icons'
+import { RobotIcon, LogoutIcon, HomeIcon } from '../components/Icons'
+import { ConfirmationModal } from './ConfirmationModal'
 import { clearAuth } from '../api'
 
 const navItems = [
-	{ path: '/sample', label: 'Sample', Icon: props => <svg className="w-5 h-5 shrink-0 stroke-current fill-none" viewBox="0 0 24 24" {...props}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg> },
-	{ path: '/Veribot', label: 'Veribot', Icon: props => <RobotIcon className="w-5 h-5 shrink-0" {...props} /> }
+	{ path: '/home', label: 'Home', Icon: props => <HomeIcon className="w-5 h-5 shrink-0" {...props} /> },
+	{ path: '/veribot', label: 'Veribot', Icon: props => <RobotIcon className="w-5 h-5 shrink-0" {...props} /> }
 ]
 
 export const Sidebar = () => {
 	const [open, setOpen] = useState(false)
+	const [showModal, setShowModal] = useState(false)
 	const location = useLocation()
 	const navigate = useNavigate()
 
@@ -52,12 +54,22 @@ export const Sidebar = () => {
 				</div>
 
 				<div className="p-4 border-t border-[var(--color-border)] bg-[var(--color-bg)]">
-					<button type="button" onClick={handleLogout} className="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-[var(--color-primary)] border border-[var(--color-border)] bg-[var(--color-surface)] rounded-lg hover:opacity-80 cursor-pointer">
+					<button type="button" onClick={() => setShowModal(true)} className="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-[var(--color-primary)] border border-[var(--color-border)] bg-[var(--color-surface)] rounded-lg hover:opacity-80 cursor-pointer">
 						<LogoutIcon className="w-4 h-4 shrink-0" />
 						<span>Sign Out</span>
 					</button>
 				</div>
 			</aside>
+
+			<ConfirmationModal
+				isOpen={showModal}
+				onClose={() => setShowModal(false)}
+				onConfirm={handleLogout}
+				title="Sign Out"
+				message="Are you sure you want to log out of your account?"
+				confirmText="Sign Out"
+				cancelText="Cancel"
+			/>
 		</>
 	)
 }
