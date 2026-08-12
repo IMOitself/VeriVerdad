@@ -27,3 +27,19 @@ export const clearAuth = () => {
 export const getAuthToken = () => localStorage.getItem('auth_token')
 
 export const getAuthUser = () => JSON.parse(localStorage.getItem('auth_user'))
+
+export const sendMessage = (message, conversationId) => api.post('/chat', { message, conversation_id: conversationId })
+
+export const getConversations = () => api.get('/chats')
+
+export const getConversation = id => api.get(`/chats/${id}`).then(({ data }) => ({
+	...data,
+	messages: data.messages.map(msg => ({
+		id: msg.id,
+		role: msg.role,
+		content: msg.content,
+		reasoning: msg.reasoning
+	}))
+}))
+
+export const deleteConversation = id => api.delete(`/chats/${id}`)
