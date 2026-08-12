@@ -13,7 +13,7 @@ const lazyPage = importFn => async () => {
 
 const ProtectedRoute = () => getAuthToken() ? <Outlet /> : <Navigate to="/login" replace />
 
-const GuestRoute = () => getAuthToken() ? <Navigate to="/veribot" replace /> : <Outlet />
+const GuestRoute = () => getAuthToken() ? <Navigate to="/home" replace /> : <Outlet />
 
 export const router = createBrowserRouter([
 	{
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
 			{
 				element: <ProtectedRoute />,
 				children: [
-					{ path: '/sample', lazy: lazyPage(() => import('./pages/Sample')) },
+					{ path: '/home', lazy: lazyPage(() => import('./pages/Home')) },
 					{ path: '/veribot', lazy: lazyPage(() => import('./pages/Veribot')) }
 				]
 			},
