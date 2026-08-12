@@ -16,7 +16,12 @@ class ChatService
 		}
 
 		if (is_null($conversation->title)) {
-			$conversation->update(['title' => mb_substr($content, 0, 60)]);
+			$groq = app(GroqService::class);
+			$titleResult = $groq->chat([
+				['role' => 'system', 'content' => 'Summarize the user message into a short 3 to 5 word title. Reply with only the title, no punctuation.'],
+				['role' => 'user', 'content' => $content],
+			]);
+			$conversation->update(['title' => $titleResult['reply']]);
 		}
 
 		$history = Message::where('conversation_id', $conversation->id)
