@@ -30,12 +30,12 @@ export const Component = () => {
 
 	const loginMutation = useMutation({
 		mutationFn: async credentials => (await api.post('/login', credentials)).data,
-		onSuccess: res => (setAuth(res.data), navigate('/sample'))
+		onSuccess: res => (setAuth(res.data), navigate('/home'))
 	})
 
 	const regMutation = useMutation({
 		mutationFn: async payload => (await api.post('/register', payload)).data,
-		onSuccess: res => (setAuth(res.data), navigate('/sample'))
+		onSuccess: res => (setAuth(res.data), navigate('/home'))
 	})
 
 	useEffect(() => {
