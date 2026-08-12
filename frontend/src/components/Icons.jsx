@@ -33,3 +33,21 @@ export const HomeIcon = props => (
 		<path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
 	</svg>
 )
+
+export const UpArrowIcon = props => (
+	<svg height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" {...props}>
+		<path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z" />
+	</svg>
+)
+
+export const EditIcon = props => (
+	<svg height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" {...props}>
+		<path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+	</svg>
+)
+
+export const CopyIcon = props => (
+	<svg height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" {...props}>
+		<path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+	</svg>
+)
