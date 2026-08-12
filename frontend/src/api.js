@@ -14,6 +14,17 @@ api.interceptors.request.use(config => {
 	return config
 })
 
+api.interceptors.response.use(
+	response => response,
+	error => {
+		if (error.response?.status === 401) {
+			clearAuth()
+			window.location.assign('/login')
+		}
+		return Promise.reject(error)
+	}
+)
+
 export const setAuth = ({ token, user }) => {
 	localStorage.setItem('auth_token', token)
 	localStorage.setItem('auth_user', JSON.stringify(user))

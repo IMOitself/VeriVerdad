@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'keys'  => explode(',', env('GROQ_API_KEY')),
+	'keys'  => explode(',', env('GROQ_API_KEY', '')),
 	'model' => 'openai/gpt-oss-20b',
 ];

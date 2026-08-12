@@ -23,6 +23,9 @@ RUN chmod -R 775 /app/storage /app/bootstrap/cache
 
 RUN setcap -r /usr/local/bin/frankenphp
 
-ENTRYPOINT ["sh", "-c", "php artisan migrate --force && php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 8000
