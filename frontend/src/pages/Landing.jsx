@@ -99,7 +99,7 @@ export const Component = () => {
 					<button
 						type="button"
 						onClick={() => setMenuOpen(!menuOpen)}
-						className="lg:hidden p-2 bg-transparent border-none cursor-pointer flex items-center justify-center text-white hover:opacity-80 [&_svg]:stroke-white"
+						className="lg:hidden p-2 bg-transparent border-none cursor-pointer flex items-center justify-center text-white hover:opacity-80"
 					>
 						<Menu open={menuOpen} />
 					</button>
