@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, Link, useNavigate } from 'react-router'
 import { useMutation } from '@tanstack/react-query'
-import { api, setAuth } from '../api'
+import { login, register, setAuth } from '../api'
 import { Eye } from '../components/Icons'
 
 export const PasswordField = ({ id, name, value, onChange, autoComplete, py, errorText }) => {
@@ -29,12 +29,12 @@ export const Component = () => {
 	const [regForm, setRegForm] = useState({ username: '', email: '', password: '' })
 
 	const loginMutation = useMutation({
-		mutationFn: async credentials => (await api.post('/login', credentials)).data,
+		mutationFn: login,
 		onSuccess: res => (setAuth(res.data), navigate('/home'))
 	})
 
 	const regMutation = useMutation({
-		mutationFn: async payload => (await api.post('/register', payload)).data,
+		mutationFn: register,
 		onSuccess: res => (setAuth(res.data), navigate('/home'))
 	})
 
