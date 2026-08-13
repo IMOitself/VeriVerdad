@@ -10,30 +10,15 @@ export const api = axios.create({
 
 api.interceptors.request.use(config => {
 	const token = localStorage.getItem('auth_token')
-	if (token) config.headers.Authorization = `Bearer ${token}`
+	token && (config.headers.Authorization = `Bearer ${token}`)
 	return config
 })
 
-api.interceptors.response.use(
-	response => response,
-	error => {
-		if (error.response?.status === 401) {
-			clearAuth()
-			window.location.assign('/login')
-		}
-		return Promise.reject(error)
-	}
-)
+api.interceptors.response.use(res => res, error => (error.response?.status === 401 && (clearAuth(), window.location.assign('/login')), Promise.reject(error)))
 
-export const setAuth = ({ token, user }) => {
-	localStorage.setItem('auth_token', token)
-	localStorage.setItem('auth_user', JSON.stringify(user))
-}
+export const setAuth = ({ token, user }) => (localStorage.setItem('auth_token', token), localStorage.setItem('auth_user', JSON.stringify(user)))
 
-export const clearAuth = () => {
-	localStorage.removeItem('auth_token')
-	localStorage.removeItem('auth_user')
-}
+export const clearAuth = () => (localStorage.removeItem('auth_token'), localStorage.removeItem('auth_user'))
 
 export const getAuthToken = () => localStorage.getItem('auth_token')
 
@@ -45,19 +30,15 @@ export const register = payload => api.post('/register', payload).then(({ data }
 
 export const logout = () => api.post('/logout').finally(clearAuth)
 
-export const sendMessage = (message, conversationId) => api.post('/chat', { message, conversation_id: conversationId })
+export const sendMessage = (message, conversationId, messageId) => api.post('/chat', { message, conversation_id: conversationId, message_id: messageId })
 
 export const getConversations = () => api.get('/chats')
 
 export const getConversation = id => api.get(`/chats/${id}`).then(({ data }) => ({
 	...(data.data || data),
-	messages: ((data.data || data).messages || []).map(msg => ({
-		id: msg.id,
-		role: msg.role,
-		content: msg.content,
-		reasoning: msg.reasoning,
-		created_at: msg.created_at
-	}))
+	messages: ((data.data || data).messages || []).map(msg => ({ id: msg.id, role: msg.role, content: msg.content, reasoning: msg.reasoning, created_at: msg.created_at }))
 }))
 
 export const deleteConversation = id => api.delete(`/chats/${id}`)
+
+export const updateConversation = (id, title) => api.patch(`/chats/${id}`, { title })
