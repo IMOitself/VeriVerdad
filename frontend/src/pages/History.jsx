@@ -4,7 +4,7 @@ export const Component = () => (
 	<div className="min-h-screen flex flex-col lg:flex-row bg-[var(--color-bg)] text-[var(--color-text)]">
 		<Sidebar />
 		<main className="flex-1 p-6">
-			<h1 className="text-xl font-bold text-[var(--color-text)]">Home</h1>
+			<h1 className="text-xl font-bold text-[var(--color-text)]">History</h1>
 		</main>
 	</div>
 )
