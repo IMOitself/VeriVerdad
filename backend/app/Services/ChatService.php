@@ -7,63 +7,41 @@ use App\Models\Message;
 
 class ChatService
 {
-	public function sendMessage($userId, $conversationId, $content)
+	public function sendMessage($userId, $conversationId, $content, $messageId = null)
 	{
-		if ($conversationId) {
-			$conversation = Conversation::where('user_id', $userId)->findOrFail($conversationId);
-		} else {
-			$conversation = Conversation::create(['user_id' => $userId]);
+		$conversation = $conversationId ? Conversation::where('user_id', $userId)->findOrFail($conversationId) : Conversation::create(['user_id' => $userId]);
+
+		if ($messageId) {
+			$target = Message::where('conversation_id', $conversation->id)->findOrFail($messageId);
+			Message::where('conversation_id', $conversation->id)->where('created_at', '>=', $target->created_at)->delete();
+			Message::where('conversation_id', $conversation->id)->count() === 0 && $conversation->update(['title' => null]);
 		}
 
 		if (is_null($conversation->title)) {
-			$groq = app(GroqService::class);
-			$titleResult = $groq->chat([
+			$titleResult = app(GroqService::class)->chat([
 				['role' => 'system', 'content' => 'Summarize the user message into a short 3 to 5 word title. Reply with only the title, no punctuation.'],
-				['role' => 'user', 'content' => $content],
+				['role' => 'user', 'content' => $content]
 			]);
 			$conversation->update(['title' => $titleResult['reply']]);
 		}
 
-		$history = Message::where('conversation_id', $conversation->id)
-			->orderByDesc('created_at')
-			->limit(20)
-			->get()
-			->reverse()
-			->values();
+		$history = Message::where('conversation_id', $conversation->id)->orderByDesc('created_at')->limit(20)->get()->reverse()->values();
 
-		$systemPrompt = <<<'PROMPT'
-You are a helpful assistant.
-PROMPT;
+		$result = app(GroqService::class)->chat(array_merge(
+			[['role' => 'system', 'content' => 'You are a helpful assistant.']],
+			$history->map(fn($msg) => ['role' => $msg->role, 'content' => $msg->content])->all(),
+			[['role' => 'user', 'content' => $content]]
+		));
 
-		$groqMessages = array_map(function ($msg) {
-			return ['role' => $msg->role, 'content' => $msg->content];
-		}, $history->all());
-
-		array_unshift($groqMessages, ['role' => 'system', 'content' => $systemPrompt]);
-		$groqMessages[] = ['role' => 'user', 'content' => $content];
-
-		$groq = app(GroqService::class);
-		$result = $groq->chat($groqMessages);
-
-		Message::create([
-			'conversation_id' => $conversation->id,
-			'role' => 'user',
-			'content' => $content,
-		]);
-
-		Message::create([
-			'conversation_id' => $conversation->id,
-			'role' => 'assistant',
-			'content' => $result['reply'],
-			'reasoning' => $result['reasoning'],
-		]);
+		Message::create(['conversation_id' => $conversation->id, 'role' => 'user', 'content' => $content]);
+		Message::create(['conversation_id' => $conversation->id, 'role' => 'assistant', 'content' => $result['reply'], 'reasoning' => $result['reasoning']]);
 
 		return [
 			'conversation' => $conversation,
 			'reply' => $result['reply'],
 			'reasoning' => $result['reasoning'],
 			'model' => $result['model'],
-			'usage' => $result['usage'],
+			'usage' => $result['usage']
 		];
 	}
 
@@ -77,9 +55,13 @@ PROMPT;
 		return Conversation::where('user_id', $userId)->with('messages')->findOrFail($id);
 	}
 
+	public function updateConversation($id, $userId, $title)
+	{
+		return tap(Conversation::where('user_id', $userId)->findOrFail($id))->update(['title' => $title]);
+	}
+
 	public function deleteConversation($id, $userId)
 	{
-		$conversation = Conversation::where('user_id', $userId)->findOrFail($id);
-		$conversation->delete();
+		Conversation::where('user_id', $userId)->findOrFail($id)->delete();
 	}
 }
