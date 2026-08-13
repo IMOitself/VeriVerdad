@@ -2,48 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ChatRequest;
 use App\Services\ChatService;
 
 class ChatController extends Controller
 {
-	public function chat(ChatRequest $request, ChatService $chat)
+	public function chat()
 	{
 		try {
-			$result = $chat->sendMessage(
-				auth()->id(),
-				$request->validated('conversation_id'),
-				$request->message
-			);
-
+			$result = app(ChatService::class)->sendMessage(auth()->id(), request('conversation_id'), request('message'), request('message_id'));
 			return response()->json([
 				'conversation_id' => $result['conversation']->id,
 				'reply' => $result['reply'],
 				'reasoning' => $result['reasoning'],
 				'model' => $result['model'],
-				'usage' => $result['usage'],
+				'usage' => $result['usage']
 			]);
 		} catch (\RuntimeException $e) {
 			return response()->json(['message' => $e->getMessage()], 503);
 		}
 	}
 
-	public function index(ChatService $chat)
+	public function index()
 	{
-		$conversations = $chat->getUserConversations(auth()->id());
-
-		return $this->success($conversations);
+		return $this->success(app(ChatService::class)->getUserConversations(auth()->id()));
 	}
 
-	public function show($id, ChatService $chat)
+	public function show($id)
 	{
-		return $this->success($chat->getConversation($id, auth()->id()));
+		return $this->success(app(ChatService::class)->getConversation($id, auth()->id()));
 	}
 
-	public function destroy($id, ChatService $chat)
+	public function update($id)
 	{
-		$chat->deleteConversation($id, auth()->id());
+		return $this->success(app(ChatService::class)->updateConversation($id, auth()->id(), request('title')));
+	}
 
+	public function destroy($id)
+	{
+		app(ChatService::class)->deleteConversation($id, auth()->id());
 		return response()->noContent();
 	}
 }
