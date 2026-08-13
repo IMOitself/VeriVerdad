@@ -13,6 +13,7 @@ Route::middleware('secret.token')->group(function () {
 		Route::post('/chat', [ChatController::class, 'chat']);
 		Route::get('/chats', [ChatController::class, 'index']);
 		Route::get('/chats/{id}', [ChatController::class, 'show']);
+		Route::patch('/chats/{id}', [ChatController::class, 'update']);
 		Route::delete('/chats/{id}', [ChatController::class, 'destroy']);
 	});
 });
