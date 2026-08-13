@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { Sidebar } from '../components/Sidebar'
 import { UpArrowIcon, EditIcon, CopyIcon, Chevron } from '../components/Icons'
 import { sendMessage, getConversation } from '../api'
@@ -54,7 +56,7 @@ export const Component = () => {
 	}, [routeId])
 
 	const chatMutation = useMutation({
-		mutationFn: ({ message, id }) => sendMessage(message, id),
+		mutationFn: ({ message, id, messageId }) => sendMessage(message, id, messageId),
 		onSuccess: res => {
 			queryClient.invalidateQueries({ queryKey: ['chats'] })
 			const targetId = res.data.conversation?.id || res.data.conversation_id
@@ -64,18 +66,25 @@ export const Component = () => {
 		}
 	})
 
-	const sendPrompt = textToSend => {
+	const sendPrompt = (textToSend, editMessageId = null) => {
 		const text = textToSend || input.trim()
 		if (!text || chatMutation.isPending) return
 		chatMutation.reset()
+		if (editMessageId) {
+			const idx = messages.findIndex(m => m.id === editMessageId)
+			idx !== -1 && setMessages(prev => prev.slice(0, idx))
+			setEditingId(null)
+			setEditText('')
+		} else {
+			setInput('')
+			textareaRef.current && (textareaRef.current.style.height = 'auto')
+		}
 		setMessages(prev => [...prev, { id: crypto.randomUUID(), role: 'user', content: text, timestamp: getTime() }])
-		setInput('')
-		textareaRef.current && (textareaRef.current.style.height = 'auto')
 		scroll()
-		chatMutation.mutate({ message: text, id: conversationId })
+		chatMutation.mutate({ message: text, id: conversationId, messageId: editMessageId })
 	}
 
-	const saveEditing = id => editText.trim() && (setMessages(prev => prev.map(m => m.id === id ? { ...m, content: editText.trim() } : m)), setEditingId(null), setEditText(''))
+	const saveEditing = id => editText.trim() && sendPrompt(editText.trim(), id)
 
 	const renderInputCard = placeholderText => (
 		<div className="w-full bg-[var(--color-surface)] rounded-2xl p-3.5 space-y-3 border border-[var(--color-border)]">
@@ -110,25 +119,41 @@ export const Component = () => {
 							{messages.map(msg => (
 								<div key={msg.id} className="group flex flex-col space-y-1">
 									<div className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-										<div className={`max-w-[88%] rounded-lg px-4 py-2.5 text-sm text-[var(--color-text)] ${editingId === msg.id ? 'border border-[var(--color-border)]' : msg.role === 'user' ? 'bg-[var(--color-surface)]' : ''}`}>
+										<div onDoubleClick={() => msg.role === 'user' && (setEditingId(msg.id), setEditText(msg.content))} className={`max-w-[88%] rounded-lg px-4 py-2.5 text-sm text-[var(--color-text)] ${editingId === msg.id ? 'border border-[var(--color-border)]' : msg.role === 'user' ? 'bg-[var(--color-surface)] cursor-pointer select-none' : ''}`}>
 											{msg.role === 'assistant' && msg.reasoning && <Thinking reasoning={msg.reasoning} thinkTime={msg.thinkTime} />}
 											{editingId === msg.id ? (
-												<textarea value={editText} onChange={e => setEditText(e.target.value)} onKeyDown={e => e.key === 'Enter' && (e.ctrlKey || e.metaKey) && saveEditing(msg.id)} rows={1} style={{ fieldSizing: 'content' }} className="w-full min-w-[280px] bg-transparent border-none outline-none focus:outline-none focus:ring-0 p-0 text-sm text-[var(--color-text)] resize-none" />
+												<textarea autoFocus value={editText} onChange={e => setEditText(e.target.value)} onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), saveEditing(msg.id))} rows={1} style={{ fieldSizing: 'content' }} className="w-full min-w-[280px] bg-transparent border-none outline-none focus:outline-none focus:ring-0 p-0 text-sm text-[var(--color-text)] resize-none" />
+											) : msg.role === 'assistant' ? (
+												<ReactMarkdown
+													remarkPlugins={[remarkGfm]}
+													components={{
+														a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] underline hover:opacity-80" />,
+														table: ({ node, ...props }) => <div className="overflow-x-auto my-2"><table {...props} className="w-full border-collapse border border-[var(--color-border)] text-xs" /></div>,
+														th: ({ node, ...props }) => <th {...props} className="border border-[var(--color-border)] bg-[var(--color-bg)] p-2 font-semibold text-left text-[var(--color-text)]" />,
+														td: ({ node, ...props }) => <td {...props} className="border border-[var(--color-border)] p-2 text-[var(--color-text)]" />,
+														ul: ({ node, ...props }) => <ul {...props} className="list-disc ml-4 space-y-1 my-1" />,
+														ol: ({ node, ...props }) => <ol {...props} className="list-decimal ml-4 space-y-1 my-1" />,
+														p: ({ node, ...props }) => <p {...props} className="whitespace-pre-wrap leading-relaxed my-1" />,
+														code: ({ node, inline, ...props }) => inline ? <code {...props} className="bg-[var(--color-bg)] text-[var(--color-primary)] px-1 py-0.5 rounded text-xs border border-[var(--color-border)]" /> : <pre className="bg-[var(--color-bg)] p-3 rounded-lg overflow-x-auto my-2 border border-[var(--color-border)] text-xs text-[var(--color-text)]"><code {...props} /></pre>
+													}}
+												>
+													{msg.content}
+												</ReactMarkdown>
 											) : (
 												<p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
 											)}
 										</div>
 										{editingId === msg.id && (
 											<div className="flex justify-end gap-2 text-xs mt-1">
-												<button onClick={() => setEditingId(null)} className="px-3 py-1.5 rounded text-[var(--color-text)] hover:opacity-80 cursor-pointer">Cancel</button>
-												<button onClick={() => saveEditing(msg.id)} disabled={editText.trim() === msg.content} className="px-3 py-1.5 rounded bg-[var(--color-primary)] text-white font-medium hover:opacity-80 disabled:opacity-50 cursor-pointer">Save</button>
+												<button type="button" onClick={() => setEditingId(null)} className="px-3 py-1.5 rounded text-[var(--color-text)] hover:opacity-80 cursor-pointer">Cancel</button>
+												<button type="button" onClick={() => saveEditing(msg.id)} disabled={!editText.trim()} className="px-3 py-1.5 rounded bg-[var(--color-primary)] text-white font-medium hover:opacity-80 disabled:opacity-50 cursor-pointer">Save</button>
 											</div>
 										)}
 										{editingId !== msg.id && (
 											<div className="flex items-center gap-1 mt-1 px-1 text-[var(--color-text-faint)] opacity-0 group-hover:opacity-100">
 												{msg.timestamp && <span className="text-xs pr-1.5">{msg.timestamp}</span>}
-												{msg.role === 'user' && <button onClick={() => (setEditingId(msg.id), setEditText(msg.content))} className="p-1.5 rounded hover:opacity-80 flex items-center justify-center cursor-pointer" style={{ width: '28px', height: '28px' }}><EditIcon style={{ width: '1em', height: '1em', fontSize: '16px' }} /></button>}
-												<button onClick={() => navigator.clipboard.writeText(msg.content)} className="p-1.5 rounded hover:opacity-80 flex items-center justify-center cursor-pointer" style={{ width: '28px', height: '28px' }}><CopyIcon style={{ width: '1em', height: '1em', fontSize: '16px' }} /></button>
+												{msg.role === 'user' && <button type="button" onClick={() => (setEditingId(msg.id), setEditText(msg.content))} className="p-1.5 rounded hover:opacity-80 flex items-center justify-center cursor-pointer" style={{ width: '28px', height: '28px' }}><EditIcon style={{ width: '1em', height: '1em', fontSize: '16px' }} /></button>}
+												<button type="button" onClick={() => navigator.clipboard.writeText(msg.content)} className="p-1.5 rounded hover:opacity-80 flex items-center justify-center cursor-pointer" style={{ width: '28px', height: '28px' }}><CopyIcon style={{ width: '1em', height: '1em', fontSize: '16px' }} /></button>
 											</div>
 										)}
 									</div>
@@ -151,11 +176,11 @@ export const Component = () => {
 						<div className="bg-[var(--color-surface)] rounded-xl p-3.5 space-y-2 border border-[var(--color-border)]">
 							<div className="flex items-center justify-between px-0.5">
 								<span className="text-xs font-semibold text-[var(--color-text)]">{interactiveChoice.title}</span>
-								<button onClick={() => setInteractiveChoice(null)} className="text-[11px] text-[var(--color-text-faint)] hover:opacity-80 cursor-pointer">Dismiss</button>
+								<button type="button" onClick={() => setInteractiveChoice(null)} className="text-[11px] text-[var(--color-text-faint)] hover:opacity-80 cursor-pointer">Dismiss</button>
 							</div>
 							<div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
 								{interactiveChoice.options.map((opt, idx) => (
-									<button key={idx} onClick={() => (setInteractiveChoice(null), sendPrompt(`I choose ${opt}.`))} className="flex items-center gap-2.5 p-2 rounded-lg bg-[var(--color-bg)] hover:opacity-80 border border-[var(--color-border)] text-left text-xs text-[var(--color-text)] cursor-pointer">
+									<button type="button" key={idx} onClick={() => (setInteractiveChoice(null), sendPrompt(`I choose ${opt}.`))} className="flex items-center gap-2.5 p-2 rounded-lg bg-[var(--color-bg)] hover:opacity-80 border border-[var(--color-border)] text-left text-xs text-[var(--color-text)] cursor-pointer">
 										<span className="w-5 h-5 rounded bg-[var(--color-surface)] border border-[var(--color-border)] flex items-center justify-center text-[11px] text-[var(--color-text-muted)] shrink-0">{idx + 1}</span>
 										<span className="flex-1 font-medium">{opt}</span>
 									</button>

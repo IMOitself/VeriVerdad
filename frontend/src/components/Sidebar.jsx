@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { RobotIcon, LogoutIcon, HomeIcon, Chevron, TrashIcon } from '../components/Icons'
 import { ConfirmationModal } from './ConfirmationModal'
-import { logout, getConversations, deleteConversation } from '../api'
+import { logout, getConversations, deleteConversation, updateConversation } from '../api'
 
 const navItems = [
 	{ path: '/home', label: 'Home', Icon: HomeIcon },
@@ -20,6 +20,8 @@ export const Sidebar = () => {
 	const [showLogoutModal, setShowLogoutModal] = useState(false)
 	const [deleteTarget, setDeleteTarget] = useState(null)
 	const [recentsOpen, setRecentsOpen] = useState(true)
+	const [editingId, setEditingId] = useState(null)
+	const [editTitle, setEditTitle] = useState('')
 
 	const { data: chats = [] } = useQuery({
 		queryKey: ['chats'],
@@ -30,6 +32,13 @@ export const Sidebar = () => {
 		mutationFn: deleteConversation,
 		onSuccess: (_, id) => (queryClient.invalidateQueries({ queryKey: ['chats'] }), location.pathname === `/veribot/${id}` && navigate('/veribot', { replace: true }))
 	})
+
+	const renameMutation = useMutation({
+		mutationFn: ({ id, title }) => updateConversation(id, title),
+		onSuccess: () => queryClient.invalidateQueries({ queryKey: ['chats'] })
+	})
+
+	const saveRename = id => (editTitle.trim() && renameMutation.mutate({ id, title: editTitle.trim() }), setEditingId(null))
 
 	return (
 		<>
@@ -82,9 +91,13 @@ export const Sidebar = () => {
 														const chatTitle = toTitleCase(chat.title || chat.first_message || 'Untitled Chat')
 														return (
 															<div key={chat.id} className={`group flex items-center justify-between rounded-full px-3.5 py-2 text-xs hover:opacity-80 ${isChatActive ? 'bg-[var(--color-bg)] text-[var(--color-text)] font-semibold' : 'text-[var(--color-text)] bg-transparent font-normal'}`}>
-																<Link to={`/veribot/${chat.id}`} onClick={() => setOpen(false)} className="truncate flex-1 no-underline text-inherit">
-																	{chatTitle}
-																</Link>
+																{editingId === chat.id ? (
+																	<input type="text" autoFocus value={editTitle} onChange={e => setEditTitle(e.target.value)} onBlur={() => saveRename(chat.id)} onKeyDown={e => e.key === 'Enter' && saveRename(chat.id)} className="bg-transparent border border-[var(--color-border)] rounded px-1.5 py-0.5 text-xs text-[var(--color-text)] outline-none flex-1 w-full" />
+																) : (
+																	<Link to={`/veribot/${chat.id}`} onDoubleClick={() => (setEditingId(chat.id), setEditTitle(chatTitle))} onClick={() => setOpen(false)} className="truncate flex-1 no-underline text-inherit select-none">
+																		{chatTitle}
+																	</Link>
+																)}
 																<button type="button" onClick={e => (e.stopPropagation(), e.preventDefault(), setDeleteTarget({ id: chat.id, title: chatTitle }))} className="opacity-0 group-hover:opacity-100 p-0.5 hover:opacity-80 text-[var(--color-text-faint)] cursor-pointer shrink-0">
 																	<TrashIcon style={{ width: '14px', height: '14px' }} />
 																</button>
