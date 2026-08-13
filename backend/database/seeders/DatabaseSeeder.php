@@ -2,47 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Badge;
-use App\Models\Section;
-use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-	public function run(): void
+	public function run()
 	{
-
-		$badges = [
-			[
-				'name'        => 'Currency',
-				'description' => 'Mastered checking dates, timelines, and information freshness.',
-			],
-			[
-				'name'        => 'Relevance',
-				'description' => 'Mastered evaluating topic fit and audience context.',
-			],
-			[
-				'name'        => 'Authority',
-				'description' => 'Mastered verifying author credentials and official primary sources.',
-			],
-			[
-				'name'        => 'Accuracy',
-				'description' => 'Mastered cross-referencing claims and verifying factual evidence.',
-			],
-			[
-				'name'        => 'Purpose',
-				'description' => 'Mastered detecting bias, emotional manipulation, and author intent.',
-			],
-		];
-
-		foreach ($badges as $badgeData) {
-			Badge::firstOrCreate(['name' => $badgeData['name']], $badgeData);
-		}
-
-		$this->call(AdminSeeder::class);
-		$this->call(StudentSeeder::class);
-		$this->call(SectionSeeder::class);
-		$this->call(TaskSeeder::class);
+		User::factory()->create([
+			'username' => 'admin',
+			'email' => 'admin@admin.com',
+			'password' => 'admin123',
+		]);
 	}
 }

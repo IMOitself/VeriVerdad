@@ -1,14 +1,10 @@
-import '../styles/PageLayout.css'
-import './Home.css'
-import Sidebar from '../components/dashboard/Sidebar'
+import { Sidebar } from '../components/Sidebar'
 
-export default function Home() {
-	return (
-		<div className="page-layout">
-			<Sidebar />
-			<main className="page-content">
-				<h1>Home</h1>
-			</main>
-		</div>
-	)
-}
+export const Component = () => (
+	<div className="min-h-screen flex flex-col lg:flex-row bg-[var(--color-bg)] text-[var(--color-text)]">
+		<Sidebar />
+		<main className="flex-1 p-6">
+			<h1 className="text-xl font-bold text-[var(--color-text)]">Home</h1>
+		</main>
+	</div>
+)
